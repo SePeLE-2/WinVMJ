@@ -1,0 +1,28 @@
+namespace TicketingSystem
+
+features
+	TicketingSystem {abstract true}
+		mandatory
+			Event
+				optional
+					Rating
+					SeatMapping
+			EventOrganizer
+			Payment
+				or
+					CreditCard
+					EWallet
+			Ticket
+				optional
+					Bundling
+					Promo
+			Reporting
+				mandatory
+					SalesReport
+				optional
+					AttendanceStats
+		optional
+			NewsArticle
+				optional
+					Comment
+

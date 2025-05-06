@@ -1,0 +1,17 @@
+{
+    "Event": ["TicketingSystem.event.core"],
+    "Rating": ["TicketingSystem..rating"],
+    "SeatMapping": ["TicketingSystem.event.seatmapping"],
+    "EventOrganizer": ["TicketingSystem.eventorganizer.core"],
+    "Payment": ["TicketingSystem.payment.core"],
+    "CreditCard": ["TicketingSystem.payment.creditcard"],
+    "EWallet": ["TicketingSystem.payment.ewallet"],
+    "Ticket": ["TicketingSystem.ticket.core"],
+    "Bundling": ["TicketingSystem.bundling.core"],
+    "Report": ["TicketingSystem.report.core"],
+    "AttendanceStats": ["TicketingSystem.report.attendancestats"],
+    "SalesReport": ["TicketingSystem.report.salesreport"],
+    "Article": ["TicketingSystem.article.core"],
+    "Comment": ["TicketingSystem.comment.core"],
+    "Customer": ["TicketingSystem.customer.core"]
+}
