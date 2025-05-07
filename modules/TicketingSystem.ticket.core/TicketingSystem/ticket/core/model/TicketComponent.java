@@ -11,11 +11,11 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="ticket_comp")
+@Table(name = "ticket_comp")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class TicketComponent implements Ticket{
+public abstract class TicketComponent implements Ticket {
 	@Id
-	protected int id; 
+	protected UUID id;
 	protected String eventName;
 	protected String ticketName;
 	protected int price;
@@ -24,25 +24,25 @@ public abstract class TicketComponent implements Ticket{
 
 	public TicketComponent() {
 
-	} 
+	}
 
 	public TicketComponent(
-        int id, String eventName, String ticketName, int price, int availability
-    ) {
-        this.id = id;
-        this.eventName = eventName;
-        this.ticketName = ticketName;
-        this.price = price;
-        this.availability = availability;
-    }
+			UUID id, String eventName, String ticketName, int price, int availability) {
+		this.id = id;
+		this.eventName = eventName;
+		this.ticketName = ticketName;
+		this.price = price;
+		this.availability = availability;
+	}
 
-	public int getId() {
+	public UUID getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
+
 	public String getEventName() {
 		return this.eventName;
 	}
@@ -50,6 +50,7 @@ public abstract class TicketComponent implements Ticket{
 	public void setEventName(String eventName) {
 		this.eventName = eventName;
 	}
+
 	public String getTicketName() {
 		return this.ticketName;
 	}
@@ -57,6 +58,7 @@ public abstract class TicketComponent implements Ticket{
 	public void setTicketName(String ticketName) {
 		this.ticketName = ticketName;
 	}
+
 	public int getPrice() {
 		return this.price;
 	}
@@ -64,6 +66,7 @@ public abstract class TicketComponent implements Ticket{
 	public void setPrice(int price) {
 		this.price = price;
 	}
+
 	public int getAvailability() {
 		return this.availability;
 	}
@@ -71,18 +74,18 @@ public abstract class TicketComponent implements Ticket{
 	public void setAvailability(int availability) {
 		this.availability = availability;
 	}
- 
+
 	public abstract void purchase();
 
 	@Override
-    public String toString() {
-        return "{" +
-            " id='" + getId() + "'" +
-            " eventName='" + getEventName() + "'" +
-            " ticketName='" + getTicketName() + "'" +
-            " price='" + getPrice() + "'" +
-            " availability='" + getAvailability() + "'" +
-            "}";
-    }
-	
+	public String toString() {
+		return "{" +
+				" id='" + getId() + "'" +
+				" eventName='" + getEventName() + "'" +
+				" ticketName='" + getTicketName() + "'" +
+				" price='" + getPrice() + "'" +
+				" availability='" + getAvailability() + "'" +
+				"}";
+	}
+
 }

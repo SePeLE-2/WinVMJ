@@ -11,49 +11,50 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="payment_comp")
+@Table(name = "payment_comp")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class PaymentComponent implements Payment{
+public abstract class PaymentComponent implements Payment {
 	@Id
-	
+
 	public int amount;
-	@ManyToOne(targetEntity=TicketingSystem..core.Component.class)
-	public  bundlingimpl;
-	@ManyToOne(targetEntity=TicketingSystem..core.Component.class)
-	public  ticketimpl;
+	@ManyToOne(targetEntity = TicketingSystem.bundling.core.Component.class)
+	public TicketingSystem.bundling.core.Component bundlingimpl;
+	@ManyToOne(targetEntity = TicketingSystem.ticket.core.Component.class)
+	public TicketingSystem.bundling.core.Component ticketimpl;
 	protected String objectName = PaymentComponent.class.getName();
 
 	public PaymentComponent() {
 
-	} 
+	}
 
 	public PaymentComponent(
-        int amount, BundlingImpl bundlingimpl, TicketImpl ticketimpl
-    ) {
-        this.amount = amount;
-        this.bundlingimpl = bundlingimpl;
-        this.ticketimpl = ticketimpl;
-    }
+			int amount, BundlingImpl bundlingimpl, TicketImpl ticketimpl) {
+		this.amount = amount;
+		this.bundlingimpl = bundlingimpl;
+		this.ticketimpl = ticketimpl;
+	}
 
 	public abstract int getAmount();
+
 	public abstract void setAmount(int amount);
-	
+
 	public abstract BundlingImpl getBundlingimpl();
+
 	public abstract void setBundlingimpl(BundlingImpl bundlingimpl);
-	
+
 	public abstract TicketImpl getTicketimpl();
+
 	public abstract void setTicketimpl(TicketImpl ticketimpl);
-	
- 
+
 	public abstract void pay();
 
 	@Override
-    public String toString() {
-        return "{" +
-            " amount='" + getAmount() + "'" +
-            " bundlingimpl='" + getBundlingimpl() + "'" +
-            " ticketimpl='" + getTicketimpl() + "'" +
-            "}";
-    }
-	
+	public String toString() {
+		return "{" +
+				" amount='" + getAmount() + "'" +
+				" bundlingimpl='" + getBundlingimpl() + "'" +
+				" ticketimpl='" + getTicketimpl() + "'" +
+				"}";
+	}
+
 }

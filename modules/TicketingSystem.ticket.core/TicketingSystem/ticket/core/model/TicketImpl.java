@@ -14,12 +14,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-
-@Entity(name="ticket_impl")
-@Table(name="ticket_impl")
+@Entity(name = "ticket_impl")
+@Table(name = "ticket_impl")
 public class TicketImpl extends TicketComponent {
 
-	public TicketImpl(int id, String eventName, String ticketName, int price, int availability) {
+	public TicketImpl(UUID id, String eventName, String ticketName, int price, int availability) {
 		this.id = id;
 		this.eventName = eventName;
 		this.ticketName = ticketName;
@@ -28,22 +27,21 @@ public class TicketImpl extends TicketComponent {
 	}
 
 	public TicketImpl(String eventName, String ticketName, int price, int availability) {
-		this.id =  id.randomUUID();;
+		this.id = UUID.randomUUID();
+		;
 		this.eventName = eventName;
 		this.ticketName = ticketName;
 		this.price = price;
 		this.availability = availability;
 	}
 
-	public TicketImpl() { }
-
-	public int getId() {
-		return this.id;
+	public TicketImpl() {
 	}
 
-	public void setId(int id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
+
 	public String getEventName() {
 		return this.eventName;
 	}
@@ -51,6 +49,7 @@ public class TicketImpl extends TicketComponent {
 	public void setEventName(String eventName) {
 		this.eventName = eventName;
 	}
+
 	public String getTicketName() {
 		return this.ticketName;
 	}
@@ -58,6 +57,7 @@ public class TicketImpl extends TicketComponent {
 	public void setTicketName(String ticketName) {
 		this.ticketName = ticketName;
 	}
+
 	public int getPrice() {
 		return this.price;
 	}
@@ -65,6 +65,7 @@ public class TicketImpl extends TicketComponent {
 	public void setPrice(int price) {
 		this.price = price;
 	}
+
 	public int getAvailability() {
 		return this.availability;
 	}
@@ -76,16 +77,16 @@ public class TicketImpl extends TicketComponent {
 	public void purchase() {
 		// TODO: implement this method
 	}
-	
-	public HashMap<String, Object> toHashMap() {
-        HashMap<String, Object> ticketMap = new HashMap<String,Object>();
-		ticketMap.put("id",getId());
-		ticketMap.put("eventName",getEventName());
-		ticketMap.put("ticketName",getTicketName());
-		ticketMap.put("price",getPrice());
-		ticketMap.put("availability",getAvailability());
 
-        return ticketMap;
-    }
+	public HashMap<String, Object> toHashMap() {
+		HashMap<String, Object> ticketMap = new HashMap<String, Object>();
+		ticketMap.put("id", getId());
+		ticketMap.put("eventName", getEventName());
+		ticketMap.put("ticketName", getTicketName());
+		ticketMap.put("price", getPrice());
+		ticketMap.put("availability", getAvailability());
+
+		return ticketMap;
+	}
 
 }

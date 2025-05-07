@@ -10,40 +10,38 @@ import javax.persistence.CascadeType;
 //add other required packages
 
 @MappedSuperclass
-public abstract class PaymentDecorator extends PaymentComponent{
-    @OneToOne(cascade=CascadeType.ALL)
+public abstract class PaymentDecorator extends PaymentComponent {
+	@OneToOne(cascade = CascadeType.ALL)
 	protected PaymentComponent record;
 
-	public PaymentDecorator () {
+	public PaymentDecorator() {
 		super();
 		this.record = record;
-		this. =  .randomUUID();
-		
-	public PaymentDecorator (PaymentComponent record) {
-		this. =  .randomUUID();
+		this.paymentId = UUID.randomUUID();
+	}
+
+	public PaymentDecorator(PaymentComponent record) {
+		this.paymentId = UUID.randomUUID();
 		this.record = record;
 	}
 
-	public PaymentDecorator (, PaymentComponent record) {
-		this. =  ;
+	public PaymentDecorator(UUID paymentId, PaymentComponent record) {
+		this.paymentId = paymentId;
 		this.record = record;
 	}
-	
-	public PaymentDecorator (PaymentComponent record, String objectName) {
-		this. =  .randomUUID();
-		this.record = record;	
-		this.objectName=objectName;
+
+	public PaymentDecorator(PaymentComponent record, String objectName) {
+		this.paymentId = paymentId.randomUUID();
+		this.record = record;
+		this.objectName = objectName;
 	}
-
-	public PaymentDecorator() { }
-
 
 	public void pay() {
 		return record.pay();
 	}
 
 	public HashMap<String, Object> toHashMap() {
-        return this.record.toHashMap();
-    }
+		return this.record.toHashMap();
+	}
 
 }
