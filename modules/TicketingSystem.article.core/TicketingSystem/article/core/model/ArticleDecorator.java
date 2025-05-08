@@ -18,6 +18,7 @@ public abstract class ArticleDecorator extends ArticleComponent{
 		super();
 		this.record = record;
 		this.idArticle =  idArticle.randomUUID();
+	}
 		
 	public ArticleDecorator (ArticleComponent record) {
 		this.idArticle =  idArticle.randomUUID();
@@ -34,8 +35,6 @@ public abstract class ArticleDecorator extends ArticleComponent{
 		this.record = record;	
 		this.objectName=objectName;
 	}
-
-	public ArticleDecorator() { }
 
 	public int getIdArticle() {
 		return record.getIdArticle();
