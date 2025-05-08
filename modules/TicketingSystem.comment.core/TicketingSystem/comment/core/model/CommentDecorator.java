@@ -18,6 +18,7 @@ public abstract class CommentDecorator extends CommentComponent{
 		super();
 		this.record = record;
 		this.idContent =  idContent.randomUUID();
+	}
 		
 	public CommentDecorator (CommentComponent record) {
 		this.idContent =  idContent.randomUUID();
@@ -35,7 +36,6 @@ public abstract class CommentDecorator extends CommentComponent{
 		this.objectName=objectName;
 	}
 
-	public CommentDecorator() { }
 
 	public int getIdContent() {
 		return record.getIdContent();
