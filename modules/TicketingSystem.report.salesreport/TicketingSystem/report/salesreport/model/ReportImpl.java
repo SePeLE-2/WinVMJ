@@ -17,16 +17,16 @@ import TicketingSystem.report.core.ReportComponent;
 public class ReportImpl extends ReportDecorator {
 
 	protected int totalRevenue;
-	public ReportImpl(
+	public ReportImpl() {
         super();
         this.objectName = ReportImpl.class.getName();
     }
-    
-    public ReportImpl(int totalRevenue) {
-    	super();
-		this.totalRevenue = totalRevenue;
-		this.objectName = ReportImpl.class.getName();
-    }
+
+	    public ReportImpl(int totalRevenue) {
+	        super();
+	        this.totalRevenue = totalRevenue;
+	        this.objectName = ReportImpl.class.getName();
+	    }
 	
 	public ReportImpl(ReportComponent record, int totalRevenue) {
 		super(record);

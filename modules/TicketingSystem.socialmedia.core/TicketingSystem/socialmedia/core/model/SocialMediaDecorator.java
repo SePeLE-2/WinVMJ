@@ -18,6 +18,7 @@ public abstract class SocialMediaDecorator extends SocialMediaComponent{
 		super();
 		this.record = record;
 		this.id =  id.randomUUID();
+	}
 		
 	public SocialMediaDecorator (SocialMediaComponent record) {
 		this.id =  id.randomUUID();
@@ -35,7 +36,6 @@ public abstract class SocialMediaDecorator extends SocialMediaComponent{
 		this.objectName=objectName;
 	}
 
-	public SocialMediaDecorator() { }
 
 	public int getId() {
 		return record.getId();

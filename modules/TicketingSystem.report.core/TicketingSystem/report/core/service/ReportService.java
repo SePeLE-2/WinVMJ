@@ -12,5 +12,5 @@ public interface ReportService {
     HashMap<String, Object> getReportById(int id);
     List<HashMap<String,Object>> getAllReport(Map<String, Object> requestBody);
     List<HashMap<String,Object>> deleteReport(Map<String, Object> requestBody);
-	List<HashMap<String, Object>> transformListToHashMap(List<Disbursement> List);
+	List<HashMap<String, Object>> transformListToHashMap(List<Report> List);
 }

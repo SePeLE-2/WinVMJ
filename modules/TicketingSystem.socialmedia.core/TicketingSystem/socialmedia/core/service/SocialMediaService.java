@@ -12,5 +12,5 @@ public interface SocialMediaService {
     HashMap<String, Object> getSocialMediaById(int id);
     List<HashMap<String,Object>> getAllSocialMedia(Map<String, Object> requestBody);
     List<HashMap<String,Object>> deleteSocialMedia(Map<String, Object> requestBody);
-	List<HashMap<String, Object>> transformListToHashMap(List<Disbursement> List);
+	List<HashMap<String, Object>> transformListToHashMap(List<SocialMedia> List);
 }

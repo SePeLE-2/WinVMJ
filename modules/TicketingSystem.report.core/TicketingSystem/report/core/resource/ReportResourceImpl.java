@@ -5,7 +5,7 @@ import vmj.routing.route.Route;
 import vmj.routing.route.VMJExchange;
 import vmj.routing.route.exceptions.*;
 import TicketingSystem.report.ReportFactory;
-import prices.auth.vmj.annotations.Restricted;
+import vmj.auth.annotations.Restricted;
 //add other required packages
 
 
@@ -13,7 +13,7 @@ public class ReportResourceImpl extends ReportResourceComponent{
 	
 	private ReportServiceImpl reportServiceImpl = new ReportServiceImpl();
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/report/save")
     public List<HashMap<String,Object>> saveReport(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
@@ -24,7 +24,7 @@ public class ReportResourceImpl extends ReportResourceComponent{
 		return getAllReport(vmjExchange);
 	}
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/report")
     public HashMap<String,Object> report(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("POST")) {
@@ -53,7 +53,7 @@ public class ReportResourceImpl extends ReportResourceComponent{
 		throw new NotFoundException("Route tidak ditemukan");
 	}
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/report/update")
     public HashMap<String, Object> updateReport(VMJExchange vmjExchange){
 		Map<String, Object> requestBody = vmjExchange.getPayload(); 
@@ -64,21 +64,21 @@ public class ReportResourceImpl extends ReportResourceComponent{
 		
 	}
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/report/detail")
     public HashMap<String, Object> getReport(VMJExchange vmjExchange){
 		Map<String, Object> requestBody = vmjExchange.getPayload(); 
 		return reportServiceImpl.getReport(requestBody);
 	}
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/report/list")
     public List<HashMap<String,Object>> getAllReport(VMJExchange vmjExchange){
 		Map<String, Object> requestBody = vmjExchange.getPayload(); 
 		return reportServiceImpl.getAllReport(requestBody);
 	}
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/report/delete")
     public List<HashMap<String,Object>> deleteReport(VMJExchange vmjExchange){
 		Map<String, Object> requestBody = vmjExchange.getPayload(); 

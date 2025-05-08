@@ -12,5 +12,5 @@ public interface CommentService {
     HashMap<String, Object> getCommentById(int id);
     List<HashMap<String,Object>> getAllComment(Map<String, Object> requestBody);
     List<HashMap<String,Object>> deleteComment(Map<String, Object> requestBody);
-	List<HashMap<String, Object>> transformListToHashMap(List<Disbursement> List);
+	List<HashMap<String, Object>> transformListToHashMap(List<Comment> List);
 }

@@ -13,7 +13,7 @@ public class EventResourceImpl extends EventResourceDecorator {
         super(record);
     }
 
-    // @Restriced(permission = "")
+    
     @Route(url="call/rating/save")
     public List<HashMap<String,Object>> save(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
@@ -43,7 +43,7 @@ public class EventResourceImpl extends EventResourceDecorator {
 			return eventratingdeco;
 	}
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/rating/update")
     public HashMap<String, Object> updateEventRating(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
@@ -63,13 +63,13 @@ public class EventResourceImpl extends EventResourceDecorator {
 		
 	}
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/rating/detail")
     public HashMap<String, Object> getEventRating(VMJExchange vmjExchange){
 		return record.getEventRating(vmjExchange);
 	}
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/rating/list")
     public List<HashMap<String,Object>> getAllEventRating(VMJExchange vmjExchange){
 		List<EventRating> eventratingList = eventratingRepository.getAllObject("eventrating_impl");
@@ -85,7 +85,7 @@ public class EventResourceImpl extends EventResourceDecorator {
         return resultList;
 	}
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/rating/delete")
     public List<HashMap<String,Object>> deleteEventRating(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {

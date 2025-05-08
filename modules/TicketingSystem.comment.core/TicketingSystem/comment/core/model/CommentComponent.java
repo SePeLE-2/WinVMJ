@@ -10,10 +10,6 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
-import TicketingSystem.eventorganizer.core.EventOrganizerComponent;
-import TicketingSystem.eventorganizer.core.CustomerComponent;
-import TicketingSystem.eventorganizer.core.ArticleComponent;
-
 @Entity
 @Table(name="comment_comp")
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -22,12 +18,12 @@ public abstract class CommentComponent implements Comment{
 	protected int idContent; 
 	protected String comment;
 	protected String commentAuthor;
-	@ManyToOne(targetEntity=TicketingSystem.core.Component.class)
-	public EventOrganizerComponent eventorganizerimpl;
-	@ManyToOne(targetEntity=TicketingSystem.core.Component.class)
-	public CustomerComponent customerimpl;
-	@ManyToOne(targetEntity=TicketingSystem.core.Component.class)
-	public ArticleComponent articleimpl;
+	@ManyToOne(targetEntity=TicketingSystem..core.Component.class)
+	public  eventorganizerimpl;
+	@ManyToOne(targetEntity=TicketingSystem..core.Component.class)
+	public  customerimpl;
+	@ManyToOne(targetEntity=TicketingSystem..core.Component.class)
+	public  articleimpl;
 	protected String objectName = CommentComponent.class.getName();
 
 	public CommentComponent() {

@@ -10,8 +10,6 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
-import TicketingSystem.event.core.EventComponent;
-
 @Entity
 @Table(name="eventorganizer_comp")
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -21,8 +19,8 @@ public abstract class EventOrganizerComponent implements EventOrganizer{
 	protected String name;
 	protected String email;
 	protected String location;
-	@ManyToOne(targetEntity=TicketingSystem.core.Component.class)
-	public EventComponent eventimpl;
+	@ManyToOne(targetEntity=TicketingSystem..core.Component.class)
+	public  eventimpl;
 	protected String objectName = EventOrganizerComponent.class.getName();
 
 	public EventOrganizerComponent() {

@@ -5,7 +5,7 @@ import vmj.routing.route.Route;
 import vmj.routing.route.VMJExchange;
 import vmj.routing.route.exceptions.*;
 import TicketingSystem.event.EventFactory;
-import prices.auth.vmj.annotations.Restricted;
+import vmj.auth.annotations.Restricted;
 //add other required packages
 
 
@@ -13,7 +13,7 @@ public class EventResourceImpl extends EventResourceComponent{
 	
 	private EventServiceImpl eventServiceImpl = new EventServiceImpl();
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/event/save")
     public List<HashMap<String,Object>> saveEvent(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
@@ -24,7 +24,7 @@ public class EventResourceImpl extends EventResourceComponent{
 		return getAllEvent(vmjExchange);
 	}
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/event")
     public HashMap<String,Object> event(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("POST")) {
@@ -53,7 +53,7 @@ public class EventResourceImpl extends EventResourceComponent{
 		throw new NotFoundException("Route tidak ditemukan");
 	}
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/event/update")
     public HashMap<String, Object> updateEvent(VMJExchange vmjExchange){
 		Map<String, Object> requestBody = vmjExchange.getPayload(); 
@@ -64,21 +64,21 @@ public class EventResourceImpl extends EventResourceComponent{
 		
 	}
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/event/detail")
     public HashMap<String, Object> getEvent(VMJExchange vmjExchange){
 		Map<String, Object> requestBody = vmjExchange.getPayload(); 
 		return eventServiceImpl.getEvent(requestBody);
 	}
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/event/list")
     public List<HashMap<String,Object>> getAllEvent(VMJExchange vmjExchange){
 		Map<String, Object> requestBody = vmjExchange.getPayload(); 
 		return eventServiceImpl.getAllEvent(requestBody);
 	}
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/event/delete")
     public List<HashMap<String,Object>> deleteEvent(VMJExchange vmjExchange){
 		Map<String, Object> requestBody = vmjExchange.getPayload(); 

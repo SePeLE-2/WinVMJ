@@ -12,5 +12,5 @@ public interface ArticleService {
     HashMap<String, Object> getArticleById(int id);
     List<HashMap<String,Object>> getAllArticle(Map<String, Object> requestBody);
     List<HashMap<String,Object>> deleteArticle(Map<String, Object> requestBody);
-	List<HashMap<String, Object>> transformListToHashMap(List<Disbursement> List);
+	List<HashMap<String, Object>> transformListToHashMap(List<Article> List);
 }

@@ -18,17 +18,17 @@ public class ReportImpl extends ReportDecorator {
 
 	protected int showingAttendance;
 	public int attendancePercentage;
-	public ReportImpl(
+	public ReportImpl() {
         super();
         this.objectName = ReportImpl.class.getName();
     }
-    
-    public ReportImpl(int showingAttendance, int attendancePercentage) {
-    	super();
-		this.showingAttendance = showingAttendance;
-		this.attendancePercentage = attendancePercentage;
-		this.objectName = ReportImpl.class.getName();
-    }
+
+	    public ReportImpl(int showingAttendance, int attendancePercentage) {
+	        super();
+	        this.showingAttendance = showingAttendance;
+	        this.attendancePercentage = attendancePercentage;
+	        this.objectName = ReportImpl.class.getName();
+	    }
 	
 	public ReportImpl(ReportComponent record, int showingAttendance, int attendancePercentage) {
 		super(record);

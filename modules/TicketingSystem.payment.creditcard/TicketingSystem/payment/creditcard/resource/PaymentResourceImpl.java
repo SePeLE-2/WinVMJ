@@ -13,7 +13,7 @@ public class PaymentResourceImpl extends PaymentResourceDecorator {
         super(record);
     }
 
-    // @Restriced(permission = "")
+    
     @Route(url="call/creditcard/save")
     public List<HashMap<String,Object>> save(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
@@ -43,7 +43,7 @@ public class PaymentResourceImpl extends PaymentResourceDecorator {
 			return paymentcreditcarddeco;
 	}
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/creditcard/update")
     public HashMap<String, Object> updatePaymentCreditCard(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
@@ -63,13 +63,13 @@ public class PaymentResourceImpl extends PaymentResourceDecorator {
 		
 	}
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/creditcard/detail")
     public HashMap<String, Object> getPaymentCreditCard(VMJExchange vmjExchange){
 		return record.getPaymentCreditCard(vmjExchange);
 	}
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/creditcard/list")
     public List<HashMap<String,Object>> getAllPaymentCreditCard(VMJExchange vmjExchange){
 		List<PaymentCreditCard> paymentcreditcardList = paymentcreditcardRepository.getAllObject("paymentcreditcard_impl");
@@ -85,7 +85,7 @@ public class PaymentResourceImpl extends PaymentResourceDecorator {
         return resultList;
 	}
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/creditcard/delete")
     public List<HashMap<String,Object>> deletePaymentCreditCard(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {

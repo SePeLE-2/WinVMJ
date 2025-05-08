@@ -4,14 +4,14 @@ import java.util.*;
 import vmj.routing.route.Route;
 import vmj.routing.route.VMJExchange;
 import TicketingSystem.seatmapping.Seat;
-import prices.auth.vmj.annotations.Restricted;
+import vmj.auth.annotations.Restricted;
 //add other required packages
 
 public class Seat extends Seat{
 	protected Seat record;
 
 	// @Restriced(permission = "")
-	// @Restriced(permission = "")
+	
     @Route(url="call/seatmapping/save")
     public List<HashMap<String,Object>> save(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {

@@ -16,15 +16,15 @@ import TicketingSystem.event.core.EventComponent;
 @Table(name="event_seatmapping")
 public class EventImpl extends EventDecorator {
 
-	public EventImpl(
+	public EventImpl() {
         super();
         this.objectName = EventImpl.class.getName();
     }
-    
-    public EventImpl(Seat seat) {
-    	super();
-		this.objectName = EventImpl.class.getName();
-    }
+
+	    public EventImpl(Seat seat) {
+	        super();
+	        this.objectName = EventImpl.class.getName();
+	    }
 	
 	public EventImpl(EventComponent record, Seat seat) {
 		super(record);

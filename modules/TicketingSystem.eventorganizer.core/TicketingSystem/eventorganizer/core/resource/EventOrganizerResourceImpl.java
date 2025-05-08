@@ -5,7 +5,7 @@ import vmj.routing.route.Route;
 import vmj.routing.route.VMJExchange;
 import vmj.routing.route.exceptions.*;
 import TicketingSystem.eventorganizer.EventOrganizerFactory;
-import prices.auth.vmj.annotations.Restricted;
+import vmj.auth.annotations.Restricted;
 //add other required packages
 
 
@@ -13,7 +13,7 @@ public class EventOrganizerResourceImpl extends EventOrganizerResourceComponent{
 	
 	private EventOrganizerServiceImpl eventorganizerServiceImpl = new EventOrganizerServiceImpl();
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/eventorganizer/save")
     public List<HashMap<String,Object>> saveEventOrganizer(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
@@ -24,7 +24,7 @@ public class EventOrganizerResourceImpl extends EventOrganizerResourceComponent{
 		return getAllEventOrganizer(vmjExchange);
 	}
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/eventorganizer")
     public HashMap<String,Object> eventorganizer(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("POST")) {
@@ -53,7 +53,7 @@ public class EventOrganizerResourceImpl extends EventOrganizerResourceComponent{
 		throw new NotFoundException("Route tidak ditemukan");
 	}
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/eventorganizer/update")
     public HashMap<String, Object> updateEventOrganizer(VMJExchange vmjExchange){
 		Map<String, Object> requestBody = vmjExchange.getPayload(); 
@@ -64,21 +64,21 @@ public class EventOrganizerResourceImpl extends EventOrganizerResourceComponent{
 		
 	}
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/eventorganizer/detail")
     public HashMap<String, Object> getEventOrganizer(VMJExchange vmjExchange){
 		Map<String, Object> requestBody = vmjExchange.getPayload(); 
 		return eventorganizerServiceImpl.getEventOrganizer(requestBody);
 	}
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/eventorganizer/list")
     public List<HashMap<String,Object>> getAllEventOrganizer(VMJExchange vmjExchange){
 		Map<String, Object> requestBody = vmjExchange.getPayload(); 
 		return eventorganizerServiceImpl.getAllEventOrganizer(requestBody);
 	}
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/eventorganizer/delete")
     public List<HashMap<String,Object>> deleteEventOrganizer(VMJExchange vmjExchange){
 		Map<String, Object> requestBody = vmjExchange.getPayload(); 

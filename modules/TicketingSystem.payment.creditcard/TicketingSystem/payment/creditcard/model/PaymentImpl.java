@@ -16,15 +16,11 @@ import TicketingSystem.payment.core.PaymentComponent;
 @Table(name="payment_creditcard")
 public class PaymentImpl extends PaymentDecorator {
 
-	public PaymentImpl(
+	public PaymentImpl() {
         super();
         this.objectName = PaymentImpl.class.getName();
     }
-    
-    public PaymentImpl() {
-    	super();
-		this.objectName = PaymentImpl.class.getName();
-    }
+
 	
 	public PaymentImpl(PaymentComponent record, ) {
 		super(record);

@@ -12,5 +12,5 @@ public interface PaymentService {
     HashMap<String, Object> getPaymentById(int id);
     List<HashMap<String,Object>> getAllPayment(Map<String, Object> requestBody);
     List<HashMap<String,Object>> deletePayment(Map<String, Object> requestBody);
-	List<HashMap<String, Object>> transformListToHashMap(List<Disbursement> List);
+	List<HashMap<String, Object>> transformListToHashMap(List<Payment> List);
 }

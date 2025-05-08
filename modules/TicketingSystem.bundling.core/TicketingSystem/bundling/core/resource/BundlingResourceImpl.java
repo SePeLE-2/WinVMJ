@@ -5,7 +5,7 @@ import vmj.routing.route.Route;
 import vmj.routing.route.VMJExchange;
 import vmj.routing.route.exceptions.*;
 import TicketingSystem.bundling.BundlingFactory;
-import prices.auth.vmj.annotations.Restricted;
+import vmj.auth.annotations.Restricted;
 //add other required packages
 
 
@@ -13,7 +13,7 @@ public class BundlingResourceImpl extends BundlingResourceComponent{
 	
 	private BundlingServiceImpl bundlingServiceImpl = new BundlingServiceImpl();
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/bundling/save")
     public List<HashMap<String,Object>> saveBundling(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
@@ -24,7 +24,7 @@ public class BundlingResourceImpl extends BundlingResourceComponent{
 		return getAllBundling(vmjExchange);
 	}
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/bundling")
     public HashMap<String,Object> bundling(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("POST")) {
@@ -53,7 +53,7 @@ public class BundlingResourceImpl extends BundlingResourceComponent{
 		throw new NotFoundException("Route tidak ditemukan");
 	}
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/bundling/update")
     public HashMap<String, Object> updateBundling(VMJExchange vmjExchange){
 		Map<String, Object> requestBody = vmjExchange.getPayload(); 
@@ -64,21 +64,21 @@ public class BundlingResourceImpl extends BundlingResourceComponent{
 		
 	}
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/bundling/detail")
     public HashMap<String, Object> getBundling(VMJExchange vmjExchange){
 		Map<String, Object> requestBody = vmjExchange.getPayload(); 
 		return bundlingServiceImpl.getBundling(requestBody);
 	}
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/bundling/list")
     public List<HashMap<String,Object>> getAllBundling(VMJExchange vmjExchange){
 		Map<String, Object> requestBody = vmjExchange.getPayload(); 
 		return bundlingServiceImpl.getAllBundling(requestBody);
 	}
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/bundling/delete")
     public List<HashMap<String,Object>> deleteBundling(VMJExchange vmjExchange){
 		Map<String, Object> requestBody = vmjExchange.getPayload(); 

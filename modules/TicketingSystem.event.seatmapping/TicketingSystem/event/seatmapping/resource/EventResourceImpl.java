@@ -13,7 +13,7 @@ public class EventResourceImpl extends EventResourceDecorator {
         super(record);
     }
 
-    // @Restriced(permission = "")
+    
     @Route(url="call/seatmapping/save")
     public List<HashMap<String,Object>> save(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
@@ -43,7 +43,7 @@ public class EventResourceImpl extends EventResourceDecorator {
 			return eventseatmappingdeco;
 	}
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/seatmapping/update")
     public HashMap<String, Object> updateEventSeatMapping(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
@@ -63,13 +63,13 @@ public class EventResourceImpl extends EventResourceDecorator {
 		
 	}
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/seatmapping/detail")
     public HashMap<String, Object> getEventSeatMapping(VMJExchange vmjExchange){
 		return record.getEventSeatMapping(vmjExchange);
 	}
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/seatmapping/list")
     public List<HashMap<String,Object>> getAllEventSeatMapping(VMJExchange vmjExchange){
 		List<EventSeatMapping> eventseatmappingList = eventseatmappingRepository.getAllObject("eventseatmapping_impl");
@@ -85,7 +85,7 @@ public class EventResourceImpl extends EventResourceDecorator {
         return resultList;
 	}
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/seatmapping/delete")
     public List<HashMap<String,Object>> deleteEventSeatMapping(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {

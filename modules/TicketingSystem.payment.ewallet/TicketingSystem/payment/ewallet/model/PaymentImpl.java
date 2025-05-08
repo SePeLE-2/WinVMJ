@@ -12,18 +12,21 @@ import TicketingSystem.payment.core.PaymentDecorator;
 import TicketingSystem.payment.core.Payment;
 import TicketingSystem.payment.core.PaymentComponent;
 
-@Entity(name = "payment_ewallet")
-@Table(name = "payment_ewallet")
+@Entity(name="payment_ewallet")
+@Table(name="payment_ewallet")
 public class PaymentImpl extends PaymentDecorator {
-	public PaymentImpl() {
-		super();
-		this.objectName = PaymentImpl.class.getName();
-	}
 
-	public PaymentImpl(PaymentComponent record) {
+	public PaymentImpl() {
+        super();
+        this.objectName = PaymentImpl.class.getName();
+    }
+
+	
+	public PaymentImpl(PaymentComponent record, ) {
 		super(record);
 		this.objectName = PaymentImpl.class.getName();
 	}
+
 
 	public void pay() {
 		// TODO: implement this method

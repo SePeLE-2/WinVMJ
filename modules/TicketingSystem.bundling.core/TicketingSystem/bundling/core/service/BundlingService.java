@@ -12,5 +12,5 @@ public interface BundlingService {
     HashMap<String, Object> getBundlingById(int id);
     List<HashMap<String,Object>> getAllBundling(Map<String, Object> requestBody);
     List<HashMap<String,Object>> deleteBundling(Map<String, Object> requestBody);
-	List<HashMap<String, Object>> transformListToHashMap(List<Disbursement> List);
+	List<HashMap<String, Object>> transformListToHashMap(List<Bundling> List);
 }

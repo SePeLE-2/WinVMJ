@@ -12,5 +12,5 @@ public interface CustomerService {
     HashMap<String, Object> getCustomerById(int id);
     List<HashMap<String,Object>> getAllCustomer(Map<String, Object> requestBody);
     List<HashMap<String,Object>> deleteCustomer(Map<String, Object> requestBody);
-	List<HashMap<String, Object>> transformListToHashMap(List<Disbursement> List);
+	List<HashMap<String, Object>> transformListToHashMap(List<Customer> List);
 }

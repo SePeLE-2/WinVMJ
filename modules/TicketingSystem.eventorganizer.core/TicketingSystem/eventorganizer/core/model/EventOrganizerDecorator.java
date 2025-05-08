@@ -36,6 +36,7 @@ public abstract class EventOrganizerDecorator extends EventOrganizerComponent{
 		this.objectName=objectName;
 	}
 
+
 	public int getId() {
 		return record.getId();
 	}

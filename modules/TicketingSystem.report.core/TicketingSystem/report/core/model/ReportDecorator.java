@@ -18,6 +18,7 @@ public abstract class ReportDecorator extends ReportComponent{
 		super();
 		this.record = record;
 		this.idReportidEvent =  idReportidEvent.randomUUID();
+	}
 		
 	public ReportDecorator (ReportComponent record) {
 		this.idReportidEvent =  idReportidEvent.randomUUID();
@@ -35,7 +36,6 @@ public abstract class ReportDecorator extends ReportComponent{
 		this.objectName=objectName;
 	}
 
-	public ReportDecorator() { }
 
 	public int getIdReport() {
 		return record.getIdReport();

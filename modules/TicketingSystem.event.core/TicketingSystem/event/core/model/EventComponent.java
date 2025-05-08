@@ -11,36 +11,36 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "event_comp")
+@Table(name="event_comp")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class EventComponent implements Event {
+public abstract class EventComponent implements Event{
 	@Id
-	protected int idEvent;
+	protected int idEvent; 
 	protected String name;
 	protected String date;
 	protected String location;
 	protected String description;
-	@ManyToOne(targetEntity = TicketingSystem.ticket.core.Component.class)
-	public TicketingSystem.ticket.core.Component ticketimpl;
-	@ManyToOne(targetEntity = TicketingSystem.bundling.core.Component.class)
-	public TicketingSystem.bundling.core.Component bundlingimpl;
+	@ManyToOne(targetEntity=TicketingSystem..core.Component.class)
+	public  ticketimpl;
+	@ManyToOne(targetEntity=TicketingSystem..core.Component.class)
+	public  bundlingimpl;
 	protected String objectName = EventComponent.class.getName();
 
 	public EventComponent() {
 
-	}
+	} 
 
 	public EventComponent(
-			int idEvent, String name, String date, String location, String description, TicketImpl ticketimpl,
-			BundlingImpl bundlingimpl) {
-		this.idEvent = idEvent;
-		this.name = name;
-		this.date = date;
-		this.location = location;
-		this.description = description;
-		this.ticketimpl = ticketimpl;
-		this.bundlingimpl = bundlingimpl;
-	}
+        int idEvent, String name, String date, String location, String description, TicketImpl ticketimpl, BundlingImpl bundlingimpl
+    ) {
+        this.idEvent = idEvent;
+        this.name = name;
+        this.date = date;
+        this.location = location;
+        this.description = description;
+        this.ticketimpl = ticketimpl;
+        this.bundlingimpl = bundlingimpl;
+    }
 
 	public int getIdEvent() {
 		return this.idEvent;
@@ -49,7 +49,6 @@ public abstract class EventComponent implements Event {
 	public void setIdEvent(int idEvent) {
 		this.idEvent = idEvent;
 	}
-
 	public String getName() {
 		return this.name;
 	}
@@ -57,7 +56,6 @@ public abstract class EventComponent implements Event {
 	public void setName(String name) {
 		this.name = name;
 	}
-
 	public String getDate() {
 		return this.date;
 	}
@@ -65,7 +63,6 @@ public abstract class EventComponent implements Event {
 	public void setDate(String date) {
 		this.date = date;
 	}
-
 	public String getLocation() {
 		return this.location;
 	}
@@ -73,7 +70,6 @@ public abstract class EventComponent implements Event {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-
 	public String getDescription() {
 		return this.description;
 	}
@@ -81,30 +77,28 @@ public abstract class EventComponent implements Event {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
 	public abstract TicketImpl getTicketimpl();
-
 	public abstract void setTicketimpl(TicketImpl ticketimpl);
-
+	
 	public abstract BundlingImpl getBundlingimpl();
-
 	public abstract void setBundlingimpl(BundlingImpl bundlingimpl);
-
+	
+ 
 	public abstract void createEvent();
 
 	public abstract String getDetails();
 
 	@Override
-	public String toString() {
-		return "{" +
-				" idEvent='" + getIdEvent() + "'" +
-				" name='" + getName() + "'" +
-				" date='" + getDate() + "'" +
-				" location='" + getLocation() + "'" +
-				" description='" + getDescription() + "'" +
-				" ticketimpl='" + getTicketimpl() + "'" +
-				" bundlingimpl='" + getBundlingimpl() + "'" +
-				"}";
-	}
-
+    public String toString() {
+        return "{" +
+            " idEvent='" + getIdEvent() + "'" +
+            " name='" + getName() + "'" +
+            " date='" + getDate() + "'" +
+            " location='" + getLocation() + "'" +
+            " description='" + getDescription() + "'" +
+            " ticketimpl='" + getTicketimpl() + "'" +
+            " bundlingimpl='" + getBundlingimpl() + "'" +
+            "}";
+    }
+	
 }

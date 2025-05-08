@@ -18,6 +18,7 @@ public abstract class CustomerDecorator extends CustomerComponent{
 		super();
 		this.record = record;
 		this.id =  id.randomUUID();
+	}
 		
 	public CustomerDecorator (CustomerComponent record) {
 		this.id =  id.randomUUID();
@@ -35,7 +36,6 @@ public abstract class CustomerDecorator extends CustomerComponent{
 		this.objectName=objectName;
 	}
 
-	public CustomerDecorator() { }
 
 	public int getId() {
 		return record.getId();

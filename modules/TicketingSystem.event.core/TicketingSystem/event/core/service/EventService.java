@@ -12,5 +12,5 @@ public interface EventService {
     HashMap<String, Object> getEventById(int id);
     List<HashMap<String,Object>> getAllEvent(Map<String, Object> requestBody);
     List<HashMap<String,Object>> deleteEvent(Map<String, Object> requestBody);
-	List<HashMap<String, Object>> transformListToHashMap(List<Disbursement> List);
+	List<HashMap<String, Object>> transformListToHashMap(List<Event> List);
 }

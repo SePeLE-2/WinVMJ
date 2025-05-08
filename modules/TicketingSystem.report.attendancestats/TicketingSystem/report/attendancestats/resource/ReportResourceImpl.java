@@ -13,7 +13,7 @@ public class ReportResourceImpl extends ReportResourceDecorator {
         super(record);
     }
 
-    // @Restriced(permission = "")
+    
     @Route(url="call/attendancestats/save")
     public List<HashMap<String,Object>> save(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
@@ -53,7 +53,7 @@ public class ReportResourceImpl extends ReportResourceDecorator {
 			return reportattendancestatsdeco;
 	}
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/attendancestats/update")
     public HashMap<String, Object> updateReportAttendanceStats(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
@@ -73,13 +73,13 @@ public class ReportResourceImpl extends ReportResourceDecorator {
 		
 	}
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/attendancestats/detail")
     public HashMap<String, Object> getReportAttendanceStats(VMJExchange vmjExchange){
 		return record.getReportAttendanceStats(vmjExchange);
 	}
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/attendancestats/list")
     public List<HashMap<String,Object>> getAllReportAttendanceStats(VMJExchange vmjExchange){
 		List<ReportAttendanceStats> reportattendancestatsList = reportattendancestatsRepository.getAllObject("reportattendancestats_impl");
@@ -95,7 +95,7 @@ public class ReportResourceImpl extends ReportResourceDecorator {
         return resultList;
 	}
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/attendancestats/delete")
     public List<HashMap<String,Object>> deleteReportAttendanceStats(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {

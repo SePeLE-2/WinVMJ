@@ -5,7 +5,7 @@ import vmj.routing.route.Route;
 import vmj.routing.route.VMJExchange;
 import vmj.routing.route.exceptions.*;
 import TicketingSystem.customer.CustomerFactory;
-import prices.auth.vmj.annotations.Restricted;
+import vmj.auth.annotations.Restricted;
 //add other required packages
 
 
@@ -13,7 +13,7 @@ public class CustomerResourceImpl extends CustomerResourceComponent{
 	
 	private CustomerServiceImpl customerServiceImpl = new CustomerServiceImpl();
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/customer/save")
     public List<HashMap<String,Object>> saveCustomer(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
@@ -24,7 +24,7 @@ public class CustomerResourceImpl extends CustomerResourceComponent{
 		return getAllCustomer(vmjExchange);
 	}
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/customer")
     public HashMap<String,Object> customer(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("POST")) {
@@ -53,7 +53,7 @@ public class CustomerResourceImpl extends CustomerResourceComponent{
 		throw new NotFoundException("Route tidak ditemukan");
 	}
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/customer/update")
     public HashMap<String, Object> updateCustomer(VMJExchange vmjExchange){
 		Map<String, Object> requestBody = vmjExchange.getPayload(); 
@@ -64,21 +64,21 @@ public class CustomerResourceImpl extends CustomerResourceComponent{
 		
 	}
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/customer/detail")
     public HashMap<String, Object> getCustomer(VMJExchange vmjExchange){
 		Map<String, Object> requestBody = vmjExchange.getPayload(); 
 		return customerServiceImpl.getCustomer(requestBody);
 	}
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/customer/list")
     public List<HashMap<String,Object>> getAllCustomer(VMJExchange vmjExchange){
 		Map<String, Object> requestBody = vmjExchange.getPayload(); 
 		return customerServiceImpl.getAllCustomer(requestBody);
 	}
 
-	// @Restriced(permission = "")
+	
     @Route(url="call/customer/delete")
     public List<HashMap<String,Object>> deleteCustomer(VMJExchange vmjExchange){
 		Map<String, Object> requestBody = vmjExchange.getPayload(); 

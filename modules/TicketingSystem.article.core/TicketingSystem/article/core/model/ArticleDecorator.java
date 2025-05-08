@@ -36,6 +36,7 @@ public abstract class ArticleDecorator extends ArticleComponent{
 		this.objectName=objectName;
 	}
 
+
 	public int getIdArticle() {
 		return record.getIdArticle();
 	}
