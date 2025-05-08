@@ -7,7 +7,7 @@ public interface BundlingService {
 	Bundling createBundling(Map<String, Object> requestBody);
 	Bundling createBundling(Map<String, Object> requestBody, Map<String, Object> response);
 	HashMap<String, Object> getBundling(Map<String, Object> requestBody);
-    List<HashMap<String,Object>> saveBundling(Map<String, Object> requestBody);
+    List<HashMap<String,Object>> saveBundling(VMJExchange vmjExchange);
     HashMap<String, Object> updateBundling(Map<String, Object> requestBody);
     HashMap<String, Object> getBundlingById(int id);
     List<HashMap<String,Object>> getAllBundling(Map<String, Object> requestBody);

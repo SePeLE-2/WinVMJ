@@ -11,7 +11,7 @@ public abstract class BundlingResourceComponent implements BundlingResource{
  
     public abstract List<HashMap<String,Object>> saveBundling(VMJExchange vmjExchange);
     public abstract Bundling createBundling(VMJExchange vmjExchange);
-	public abstract Bundling createBundling(VMJExchange vmjExchange, int id);    
+    public abstract HashMap<String, Object> createBundling(VMJExchange vmjExchange, Map<String, Object> response);
 	public abstract HashMap<String, Object> updateBundling(VMJExchange vmjExchange);
     public abstract HashMap<String, Object> getBundling(VMJExchange vmjExchange);
     public abstract List<HashMap<String,Object>> getAllBundling(VMJExchange vmjExchange);

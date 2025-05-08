@@ -9,18 +9,20 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import TicketingSystem.ticket.core.TicketImpl;
+import javax.persistence.ManyToOne;
 
 @Entity
 @Table(name="bundling_comp")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class BundlingComponent implements Bundling{
 	@Id
-	protected int id; 
+	protected UUID id; 
 	protected String bundlingName;
 	protected int price;
 	protected int availability;
-	@ManyToOne(targetEntity=TicketingSystem..core.Component.class)
-	public  ticketimpl;
+	@ManyToOne(targetEntity=TicketingSystem.ticket.core.TicketImpl.class)
+	public TicketImpl ticketimpl;
 	protected String objectName = BundlingComponent.class.getName();
 
 	public BundlingComponent() {
@@ -28,7 +30,7 @@ public abstract class BundlingComponent implements Bundling{
 	} 
 
 	public BundlingComponent(
-        int id, String bundlingName, int price, int availability, TicketImpl ticketimpl
+        UUID id, String bundlingName, int price, int availability, TicketImpl ticketimpl
     ) {
         this.id = id;
         this.bundlingName = bundlingName;
@@ -37,11 +39,11 @@ public abstract class BundlingComponent implements Bundling{
         this.ticketimpl = ticketimpl;
     }
 
-	public int getId() {
+	public UUID getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 	public String getBundlingName() {

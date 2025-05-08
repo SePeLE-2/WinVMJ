@@ -7,6 +7,7 @@ import vmj.routing.route.VMJExchange;
 import javax.persistence.OneToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.CascadeType;
+
 //add other required packages
 
 @MappedSuperclass
@@ -17,30 +18,30 @@ public abstract class BundlingDecorator extends BundlingComponent{
 	public BundlingDecorator () {
 		super();
 		this.record = record;
-		this.id =  id.randomUUID();
+		this.id = UUID.randomUUID();
 	}
 		
 	public BundlingDecorator (BundlingComponent record) {
-		this.id =  id.randomUUID();
+		this.id = UUID.randomUUID();
 		this.record = record;
 	}
 
-	public BundlingDecorator (int id, BundlingComponent record) {
-		this.id =  id;
+	public BundlingDecorator (UUID id, BundlingComponent record) {
+		this.id = id;
 		this.record = record;
 	}
 	
 	public BundlingDecorator (BundlingComponent record, String objectName) {
-		this.id =  id.randomUUID();
+		this.id = UUID.randomUUID();
 		this.record = record;	
 		this.objectName=objectName;
 	}
 
 
-	public int getId() {
+	public UUID getId() {
 		return record.getId();
 	}
-	public void setId(int id) {
+	public void setId(UUID id) {
 		record.setId(id);
 	}
 	public String getBundlingName() {
@@ -63,7 +64,7 @@ public abstract class BundlingDecorator extends BundlingComponent{
 	}
 
 	protected void purchase() {
-		return record.purchase();
+		System.out.println("Purchasing " + this.getBundlingName() + " for " + this.getPrice() + " dollars.");
 	}
 
 	public HashMap<String, Object> toHashMap() {

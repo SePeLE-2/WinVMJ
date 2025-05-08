@@ -15,45 +15,49 @@ public class BundlingResourceImpl extends BundlingResourceComponent{
 
 	
     @Route(url="call/bundling/save")
-    public List<HashMap<String,Object>> saveBundling(VMJExchange vmjExchange){
-		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
-			return null;
-		}
-		Bundling bundling = createBundling(vmjExchange);
-		bundlingRepository.saveObject(bundling);
-		return getAllBundling(vmjExchange);
+	public List<HashMap<String,Object>> saveBundling(VMJExchange vmjExchange){
+		return bundlingServiceImpl.saveBundling(vmjExchange);
 	}
-
 	
-    @Route(url="call/bundling")
-    public HashMap<String,Object> bundling(VMJExchange vmjExchange){
+	@Override
+	@Route(url="call/bundling")
+	public HashMap<String,Object> Bundling(VMJExchange vmjExchange) {
 		if (vmjExchange.getHttpMethod().equals("POST")) {
-		    Map<String, Object> requestBody = vmjExchange.getPayload(); 
+			Map<String, Object> requestBody = vmjExchange.getPayload(); 
 			Bundling result = bundlingServiceImpl.createBundling(requestBody);
 			return result.toHashMap();
 		}
 		throw new NotFoundException("Route tidak ditemukan");
 	}
+
+    // @Route(url="call/bundling")
+    // public HashMap<String,Object> bundling(VMJExchange vmjExchange){
+	// 	if (vmjExchange.getHttpMethod().equals("POST")) {
+	// 	    Map<String, Object> requestBody = vmjExchange.getPayload(); 
+	// 		Bundling result = bundlingServiceImpl.createBundling(requestBody);
+	// 		return result.toHashMap();
+	// 	}
+	// 	throw new NotFoundException("Route tidak ditemukan");
+	// }
 
     public Bundling createBundling(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("POST")) {
 		    Map<String, Object> requestBody = vmjExchange.getPayload(); 
 			Bundling result = bundlingServiceImpl.createBundling(requestBody);
-			return result.toHashMap();
+			return result;
 		}
 		throw new NotFoundException("Route tidak ditemukan");
 	}
 
-    public Bundling createBundling(VMJExchange vmjExchange, int id){
+    public HashMap<String, Object> createBundling(VMJExchange vmjExchange, Map<String, Object> response){
 		if (vmjExchange.getHttpMethod().equals("POST")) {
-		    Map<String, Object> requestBody = vmjExchange.getPayload(); 
-			Bundling result = bundlingServiceImpl.createBundling(requestBody, id);
+			Map<String, Object> requestBody = vmjExchange.getPayload(); 
+			Bundling result = bundlingServiceImpl.createBundling(requestBody, response);
 			return result.toHashMap();
 		}
 		throw new NotFoundException("Route tidak ditemukan");
 	}
 
-	
     @Route(url="call/bundling/update")
     public HashMap<String, Object> updateBundling(VMJExchange vmjExchange){
 		Map<String, Object> requestBody = vmjExchange.getPayload(); 

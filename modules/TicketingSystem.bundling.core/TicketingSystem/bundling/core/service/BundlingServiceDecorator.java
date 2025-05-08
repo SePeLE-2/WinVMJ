@@ -10,7 +10,7 @@ public abstract class BundlingServiceDecorator extends BundlingServiceComponent{
         this.record = record;
     }
 
-	public BundlingImpl createBundling(Map<String, Object> requestBody){
+	public Bundling createBundling(Map<String, Object> requestBody){
 		return record.createBundling(requestBody);
 	}
 
@@ -47,6 +47,6 @@ public abstract class BundlingServiceDecorator extends BundlingServiceComponent{
     }
 
 	protected void purchase() {
-		return record.purchase();
+		System.out.println("Purchasing item");
 	}
 }

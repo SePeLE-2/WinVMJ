@@ -19,9 +19,9 @@ public abstract class BundlingResourceDecorator extends BundlingResourceComponen
 		return record.createBundling(vmjExchange);
 	}
 
-    public Bundling createBundling(VMJExchange vmjExchange, int id){
-		return record.createBundling(vmjExchange, id);
-	}
+    // public Bundling createBundling(VMJExchange vmjExchange, UUID id){
+	// 	return record.createBundling(vmjExchange, id);
+	// }
 
     public HashMap<String, Object> updateBundling(VMJExchange vmjExchange){
 		return record.updateBundling(vmjExchange);
@@ -40,6 +40,6 @@ public abstract class BundlingResourceDecorator extends BundlingResourceComponen
 	}
 
 	protected void purchase() {
-		return record.purchase();
+		System.out.println("Purchasing item");
 	}
 }

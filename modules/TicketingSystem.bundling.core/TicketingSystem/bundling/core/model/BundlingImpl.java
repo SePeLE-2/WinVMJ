@@ -13,13 +13,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
+import TicketingSystem.ticket.core.TicketImpl;
 
 @Entity(name="bundling_impl")
 @Table(name="bundling_impl")
 public class BundlingImpl extends BundlingComponent {
 
-	public BundlingImpl(int id, String bundlingName, int price, int availability, TicketImpl ticketimpl) {
+	public BundlingImpl(UUID id, String bundlingName, int price, int availability, TicketImpl ticketimpl) {
 		this.id = id;
 		this.bundlingName = bundlingName;
 		this.price = price;
@@ -28,7 +28,7 @@ public class BundlingImpl extends BundlingComponent {
 	}
 
 	public BundlingImpl(String bundlingName, int price, int availability, TicketImpl ticketimpl) {
-		this.id =  id.randomUUID();;
+		this.id = UUID.randomUUID();
 		this.bundlingName = bundlingName;
 		this.price = price;
 		this.availability = availability;
@@ -37,13 +37,24 @@ public class BundlingImpl extends BundlingComponent {
 
 	public BundlingImpl() { }
 
-	public int getId() {
-		return this.id;
+	// public UUID getId() {
+	// 	return this.id;
+	// }
+
+	@Override
+	public void setTicketimpl(TicketImpl ticketimpl) {
+    	this.ticketimpl = ticketimpl;
 	}
 
-	public void setId(int id) {
+	@Override
+	public TicketImpl getTicketimpl() {
+    	return this.ticketimpl;
+	}
+
+	public void setId(UUID id) {
 		this.id = id;
 	}
+
 	public String getBundlingName() {
 		return this.bundlingName;
 	}
@@ -67,7 +78,7 @@ public class BundlingImpl extends BundlingComponent {
 	}
 
 	protected void purchase() {
-		// TODO: implement this method
+		System.out.println("Purchasing " + this.getBundlingName() + " for " + this.getPrice() + " dollars.");
 	}
 	
 	public HashMap<String, Object> toHashMap() {

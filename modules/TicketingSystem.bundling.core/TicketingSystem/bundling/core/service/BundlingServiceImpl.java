@@ -1,129 +1,112 @@
 package TicketingSystem.bundling.core;
-import java.util.*;
-import com.google.gson.Gson;
-import java.util.*;
-import java.util.logging.Logger;
-import java.io.File;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 
-import vmj.routing.route.Route;
+import java.util.*;
 import vmj.routing.route.VMJExchange;
-import vmj.routing.route.exceptions.*;
 import TicketingSystem.bundling.BundlingFactory;
-import vmj.auth.annotations.Restricted;
-//add other required packages
+import TicketingSystem.ticket.core.TicketImpl;
 
-public class BundlingServiceImpl extends BundlingServiceComponent{
+public class BundlingServiceImpl extends BundlingServiceComponent {
 
-    public List<HashMap<String,Object>> saveBundling(VMJExchange vmjExchange){
-		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
-			return null;
-		}
-		Bundling bundling = createBundling(vmjExchange);
-		bundlingRepository.saveObject(bundling);
-		return getAllBundling(vmjExchange);
-	}
-
-    public Bundling createBundling(Map<String, Object> requestBody){
-		String idStr = (String) requestBody.get("id");
-		int id = Integer.parseInt(idStr);
-		String bundlingName = (String) requestBody.get("bundlingName");
-		String priceStr = (String) requestBody.get("price");
-		int price = Integer.parseInt(priceStr);
-		String availabilityStr = (String) requestBody.get("availability");
-		int availability = Integer.parseInt(availabilityStr);
-		
-		//to do: fix association attributes
-		Bundling Bundling = BundlingFactory.createBundling(
-			"TicketingSystem.bundling.core.BundlingImpl",
-		id
-		, bundlingName
-		, price
-		, availability
-		, ticketimpl
-		);
-		Repository.saveObject(bundling);
-		return bundling;
-	}
-
-    public Bundling createBundling(Map<String, Object> requestBody, int id){
-		String bundlingName = (String) vmjExchange.getRequestBodyForm("bundlingName");
-		String priceStr = (String) vmjExchange.getRequestBodyForm("price");
-		int price = Integer.parseInt(priceStr);
-		String availabilityStr = (String) vmjExchange.getRequestBodyForm("availability");
-		int availability = Integer.parseInt(availabilityStr);
-		
-		//to do: fix association attributes
-		
-		Bundling bundling = BundlingFactory.createBundling("TicketingSystem.bundling.core.BundlingImpl", bundlingName, price, availability, ticketimpl);
-		return bundling;
-	}
-
-    public HashMap<String, Object> updateBundling(Map<String, Object> requestBody){
-		String idStr = (String) requestBody.get("id");
-		int id = Integer.parseInt(idStr);
-		Bundling bundling = Repository.getObject(id);
-		
-		bundling.setBundlingName((String) requestBody.get("bundlingName"));
-		String priceStr = (String) requestBody.get("price");
-		bundling.setPrice(Integer.parseInt(priceStr));
-		String availabilityStr = (String) requestBody.get("availability");
-		bundling.setAvailability(Integer.parseInt(availabilityStr));
-		
-		Repository.updateObject(bundling);
-		
-		//to do: fix association attributes
-		
-		return bundling.toHashMap();
-		
-	}
-
-    public HashMap<String, Object> getBundling(Map<String, Object> requestBody){
-		List<HashMap<String, Object>> bundlingList = getAllBundling("bundling_impl");
-		for (HashMap<String, Object> bundling : bundlingList){
-			int record_id = ((Double) bundling.get("record_id")).intValue();
-			if (record_id == id){
-				return bundling;
-			}
-		}
-		return null;
-	}
-
-	public HashMap<String, Object> getBundlingById(int id){
-		String idStr = vmjExchange.getGETParam("id"); 
-		int id = Integer.parseInt(idStr);
-		Bundling bundling = bundlingRepository.getObject(id);
-		return bundling.toHashMap();
-	}
-
-    public List<HashMap<String,Object>> getAllBundling(Map<String, Object> requestBody){
-		String table = (String) requestBody.get("table_name");
-		List<Bundling> List = Repository.getAllObject(table);
-		return transformListToHashMap(List);
-	}
-
-    public List<HashMap<String,Object>> transformListToHashMap(List<Bundling> List){
-		List<HashMap<String,Object>> resultList = new ArrayList<HashMap<String,Object>>();
-        for(int i = 0; i < List.size(); i++) {
-            resultList.add(List.get(i).toHashMap());
+    @Override
+    public List<HashMap<String, Object>> saveBundling(VMJExchange vmjExchange) {
+        if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
+            return null;
         }
 
+        Map<String, Object> requestBody = vmjExchange.getPayload();
+        Bundling bundling = createBundling(requestBody);
+
+        Repository.saveObject(bundling);
+        return getAllBundling(requestBody);
+    }
+
+    @Override
+    public Bundling createBundling(Map<String, Object> requestBody) {
+        String bundlingName = (String) requestBody.get("bundlingName");
+        int price = Integer.parseInt((String) requestBody.get("price"));
+        int availability = Integer.parseInt((String) requestBody.get("availability"));
+
+        // TODO: Replace with real ticketimpl from DB if needed
+        TicketImpl dummyTicketImpl = new TicketImpl(); 
+
+        Bundling bundling = BundlingFactory.createBundling(
+            "TicketingSystem.bundling.core.BundlingImpl",
+            bundlingName,
+            price,
+            availability,
+            dummyTicketImpl
+        );
+
+        return bundling;
+    }
+
+    @Override
+    public Bundling createBundling(Map<String, Object> requestBody, Map<String, Object> response) {
+        return createBundling(requestBody); // Simple delegation
+    }
+
+    @Override
+    public HashMap<String, Object> updateBundling(Map<String, Object> requestBody) {
+        UUID id = UUID.fromString((String) requestBody.get("id"));
+        Bundling bundling = Repository.getObject(id);
+
+        if (bundling instanceof BundlingComponent) {
+            BundlingComponent component = (BundlingComponent) bundling;
+
+            component.setBundlingName((String) requestBody.get("bundlingName"));
+            component.setPrice(Integer.parseInt((String) requestBody.get("price")));
+            component.setAvailability(Integer.parseInt((String) requestBody.get("availability")));
+        }
+
+        Repository.updateObject(bundling);
+        return bundling.toHashMap();
+    }
+
+    @Override
+    public HashMap<String, Object> getBundling(Map<String, Object> requestBody) {
+        List<HashMap<String, Object>> bundlingList = getAllBundling(requestBody);
+        String idStr = (String) requestBody.get("id");
+
+        for (HashMap<String, Object> bundling : bundlingList) {
+            if (bundling.get("id").equals(idStr)) {
+                return bundling;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public HashMap<String, Object> getBundlingById(int id) {
+        // You declared UUID id before, but abstract method still uses int
+        // Here we assume int → UUID mapping is handled elsewhere or refactor later
+        throw new UnsupportedOperationException("getBundlingById(int) not implemented. Use UUID instead.");
+    }
+
+    @Override
+    public List<HashMap<String, Object>> getAllBundling(Map<String, Object> requestBody) {
+        String table = (String) requestBody.get("table_name");
+        List<Bundling> list = Repository.getAllObject(table);
+        return transformListToHashMap(list);
+    }
+
+    @Override
+    public List<HashMap<String, Object>> transformListToHashMap(List<Bundling> list) {
+        List<HashMap<String, Object>> resultList = new ArrayList<>();
+        for (Bundling bundling : list) {
+            resultList.add(bundling.toHashMap());
+        }
         return resultList;
-	}
+    }
 
-    public List<HashMap<String,Object>> deleteBundling(Map<String, Object> requestBody){
-		String idStr = ((String) requestBody.get("id"));
-		int id = Integer.parseInt(idStr);
-		Repository.deleteObject(id);
-		return getAllBundling(requestBody);
-	}
+    @Override
+    public List<HashMap<String, Object>> deleteBundling(Map<String, Object> requestBody) {
+        UUID id = UUID.fromString((String) requestBody.get("id"));
+        Repository.deleteObject(id);
+        return getAllBundling(requestBody);
+    }
 
-	protected void purchase() {
-		// TODO: implement this method
-	}
+    @Override
+    protected void purchase() {
+        System.out.println("purchase() called in service; this should ideally be in entity logic.");
+    }
 }
