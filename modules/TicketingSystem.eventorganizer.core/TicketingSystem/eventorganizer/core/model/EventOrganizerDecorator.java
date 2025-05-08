@@ -18,6 +18,7 @@ public abstract class EventOrganizerDecorator extends EventOrganizerComponent{
 		super();
 		this.record = record;
 		this.id =  id.randomUUID();
+	}
 		
 	public EventOrganizerDecorator (EventOrganizerComponent record) {
 		this.id =  id.randomUUID();
@@ -34,8 +35,6 @@ public abstract class EventOrganizerDecorator extends EventOrganizerComponent{
 		this.record = record;	
 		this.objectName=objectName;
 	}
-
-	public EventOrganizerDecorator() { }
 
 	public int getId() {
 		return record.getId();
