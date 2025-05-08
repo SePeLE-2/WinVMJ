@@ -13,20 +13,29 @@ public class TicketResourceImpl extends TicketResourceComponent {
 
 	private TicketServiceImpl ticketServiceImpl = new TicketServiceImpl();
 
-	// @Restriced(permission = "")
-	@Route(url = "call/ticket/save")
-	public List<HashMap<String, Object>> saveTicket(VMJExchange vmjExchange) {
-		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
-			return null;
-		}
-		Ticket ticket = createTicket(vmjExchange);
-		// ticketRepository.saveObject(ticket);
-		return getAllTicket(vmjExchange);
-	}
+	// // @Restriced(permission = "")
+	// @Route(url = "call/ticket/save")
+	// public List<HashMap<String, Object>> saveTicket(VMJExchange vmjExchange) {
+	// if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
+	// return null;
+	// }
+	// Ticket ticket = createTicket(vmjExchange);
+	// // ticketRepository.saveObject(ticket);
+	// return getAllTicket(vmjExchange);
+	// }
 
-	// @Restriced(permission = "")
-	@Route(url = "call/ticket")
-	public HashMap<String, Object> ticket(VMJExchange vmjExchange) {
+	// // @Restriced(permission = "")
+	// @Route(url = "call/ticket")
+	// public HashMap<String, Object> ticket(VMJExchange vmjExchange) {
+	// if (vmjExchange.getHttpMethod().equals("POST")) {
+	// Map<String, Object> requestBody = vmjExchange.getPayload();
+	// Ticket result = ticketServiceImpl.createTicket(requestBody);
+	// return result.toHashMap();
+	// }
+	// throw new NotFoundException("Route tidak ditemukan");
+	// }
+
+	public HashMap<String, Object> createTicket(VMJExchange vmjExchange) {
 		if (vmjExchange.getHttpMethod().equals("POST")) {
 			Map<String, Object> requestBody = vmjExchange.getPayload();
 			Ticket result = ticketServiceImpl.createTicket(requestBody);
@@ -35,23 +44,23 @@ public class TicketResourceImpl extends TicketResourceComponent {
 		throw new NotFoundException("Route tidak ditemukan");
 	}
 
-	public Ticket createTicket(VMJExchange vmjExchange) {
-		if (vmjExchange.getHttpMethod().equals("POST")) {
-			Map<String, Object> requestBody = vmjExchange.getPayload();
-			Ticket result = ticketServiceImpl.createTicket(requestBody);
-			return result.toHashMap();
-		}
-		throw new NotFoundException("Route tidak ditemukan");
-	}
+	// public Ticket createTicket(VMJExchange vmjExchange) {
+	// if (vmjExchange.getHttpMethod().equals("POST")) {
+	// Map<String, Object> requestBody = vmjExchange.getPayload();
+	// Ticket result = ticketServiceImpl.createTicket(requestBody);
+	// return result.toHashMap();
+	// }
+	// throw new NotFoundException("Route tidak ditemukan");
+	// }
 
-	public Ticket createTicket(VMJExchange vmjExchange, int id) {
-		if (vmjExchange.getHttpMethod().equals("POST")) {
-			Map<String, Object> requestBody = vmjExchange.getPayload();
-			Ticket result = ticketServiceImpl.createTicket(requestBody, id);
-			return result.toHashMap();
-		}
-		throw new NotFoundException("Route tidak ditemukan");
-	}
+	// public Ticket createTicket(VMJExchange vmjExchange, int id) {
+	// if (vmjExchange.getHttpMethod().equals("POST")) {
+	// Map<String, Object> requestBody = vmjExchange.getPayload();
+	// Ticket result = ticketServiceImpl.createTicket(requestBody, id);
+	// return result.toHashMap();
+	// }
+	// throw new NotFoundException("Route tidak ditemukan");
+	// }
 
 	// @Restriced(permission = "")
 	@Route(url = "call/ticket/update")

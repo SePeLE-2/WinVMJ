@@ -20,14 +20,30 @@ import vmj.auth.annotations.Restricted;
 //add other required packages
 
 public class TicketServiceImpl extends TicketServiceComponent {
+	private TicketFactory ticketFactory = new TicketFactory();
 
-	public List<HashMap<String, Object>> saveTicket(VMJExchange vmjExchange) {
-		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
-			return null;
-		}
-		Ticket ticket = createTicket(vmjExchange);
-		ticketRepository.saveObject(ticket);
-		return getAllTicket(vmjExchange);
+	// public List<HashMap<String, Object>> saveTicket(VMJExchange vmjExchange) {
+	// if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
+	// return null;
+	// }
+	// Ticket ticket = createTicket(vmjExchange);
+	// ticketRepository.saveObject(ticket);
+	// return getAllTicket(vmjExchange);
+	// }
+
+	public List<HashMap<String, Object>> saveTicket(Map<String, Object> requestBody) {
+		String eventName = (String) requestBody.get("eventName");
+		String ticketName = (String) requestBody.get("ticketName");
+		String priceStr = (String) requestBody.get("price");
+		int price = Integer.parseInt(priceStr);
+		String availabilityStr = (String) requestBody.get("availability");
+		int availability = Integer.parseInt(availabilityStr);
+
+		Ticket Ticket = TicketFactory.createTicket(
+				"TicketingSystem.ticket.core.TicketImpl",
+				eventName, ticketName, price, availability);
+		Repository.saveObject(Ticket);
+		return getAllTicket(requestBody);
 	}
 
 	public Ticket createTicket(Map<String, Object> requestBody) {
@@ -44,28 +60,32 @@ public class TicketServiceImpl extends TicketServiceComponent {
 		Ticket Ticket = TicketFactory.createTicket(
 				"TicketingSystem.ticket.core.TicketImpl",
 				id, eventName, ticketName, price, availability);
-		Repository.saveObject(ticket);
-		return ticket;
+		Repository.saveObject(Ticket);
+		return Ticket;
 	}
 
-	public Ticket createTicket(Map<String, Object> requestBody, int id) {
-		String eventName = (String) vmjExchange.getRequestBodyForm("eventName");
-		String ticketName = (String) vmjExchange.getRequestBodyForm("ticketName");
-		String priceStr = (String) vmjExchange.getRequestBodyForm("price");
-		int price = Integer.parseInt(priceStr);
-		String availabilityStr = (String) vmjExchange.getRequestBodyForm("availability");
-		int availability = Integer.parseInt(availabilityStr);
+	// public Ticket createTicket(Map<String, Object> requestBody, int id) {
+	// String eventName = (String) vmjExchange.getRequestBodyForm("eventName");
+	// String ticketName = (String) vmjExchange.getRequestBodyForm("ticketName");
+	// String priceStr = (String) vmjExchange.getRequestBodyForm("price");
+	// int price = Integer.parseInt(priceStr);
+	// String availabilityStr = (String)
+	// vmjExchange.getRequestBodyForm("availability");
+	// int availability = Integer.parseInt(availabilityStr);
 
-		// to do: fix association attributes
+	// // to do: fix association attributes
 
-		Ticket ticket = TicketFactory.createTicket("TicketingSystem.ticket.core.TicketImpl", eventName, ticketName,
-				price, availability);
-		return ticket;
-	}
+	// Ticket ticket =
+	// TicketFactory.createTicket("TicketingSystem.ticket.core.TicketImpl",
+	// eventName, ticketName,
+	// price, availability);
+	// return ticket;
+	// }
 
 	public HashMap<String, Object> updateTicket(Map<String, Object> requestBody) {
 		String idStr = (String) requestBody.get("id");
-		int id = Integer.parseInt(idStr);
+		// int id = Integer.parseInt(idStr);
+		UUID id = UUID.fromString(idStr);
 		Ticket ticket = Repository.getObject(id);
 
 		ticket.setEventName((String) requestBody.get("eventName"));
@@ -84,10 +104,14 @@ public class TicketServiceImpl extends TicketServiceComponent {
 	}
 
 	public HashMap<String, Object> getTicket(Map<String, Object> requestBody) {
-		List<HashMap<String, Object>> ticketList = getAllTicket("ticket_impl");
+		Map<String, Object> map = new HashMap<>();
+		map.put("table_name", "ticket_impl");
+		List<HashMap<String, Object>> ticketList = getAllTicket(map);
 		for (HashMap<String, Object> ticket : ticketList) {
-			int record_id = ((Double) ticket.get("record_id")).intValue();
-			if (record_id == id) {
+			UUID record_id = UUID.fromString(ticket.get("record_id").toString());
+			String idStr = (String) requestBody.get("record_id");
+			UUID id = UUID.fromString(idStr);
+			if (record_id.equals(id)) {
 				return ticket;
 			}
 		}
@@ -95,9 +119,7 @@ public class TicketServiceImpl extends TicketServiceComponent {
 	}
 
 	public HashMap<String, Object> getTicketById(int id) {
-		String idStr = vmjExchange.getGETParam("id");
-		id = Integer.parseInt(idStr);
-		Ticket ticket = ticketRepository.getObject(id);
+		Ticket ticket = Repository.getObject(id);
 		return ticket.toHashMap();
 	}
 

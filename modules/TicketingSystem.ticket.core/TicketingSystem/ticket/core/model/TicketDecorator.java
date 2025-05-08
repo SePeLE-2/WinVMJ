@@ -77,7 +77,7 @@ public abstract class TicketDecorator extends TicketComponent {
 	}
 
 	public void purchase() {
-		return record.purchase();
+		record.purchase();
 	}
 
 	public HashMap<String, Object> toHashMap() {

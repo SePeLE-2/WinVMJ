@@ -75,7 +75,9 @@ public abstract class TicketComponent implements Ticket {
 		this.availability = availability;
 	}
 
-	public abstract void purchase();
+	public void purchase() {
+		this.availability--;
+	}
 
 	@Override
 	public String toString() {
