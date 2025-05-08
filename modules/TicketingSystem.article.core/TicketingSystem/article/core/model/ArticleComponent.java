@@ -10,6 +10,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
+import TicketingSystem.eventorganizer.core.EventOrganizerComponent;
+
 @Entity
 @Table(name="article_comp")
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -20,8 +22,8 @@ public abstract class ArticleComponent implements Article{
 	protected String articleContent;
 	protected String articleAuthor;
 	protected String articleDatePublished;
-	@ManyToOne(targetEntity=TicketingSystem..core.Component.class)
-	public  eventorganizerimpl;
+	@ManyToOne(targetEntity=TicketingSystem.core.Component.class)
+	public EventOrganizerComponent eventorganizerimpl;
 	protected String objectName = ArticleComponent.class.getName();
 
 	public ArticleComponent() {
