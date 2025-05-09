@@ -2,6 +2,8 @@ package TicketingSystem.payment.core;
 import vmj.routing.route.Route;
 import vmj.routing.route.VMJExchange;
 import java.util.*;
+import TicketingSystem.bundling.core.BundlingImpl;
+import TicketingSystem.ticket.core.TicketImpl;
 
 public interface Payment {
 	public int getAmount();

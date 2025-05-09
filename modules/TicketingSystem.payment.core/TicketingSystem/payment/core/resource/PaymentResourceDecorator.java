@@ -19,7 +19,7 @@ public abstract class PaymentResourceDecorator extends PaymentResourceComponent{
 		return record.createPayment(vmjExchange);
 	}
 
-    public Payment createPayment(VMJExchange vmjExchange, int id){
+    public Payment createPayment(VMJExchange vmjExchange, UUID id){
 		return record.createPayment(vmjExchange, id);
 	}
 
@@ -40,6 +40,6 @@ public abstract class PaymentResourceDecorator extends PaymentResourceComponent{
 	}
 
 	public void pay() {
-		return record.pay();
+		System.out.println("Paying item");
 	}
 }

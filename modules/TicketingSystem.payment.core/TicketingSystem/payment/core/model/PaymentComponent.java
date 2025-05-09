@@ -9,18 +9,21 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import javax.persistence.ManyToOne;
+import TicketingSystem.bundling.core.BundlingImpl;
+import TicketingSystem.ticket.core.TicketImpl;
 
 @Entity
 @Table(name="payment_comp")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class PaymentComponent implements Payment{
 	@Id
-	
+	protected UUID id; 
 	public int amount;
-	@ManyToOne(targetEntity=TicketingSystem..core.Component.class)
-	public  bundlingimpl;
-	@ManyToOne(targetEntity=TicketingSystem..core.Component.class)
-	public  ticketimpl;
+	@ManyToOne(targetEntity=TicketingSystem.bundling.core.BundlingImpl.class)
+	public BundlingImpl bundlingimpl;
+	@ManyToOne(targetEntity=TicketingSystem.ticket.core.TicketImpl.class)
+	public TicketImpl ticketimpl;
 	protected String objectName = PaymentComponent.class.getName();
 
 	public PaymentComponent() {
