@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import TicketingSystem.event.core.EventImpl;
 
 @Entity(name="eventorganizer_impl")
 @Table(name="eventorganizer_impl")
