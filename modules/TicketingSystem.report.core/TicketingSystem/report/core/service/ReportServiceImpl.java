@@ -25,9 +25,8 @@ public class ReportServiceImpl extends ReportServiceComponent {
     private final EventServiceImpl eventService = new EventServiceImpl();
 
     public ReportServiceImpl() {
-        
-    }
 
+    }
 
     @Route(url = "call/report/save")
     public List<HashMap<String, Object>> saveReport(VMJExchange vmjExchange) {
@@ -50,7 +49,9 @@ public class ReportServiceImpl extends ReportServiceComponent {
         UUID idReport = UUID.fromString((String) requestBody.get("idReport"));
         UUID idEvent = UUID.fromString((String) requestBody.get("idEvent"));
 
-        EventImpl eventimpl = (EventImpl) eventService.getEventById(idEvent);
+        EventImpl eventimpl = new EventImpl();
+
+        // EventImpl eventimpl = (EventImpl) eventService.getEventById(intId);
 
         String eventName = (String) requestBody.get("eventName");
         String eventDate = (String) requestBody.get("eventDate");
@@ -58,15 +59,14 @@ public class ReportServiceImpl extends ReportServiceComponent {
         int ticketSold = Integer.parseInt((String) requestBody.get("ticketSold"));
 
         Report report = ReportFactory.createReport(
-            "TicketingSystem.report.core.ReportImpl",
-            idReport,
-            idEvent,
-            eventName,
-            eventDate,
-            reportDate,
-            ticketSold,
-            eventimpl
-        );
+                "TicketingSystem.report.core.ReportImpl",
+                idReport,
+                idEvent,
+                eventName,
+                eventDate,
+                reportDate,
+                ticketSold,
+                eventimpl);
 
         return report;
     }
