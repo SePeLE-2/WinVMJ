@@ -18,11 +18,20 @@ import TicketingSystem.comment.CommentFactory;
 import vmj.auth.annotations.Restricted;
 //add other required packages
 
+import TicketingSystem.eventorganizer.core.EventOrganizer;
 import TicketingSystem.eventorganizer.core.EventOrganizerService;
-import TicketingSystem.customer.core.CustomerComponent;
-import TicketingSystem.article.core.ArticleComponent;
+import TicketingSystem.eventorganizer.core.EventOrganizerServiceImpl;
+import TicketingSystem.customer.core.Customer;
+import TicketingSystem.customer.core.CustomerService;
+import TicketingSystem.customer.core.CustomerServiceImpl;
+import TicketingSystem.article.core.Article;
+import TicketingSystem.article.core.ArticleService;
+import TicketingSystem.article.core.ArticleServiceImpl;
 
 public class CommentServiceImpl extends CommentServiceComponent{
+	private EventOrganizerService eventOrganizerService = new EventOrganizerServiceImpl();
+	private CustomerService customerService = new CustomerServiceImpl();
+	private ArticleService articleService = new ArticleServiceImpl();
 
     public List<HashMap<String,Object>> saveComment(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
@@ -34,13 +43,14 @@ public class CommentServiceImpl extends CommentServiceComponent{
 	}
 
     public Comment createComment(Map<String, Object> requestBody){
+		String idArticle = vmjExchange.getGETParam("idArticle"); 
 		String idContentStr = (String) requestBody.get("idContent");
 		int idContent = Integer.parseInt(idContentStr);
 		String comment = (String) requestBody.get("comment");
 		String commentAuthor = (String) requestBody.get("commentAuthor");
-		// EventOrganizerComponent eventorganizerimpl ;
-		// CustomerComponent customerimpl;
-		// ArticleComponent articleimpl;
+		EventOrganizer eventorganizerimpl = eventOrganizerService.getEventOrganizerByName(commentAuthor);
+		Customer customerimpl = customerService.getCustomerByName(commentAuthor);
+		Article articleimpl = articleService.getArticleById(idArticle);
 		
 		
 		//to do: fix association attributes
@@ -49,18 +59,21 @@ public class CommentServiceImpl extends CommentServiceComponent{
 		idContent
 		, comment
 		, commentAuthor
-		// , eventorganizerimpl
-		// , customerimpl
-		// , articleimpl
+		, eventorganizerimpl
+		, customerimpl
+		, articleimpl
 		);
 		Repository.saveObject(comment);
 		return comment;
 	}
 
     public Comment createComment(Map<String, Object> requestBody, int id){
+		String idArticle = vmjExchange.getGETParam("idArticle"); 
 		String commentString = (String) vmjExchange.getRequestBodyForm("comment");
 		String commentAuthor = (String) vmjExchange.getRequestBodyForm("commentAuthor");
-		
+		EventOrganizer eventorganizerimpl = eventOrganizerService.getEventOrganizerByName(commentAuthor);
+		Customer customerimpl = customerService.getCustomerByName(commentAuthor);
+		Article articleimpl = articleService.getArticleById(idArticle);
 		//to do: fix association attributes
 		
 		Comment comment = CommentFactory.createComment("TicketingSystem.comment.core.CommentImpl", commentString, commentAuthor

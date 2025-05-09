@@ -11,6 +11,7 @@ import java.net.http.HttpResponse;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
+import TicketingSystem.eventorganizer.core.EventOrganizer;
 import TicketingSystem.eventorganizer.core.EventOrganizerService;
 import TicketingSystem.eventorganizer.core.EventOrganizerServiceImpl;
 import vmj.routing.route.Route;
