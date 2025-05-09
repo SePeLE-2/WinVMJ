@@ -39,16 +39,16 @@ public class ReportResourceImpl extends ReportResourceComponent{
 		if (vmjExchange.getHttpMethod().equals("POST")) {
 		    Map<String, Object> requestBody = vmjExchange.getPayload(); 
 			Report result = reportServiceImpl.createReport(requestBody);
-			return result.toHashMap();
+			return result;
 		}
 		throw new NotFoundException("Route tidak ditemukan");
 	}
 
-    public Report createReport(VMJExchange vmjExchange, int id){
+    public Report createReport(VMJExchange vmjExchange, UUID id){
 		if (vmjExchange.getHttpMethod().equals("POST")) {
 		    Map<String, Object> requestBody = vmjExchange.getPayload(); 
 			Report result = reportServiceImpl.createReport(requestBody, id);
-			return result.toHashMap();
+			return result;
 		}
 		throw new NotFoundException("Route tidak ditemukan");
 	}
@@ -89,8 +89,6 @@ public class ReportResourceImpl extends ReportResourceComponent{
 		return reportServiceImpl.deleteReport(requestBody);
 	}
 
-
-	
 	public void generateReport() {
 		// TODO: implement this method
 	}

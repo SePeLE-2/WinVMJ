@@ -121,4 +121,14 @@ public class CustomerServiceImpl extends CustomerServiceComponent{
 		return getAllCustomer(requestBody);
 	}
 
+	public Customer getCustomerByName(String name){
+		Customer customer = null;
+		try {
+			customer = Repository.getListObject("customer_comp", "name", name).get(0);
+		} catch (Exception e) {
+			throw new NotFoundException("Event Organizer with name " + name + " not exist.");
+		}
+		return customer;
+	}
+
 }

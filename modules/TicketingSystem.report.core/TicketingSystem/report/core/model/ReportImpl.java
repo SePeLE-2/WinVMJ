@@ -13,13 +13,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
+import TicketingSystem.event.core.Event;
+import TicketingSystem.event.core.EventImpl;
 
 @Entity(name="report_impl")
 @Table(name="report_impl")
 public class ReportImpl extends ReportComponent {
 
-	public ReportImpl(int idReport, int idEvent, String eventName, String eventDate, String reportDate, int ticketSold, EventImpl eventimpl) {
+	public ReportImpl(UUID idReport, UUID idEvent, String eventName, String eventDate, String reportDate, int ticketSold, EventImpl eventimpl) {
 		this.idReport = idReport;
 		this.idEvent = idEvent;
 		this.eventName = eventName;
@@ -30,7 +31,8 @@ public class ReportImpl extends ReportComponent {
 	}
 
 	public ReportImpl(String eventName, String eventDate, String reportDate, int ticketSold, EventImpl eventimpl) {
-		this.idReportidEvent =  idReportidEvent.randomUUID();;
+		this.idReport = UUID.randomUUID();
+		this.idEvent = UUID.randomUUID();
 		this.eventName = eventName;
 		this.eventDate = eventDate;
 		this.reportDate = reportDate;
@@ -40,18 +42,18 @@ public class ReportImpl extends ReportComponent {
 
 	public ReportImpl() { }
 
-	public int getIdReport() {
+	public UUID getIdReport() {
 		return this.idReport;
 	}
 
-	public void setIdReport(int idReport) {
+	public void setIdReport(UUID idReport) {
 		this.idReport = idReport;
 	}
-	public int getIdEvent() {
+	public UUID getIdEvent() {
 		return this.idEvent;
 	}
 
-	public void setIdEvent(int idEvent) {
+	public void setIdEvent(UUID idEvent) {
 		this.idEvent = idEvent;
 	}
 	public String getEventName() {

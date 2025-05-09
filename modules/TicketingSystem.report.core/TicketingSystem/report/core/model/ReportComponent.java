@@ -10,18 +10,23 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
+import TicketingSystem.event.core.Event;
+import TicketingSystem.event.core.EventImpl;
+import javax.persistence.ManyToOne;
+
 @Entity
 @Table(name="report_comp")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class ReportComponent implements Report{
 	@Id
-	protected int idReport; protected int idEvent; 
+	protected UUID idReport; 
+	protected UUID idEvent; 
 	protected String eventName;
 	protected String eventDate;
 	protected String reportDate;
 	protected int ticketSold;
-	@ManyToOne(targetEntity=TicketingSystem..core.Component.class)
-	public  eventimpl;
+	@ManyToOne(targetEntity=TicketingSystem.event.core.EventImpl.class)
+	public EventImpl eventimpl;
 	protected String objectName = ReportComponent.class.getName();
 
 	public ReportComponent() {
@@ -29,7 +34,7 @@ public abstract class ReportComponent implements Report{
 	} 
 
 	public ReportComponent(
-        int idReport, int idEvent, String eventName, String eventDate, String reportDate, int ticketSold, EventImpl eventimpl
+        UUID idReport, UUID idEvent, String eventName, String eventDate, String reportDate, int ticketSold, EventImpl eventimpl
     ) {
         this.idReport = idReport;
         this.idEvent = idEvent;
@@ -40,18 +45,18 @@ public abstract class ReportComponent implements Report{
         this.eventimpl = eventimpl;
     }
 
-	public int getIdReport() {
+	public UUID getIdReport() {
 		return this.idReport;
 	}
 
-	public void setIdReport(int idReport) {
+	public void setIdReport(UUID idReport) {
 		this.idReport = idReport;
 	}
-	public int getIdEvent() {
+	public UUID getIdEvent() {
 		return this.idEvent;
 	}
 
-	public void setIdEvent(int idEvent) {
+	public void setIdEvent(UUID idEvent) {
 		this.idEvent = idEvent;
 	}
 	public String getEventName() {

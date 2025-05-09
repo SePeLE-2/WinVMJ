@@ -59,7 +59,7 @@ public class ReportResourceImpl extends ReportResourceDecorator {
 		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
 			return null;
 		}
-		String idStr = (String) vmjExchange.getRequestBodyForm("idReportidEvent");
+		String idStr = (String) vmjExchange.getRequestBodyForm("idReport");
 		int id = Integer.parseInt(idStr);
 		
 		ReportAttendanceStats reportattendancestats = reportattendancestatsRepository.getObject(id);

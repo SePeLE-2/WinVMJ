@@ -134,4 +134,14 @@ public class EventOrganizerServiceImpl extends EventOrganizerServiceComponent{
 		return getAllEventOrganizer(requestBody);
 	}
 
+	public EventOrganizer getEventOrganizerByName(String name){
+		EventOrganizer eventorganizer = null;
+		try {
+			eventorganizer = Repository.getListObject("eventorganizer_comp", "name", name).get(0);
+		} catch (Exception e) {
+			throw new NotFoundException("Event Organizer with name " + name + " not exist.");
+		}
+		return eventorganizer;
+	}
+
 }
