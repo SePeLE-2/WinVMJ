@@ -18,6 +18,10 @@ import TicketingSystem.comment.CommentFactory;
 import vmj.auth.annotations.Restricted;
 //add other required packages
 
+import TicketingSystem.eventorganizer.core.EventOrganizerService;
+import TicketingSystem.customer.core.CustomerComponent;
+import TicketingSystem.article.core.ArticleComponent;
+
 public class CommentServiceImpl extends CommentServiceComponent{
 
     public List<HashMap<String,Object>> saveComment(VMJExchange vmjExchange){
@@ -25,7 +29,7 @@ public class CommentServiceImpl extends CommentServiceComponent{
 			return null;
 		}
 		Comment comment = createComment(vmjExchange);
-		commentRepository.saveObject(comment);
+		Repository.saveObject(comment);
 		return getAllComment(vmjExchange);
 	}
 
@@ -34,6 +38,10 @@ public class CommentServiceImpl extends CommentServiceComponent{
 		int idContent = Integer.parseInt(idContentStr);
 		String comment = (String) requestBody.get("comment");
 		String commentAuthor = (String) requestBody.get("commentAuthor");
+		// EventOrganizerComponent eventorganizerimpl ;
+		// CustomerComponent customerimpl;
+		// ArticleComponent articleimpl;
+		
 		
 		//to do: fix association attributes
 		Comment Comment = CommentFactory.createComment(
@@ -41,21 +49,23 @@ public class CommentServiceImpl extends CommentServiceComponent{
 		idContent
 		, comment
 		, commentAuthor
-		, eventorganizerimpl
-		, customerimpl
-		, articleimpl
+		// , eventorganizerimpl
+		// , customerimpl
+		// , articleimpl
 		);
 		Repository.saveObject(comment);
 		return comment;
 	}
 
     public Comment createComment(Map<String, Object> requestBody, int id){
-		String comment = (String) vmjExchange.getRequestBodyForm("comment");
+		String commentString = (String) vmjExchange.getRequestBodyForm("comment");
 		String commentAuthor = (String) vmjExchange.getRequestBodyForm("commentAuthor");
 		
 		//to do: fix association attributes
 		
-		Comment comment = CommentFactory.createComment("TicketingSystem.comment.core.CommentImpl", comment, commentAuthor, eventorganizerimpl, customerimpl, articleimpl);
+		Comment comment = CommentFactory.createComment("TicketingSystem.comment.core.CommentImpl", commentString, commentAuthor
+		// , eventorganizerimpl, customerimpl, articleimpl
+		);
 		return comment;
 	}
 
@@ -88,8 +98,8 @@ public class CommentServiceImpl extends CommentServiceComponent{
 
 	public HashMap<String, Object> getCommentById(int id){
 		String idStr = vmjExchange.getGETParam("idContent"); 
-		int id = Integer.parseInt(idStr);
-		Comment comment = commentRepository.getObject(id);
+		int idComment = Integer.parseInt(idStr);
+		Comment comment = commentRepository.getObject(idComment);
 		return comment.toHashMap();
 	}
 
