@@ -89,8 +89,6 @@ public class EventOrganizerServiceImpl extends EventOrganizerServiceComponent{
 	}
 
 	public HashMap<String, Object> getEventOrganizerById(int id){
-		String idStr = vmjExchange.getGETParam("id"); 
-		int id = Integer.parseInt(idStr);
 		EventOrganizer eventorganizer = eventorganizerRepository.getObject(id);
 		return eventorganizer.toHashMap();
 	}
