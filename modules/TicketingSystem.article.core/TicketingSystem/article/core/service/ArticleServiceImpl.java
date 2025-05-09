@@ -11,6 +11,9 @@ import java.net.http.HttpResponse;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
+import TicketingSystem.eventorganizer.core.EventOrganizer;
+import TicketingSystem.eventorganizer.core.EventOrganizerService;
+import TicketingSystem.eventorganizer.core.EventOrganizerServiceImpl;
 import vmj.routing.route.Route;
 import vmj.routing.route.VMJExchange;
 import vmj.routing.route.exceptions.*;
@@ -19,13 +22,14 @@ import vmj.auth.annotations.Restricted;
 //add other required packages
 
 public class ArticleServiceImpl extends ArticleServiceComponent{
-
+	private EventOrganizerService eventOrganizerService = new EventOrganizerServiceImpl();
+	
     public List<HashMap<String,Object>> saveArticle(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
 			return null;
 		}
 		Article article = createArticle(vmjExchange);
-		articleRepository.saveObject(article);
+		Repository.saveObject(article);
 		return getAllArticle(vmjExchange);
 	}
 
@@ -36,9 +40,10 @@ public class ArticleServiceImpl extends ArticleServiceComponent{
 		String articleContent = (String) requestBody.get("articleContent");
 		String articleAuthor = (String) requestBody.get("articleAuthor");
 		String articleDatePublished = (String) requestBody.get("articleDatePublished");
+		EventOrganizer eventorganizerimpl  = eventOrganizerService.getEventOrganizerByName(articleAuthor);
 		
 		//to do: fix association attributes
-		Article Article = ArticleFactory.createArticle(
+		Article article = ArticleFactory.createArticle(
 			"TicketingSystem.article.core.ArticleImpl",
 		idArticle
 		, articleTitle
@@ -56,10 +61,11 @@ public class ArticleServiceImpl extends ArticleServiceComponent{
 		String articleContent = (String) vmjExchange.getRequestBodyForm("articleContent");
 		String articleAuthor = (String) vmjExchange.getRequestBodyForm("articleAuthor");
 		String articleDatePublished = (String) vmjExchange.getRequestBodyForm("articleDatePublished");
+		EventOrganizer eventorganizerimpl  = eventOrganizerService.getEventOrganizerByName(articleAuthor);
 		
 		//to do: fix association attributes
 		
-		Article article = ArticleFactory.createArticle("TicketingSystem.article.core.ArticleImpl", articleTitle, articleContent, articleAuthor, articleDatePublished, eventorganizerimpl);
+		Article article = ArticleFactory.createArticle("TicketingSystem.article.core.ArticleImpl", articleTitle, articleContent, articleAuthor, articleDatePublished ,eventorganizerimpl);
 		return article;
 	}
 
@@ -83,9 +89,10 @@ public class ArticleServiceImpl extends ArticleServiceComponent{
 
     public HashMap<String, Object> getArticle(Map<String, Object> requestBody){
 		List<HashMap<String, Object>> articleList = getAllArticle("article_impl");
+		String articleId = (String) vmjExchange.getRequestBodyForm("idArticle");
 		for (HashMap<String, Object> article : articleList){
 			int record_id = ((Double) article.get("record_id")).intValue();
-			if (record_id == id){
+			if (record_id == articleId){
 				return article;
 			}
 		}
@@ -94,8 +101,8 @@ public class ArticleServiceImpl extends ArticleServiceComponent{
 
 	public HashMap<String, Object> getArticleById(int id){
 		String idStr = vmjExchange.getGETParam("idArticle"); 
-		int id = Integer.parseInt(idStr);
-		Article article = articleRepository.getObject(id);
+		int idArticle = Integer.parseInt(idStr);
+		Article article = articleRepository.getObject(idArticle);
 		return article.toHashMap();
 	}
 
