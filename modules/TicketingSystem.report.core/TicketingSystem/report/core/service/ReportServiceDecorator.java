@@ -10,7 +10,7 @@ public abstract class ReportServiceDecorator extends ReportServiceComponent{
         this.record = record;
     }
 
-	public ReportImpl createReport(Map<String, Object> requestBody){
+	public Report createReport(Map<String, Object> requestBody){
 		return record.createReport(requestBody);
 	}
 
@@ -42,11 +42,11 @@ public abstract class ReportServiceDecorator extends ReportServiceComponent{
 		return record.deleteReport(requestBody);
 	}
 
-	public HashMap<String, Object> getReportById(int id){
+	public HashMap<String, Object> getReportById(UUID id){
         return record.getReportById(id);
     }
 
 	public void generateReport() {
-		return record.generateReport();
+		System.out.println("Generating report");
 	}
 }

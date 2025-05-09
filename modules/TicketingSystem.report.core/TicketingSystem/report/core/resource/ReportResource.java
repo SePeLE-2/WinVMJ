@@ -9,5 +9,5 @@ public interface ReportResource {
     HashMap<String, Object> getReport(VMJExchange vmjExchange);
     List<HashMap<String,Object>> getAllReport(VMJExchange vmjExchange);
     List<HashMap<String,Object>> deleteReport(VMJExchange vmjExchange);
-	HashMap<String, Object> Report(VMJExchange vmjExhange);
+	// HashMap<String, Object> Report(VMJExchange vmjExhange);
 }

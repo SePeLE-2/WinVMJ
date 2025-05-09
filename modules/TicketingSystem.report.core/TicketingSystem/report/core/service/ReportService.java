@@ -9,7 +9,7 @@ public interface ReportService {
 	HashMap<String, Object> getReport(Map<String, Object> requestBody);
     List<HashMap<String,Object>> saveReport(Map<String, Object> requestBody);
     HashMap<String, Object> updateReport(Map<String, Object> requestBody);
-    HashMap<String, Object> getReportById(int id);
+    HashMap<String, Object> getReportById(UUID id);
     List<HashMap<String,Object>> getAllReport(Map<String, Object> requestBody);
     List<HashMap<String,Object>> deleteReport(Map<String, Object> requestBody);
 	List<HashMap<String, Object>> transformListToHashMap(List<Report> List);

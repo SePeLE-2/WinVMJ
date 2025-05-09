@@ -17,36 +17,40 @@ public abstract class ReportDecorator extends ReportComponent{
 	public ReportDecorator () {
 		super();
 		this.record = record;
-		this.idReportidEvent =  idReportidEvent.randomUUID();
+		this.idReport = UUID.randomUUID();
+		this.idEvent = UUID.randomUUID();
 	}
 		
 	public ReportDecorator (ReportComponent record) {
-		this.idReportidEvent =  idReportidEvent.randomUUID();
+		this.idReport = UUID.randomUUID();
+		this.idEvent = UUID.randomUUID();
 		this.record = record;
 	}
 
-	public ReportDecorator (int idReportint idEvent, ReportComponent record) {
-		this.idReportidEvent =  idReportidEvent;
+	public ReportDecorator (UUID idReport, UUID idEvent, ReportComponent record) {
+		this.idReport = idReport;
+		this.idEvent = idEvent;
 		this.record = record;
 	}
 	
 	public ReportDecorator (ReportComponent record, String objectName) {
-		this.idReportidEvent =  idReportidEvent.randomUUID();
+		this.idReport = UUID.randomUUID();
+		this.idEvent = UUID.randomUUID();
 		this.record = record;	
 		this.objectName=objectName;
 	}
 
 
-	public int getIdReport() {
+	public UUID getIdReport() {
 		return record.getIdReport();
 	}
-	public void setIdReport(int idReport) {
+	public void setIdReport(UUID idReport) {
 		record.setIdReport(idReport);
 	}
-	public int getIdEvent() {
+	public UUID getIdEvent() {
 		return record.getIdEvent();
 	}
-	public void setIdEvent(int idEvent) {
+	public void setIdEvent(UUID idEvent) {
 		record.setIdEvent(idEvent);
 	}
 	public String getEventName() {
@@ -75,7 +79,7 @@ public abstract class ReportDecorator extends ReportComponent{
 	}
 
 	public void generateReport() {
-		return record.generateReport();
+		System.out.println("Generating report for " + this.getEventName() + " on " + this.getEventDate());
 	}
 
 	public HashMap<String, Object> toHashMap() {

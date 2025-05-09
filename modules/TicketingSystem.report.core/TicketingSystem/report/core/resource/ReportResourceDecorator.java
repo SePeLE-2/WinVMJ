@@ -19,7 +19,7 @@ public abstract class ReportResourceDecorator extends ReportResourceComponent{
 		return record.createReport(vmjExchange);
 	}
 
-    public Report createReport(VMJExchange vmjExchange, int id){
+    public Report createReport(VMJExchange vmjExchange, UUID id){
 		return record.createReport(vmjExchange, id);
 	}
 
@@ -40,6 +40,6 @@ public abstract class ReportResourceDecorator extends ReportResourceComponent{
 	}
 
 	public void generateReport() {
-		return record.generateReport();
+		System.out.println("Generating report");
 	}
 }
