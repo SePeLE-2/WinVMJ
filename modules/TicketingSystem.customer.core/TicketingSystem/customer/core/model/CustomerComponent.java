@@ -10,18 +10,22 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
+import javax.persistence.ManyToOne;
+import TicketingSystem.payment.core.Payment;
+import TicketingSystem.payment.core.PaymentImpl;
+
 @Entity
 @Table(name="customer_comp")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class CustomerComponent implements Customer{
 	@Id
-	protected int id; 
+	protected UUID id; 
 	protected String firstName;
 	protected String lastName;
 	protected String email;
 	protected String phoneNumber;
 	@ManyToOne(targetEntity=TicketingSystem.payment.core.PaymentComponent.class)
-	public Payment paymentimpl;
+	public PaymentImpl paymentimpl;
 	protected String objectName = CustomerComponent.class.getName();
 
 	public CustomerComponent() {
@@ -29,7 +33,7 @@ public abstract class CustomerComponent implements Customer{
 	} 
 
 	public CustomerComponent(
-        int id, String firstName, String lastName, String email, String phoneNumber, PaymentImpl paymentimpl
+        UUID id, String firstName, String lastName, String email, String phoneNumber, PaymentImpl paymentimpl
     ) {
         this.id = id;
         this.firstName = firstName;
@@ -39,11 +43,11 @@ public abstract class CustomerComponent implements Customer{
         this.paymentimpl = paymentimpl;
     }
 
-	public int getId() {
+	public UUID getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 	public String getFirstName() {

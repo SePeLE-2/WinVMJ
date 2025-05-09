@@ -14,12 +14,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import TicketingSystem.payment.core.Payment;
+import TicketingSystem.payment.core.PaymentImpl;
+
 
 @Entity(name="customer_impl")
 @Table(name="customer_impl")
 public class CustomerImpl extends CustomerComponent {
 
-	public CustomerImpl(int id, String firstName, String lastName, String email, String phoneNumber, PaymentImpl paymentimpl) {
+	public CustomerImpl(UUID id, String firstName, String lastName, String email, String phoneNumber, PaymentImpl paymentimpl) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -39,11 +42,11 @@ public class CustomerImpl extends CustomerComponent {
 
 	public CustomerImpl() { }
 
-	public int getId() {
+	public UUID getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 	public String getFirstName() {
@@ -73,6 +76,14 @@ public class CustomerImpl extends CustomerComponent {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+
+	public PaymentImpl getPaymentimpl() {
+		return this.paymentimpl;
+	}
+
+	public void setPaymentimpl(PaymentImpl paymentimpl) {
+		this.paymentimpl = paymentimpl;
 	}
 
 	

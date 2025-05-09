@@ -25,7 +25,7 @@ public abstract class CustomerDecorator extends CustomerComponent{
 		this.record = record;
 	}
 
-	public CustomerDecorator (int id, CustomerComponent record) {
+	public CustomerDecorator (UUID id, CustomerComponent record) {
 		this.id =  id;
 		this.record = record;
 	}
@@ -37,10 +37,10 @@ public abstract class CustomerDecorator extends CustomerComponent{
 	}
 
 
-	public int getId() {
+	public UUID getId() {
 		return record.getId();
 	}
-	public void setId(int id) {
+	public void setId(UUID id) {
 		record.setId(id);
 	}
 	public String getFirstName() {

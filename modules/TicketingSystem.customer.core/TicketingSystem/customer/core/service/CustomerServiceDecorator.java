@@ -10,7 +10,7 @@ public abstract class CustomerServiceDecorator extends CustomerServiceComponent{
         this.record = record;
     }
 
-	public CustomerImpl createCustomer(Map<String, Object> requestBody){
+	public Customer createCustomer(Map<String, Object> requestBody){
 		return record.createCustomer(requestBody);
 	}
 
@@ -42,7 +42,7 @@ public abstract class CustomerServiceDecorator extends CustomerServiceComponent{
 		return record.deleteCustomer(requestBody);
 	}
 
-	public HashMap<String, Object> getCustomerById(int id){
+	public HashMap<String, Object> getCustomerById(UUID id){
         return record.getCustomerById(id);
     }
 

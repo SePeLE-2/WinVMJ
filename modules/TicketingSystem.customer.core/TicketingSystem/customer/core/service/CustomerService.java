@@ -7,9 +7,10 @@ public interface CustomerService {
 	Customer createCustomer(Map<String, Object> requestBody);
 	Customer createCustomer(Map<String, Object> requestBody, Map<String, Object> response);
 	HashMap<String, Object> getCustomer(Map<String, Object> requestBody);
-    List<HashMap<String,Object>> saveCustomer(Map<String, Object> requestBody);
+    // List<HashMap<String,Object>> saveCustomer(Map<String, Object> requestBody);
+    List<HashMap<String,Object>> saveCustomer(VMJExchange vmjExchange);
     HashMap<String, Object> updateCustomer(Map<String, Object> requestBody);
-    HashMap<String, Object> getCustomerById(int id);
+    HashMap<String, Object> getCustomerById(UUID id);
     List<HashMap<String,Object>> getAllCustomer(Map<String, Object> requestBody);
     List<HashMap<String,Object>> deleteCustomer(Map<String, Object> requestBody);
 	List<HashMap<String, Object>> transformListToHashMap(List<Customer> List);

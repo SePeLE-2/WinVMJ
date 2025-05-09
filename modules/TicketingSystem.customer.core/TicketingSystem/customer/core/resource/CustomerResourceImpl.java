@@ -16,17 +16,19 @@ public class CustomerResourceImpl extends CustomerResourceComponent{
 	
     @Route(url="call/customer/save")
     public List<HashMap<String,Object>> saveCustomer(VMJExchange vmjExchange){
-		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
-			return null;
-		}
-		Customer customer = createCustomer(vmjExchange);
-		customerRepository.saveObject(customer);
+		customerServiceImpl.saveCustomer(vmjExchange);
 		return getAllCustomer(vmjExchange);
+		// if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
+		// 	return null;
+		// }
+		// Customer customer = createCustomer(vmjExchange);
+		// Repository.saveObject(customer);
+		// return getAllCustomer(vmjExchange);
 	}
 
 	
     @Route(url="call/customer")
-    public HashMap<String,Object> customer(VMJExchange vmjExchange){
+    public HashMap<String,Object> Customer(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("POST")) {
 		    Map<String, Object> requestBody = vmjExchange.getPayload(); 
 			Customer result = customerServiceImpl.createCustomer(requestBody);
@@ -39,16 +41,19 @@ public class CustomerResourceImpl extends CustomerResourceComponent{
 		if (vmjExchange.getHttpMethod().equals("POST")) {
 		    Map<String, Object> requestBody = vmjExchange.getPayload(); 
 			Customer result = customerServiceImpl.createCustomer(requestBody);
-			return result.toHashMap();
+			// return result.toHashMap();
+			return result;
 		}
 		throw new NotFoundException("Route tidak ditemukan");
 	}
 
     public Customer createCustomer(VMJExchange vmjExchange, int id){
 		if (vmjExchange.getHttpMethod().equals("POST")) {
-		    Map<String, Object> requestBody = vmjExchange.getPayload(); 
-			Customer result = customerServiceImpl.createCustomer(requestBody, id);
-			return result.toHashMap();
+		    Map<String, Object> requestBody = vmjExchange.getPayload();
+			// Customer result = customerServiceImpl.createCustomer(requestBody, id);
+			Customer result = customerServiceImpl.createCustomer(requestBody);
+			// return result.toHashMap();
+			return result;
 		}
 		throw new NotFoundException("Route tidak ditemukan");
 	}
