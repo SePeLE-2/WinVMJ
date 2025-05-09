@@ -12,22 +12,25 @@ import TicketingSystem.report.core.ReportDecorator;
 import TicketingSystem.report.core.Report;
 import TicketingSystem.report.core.ReportComponent;
 
-@Entity(name="report_salesreport")
-@Table(name="report_salesreport")
+import TicketingSystem.event.core.EventImpl;
+
+@Entity(name = "report_salesreport")
+@Table(name = "report_salesreport")
 public class ReportImpl extends ReportDecorator {
 
 	protected int totalRevenue;
-	public ReportImpl() {
-        super();
-        this.objectName = ReportImpl.class.getName();
-    }
 
-	    public ReportImpl(int totalRevenue) {
-	        super();
-	        this.totalRevenue = totalRevenue;
-	        this.objectName = ReportImpl.class.getName();
-	    }
-	
+	public ReportImpl() {
+		super();
+		this.objectName = ReportImpl.class.getName();
+	}
+
+	public ReportImpl(int totalRevenue) {
+		super();
+		this.totalRevenue = totalRevenue;
+		this.objectName = ReportImpl.class.getName();
+	}
+
 	public ReportImpl(ReportComponent record, int totalRevenue) {
 		super(record);
 		this.totalRevenue = totalRevenue;
@@ -42,8 +45,17 @@ public class ReportImpl extends ReportDecorator {
 		this.totalRevenue = totalRevenue;
 	}
 
+	public EventImpl getEventimpl() {
+		return this.eventimpl;
+	}
+
+	public void setEventimpl(EventImpl eventimpl) {
+		this.eventimpl = eventimpl;
+	}
+
 	public void calculateRevenue() {
 		// TODO: implement this method
+		System.out.println("salesreport calculateRevenue() called in service; this should ideally be in entity logic.");
 	}
 
 }
