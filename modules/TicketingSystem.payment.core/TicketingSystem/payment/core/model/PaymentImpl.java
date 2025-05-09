@@ -13,20 +13,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
+import TicketingSystem.bundling.core.BundlingImpl;
+import TicketingSystem.ticket.core.TicketImpl;
 
 @Entity(name="payment_impl")
 @Table(name="payment_impl")
 public class PaymentImpl extends PaymentComponent {
 
 	public PaymentImpl(int amount, BundlingImpl bundlingimpl, TicketImpl ticketimpl) {
-		this.amount = amount;
-		this.bundlingimpl = bundlingimpl;
-		this.ticketimpl = ticketimpl;
-	}
-
-	public PaymentImpl(int amount, BundlingImpl bundlingimpl, TicketImpl ticketimpl) {
-		this. =  .randomUUID();;
+		this.id = UUID.randomUUID();
 		this.amount = amount;
 		this.bundlingimpl = bundlingimpl;
 		this.ticketimpl = ticketimpl;
@@ -34,9 +29,38 @@ public class PaymentImpl extends PaymentComponent {
 
 	public PaymentImpl() { }
 
+	@Override
+	public void setTicketimpl(TicketImpl ticketimpl) {
+		this.ticketimpl = ticketimpl;
+	}
+
+	@Override
+	public TicketImpl getTicketimpl() {
+    	return this.ticketimpl;
+	}
+
+	@Override
+	public void setBundlingimpl(BundlingImpl bundlingimpl) {
+    	this.bundlingimpl = bundlingimpl;
+	}
+
+	@Override
+	public BundlingImpl getBundlingimpl() {
+		return this.bundlingimpl;
+	}
+
+	@Override
+	public int getAmount() {
+		return this.amount;
+	}
+	
+	@Override
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
 
 	public void pay() {
-		// TODO: implement this method
+		System.out.println("Payment of " + amount + " made for ticket: " + ticketimpl.getTicketName());
 	}
 	
 	public HashMap<String, Object> toHashMap() {

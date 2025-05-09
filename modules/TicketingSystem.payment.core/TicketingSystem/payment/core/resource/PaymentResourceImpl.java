@@ -20,7 +20,7 @@ public class PaymentResourceImpl extends PaymentResourceComponent{
 			return null;
 		}
 		Payment payment = createPayment(vmjExchange);
-		paymentRepository.saveObject(payment);
+		Repository.saveObject(payment);
 		return getAllPayment(vmjExchange);
 	}
 
@@ -39,16 +39,16 @@ public class PaymentResourceImpl extends PaymentResourceComponent{
 		if (vmjExchange.getHttpMethod().equals("POST")) {
 		    Map<String, Object> requestBody = vmjExchange.getPayload(); 
 			Payment result = paymentServiceImpl.createPayment(requestBody);
-			return result.toHashMap();
+			return result;
 		}
 		throw new NotFoundException("Route tidak ditemukan");
 	}
 
-    public Payment createPayment(VMJExchange vmjExchange, int id){
+    public Payment createPayment(VMJExchange vmjExchange, UUID id){
 		if (vmjExchange.getHttpMethod().equals("POST")) {
 		    Map<String, Object> requestBody = vmjExchange.getPayload(); 
-			Payment result = paymentServiceImpl.createPayment(requestBody, id);
-			return result.toHashMap();
+			Payment result = paymentServiceImpl.createPayment(requestBody);
+			return result;
 		}
 		throw new NotFoundException("Route tidak ditemukan");
 	}
@@ -88,10 +88,8 @@ public class PaymentResourceImpl extends PaymentResourceComponent{
 		
 		return paymentServiceImpl.deletePayment(requestBody);
 	}
-
-
 	
 	public void pay() {
-		// TODO: implement this method
+		System.out.println("Paying item");
 	}
 }
