@@ -10,11 +10,11 @@ public abstract class EventOrganizerServiceDecorator extends EventOrganizerServi
         this.record = record;
     }
 
-	public EventOrganizerImpl createEventOrganizer(Map<String, Object> requestBody){
+	public EventOrganizer createEventOrganizer(Map<String, Object> requestBody) {
 		return record.createEventOrganizer(requestBody);
 	}
 
-    public EventOrganizer createEventOrganizer(Map<String, Object> requestBody, Map<String, Object> response){
+    public EventOrganizer createEventOrganizer(Map<String, Object> requestBody, Map<String, Object> response) {
 		return record.createEventOrganizer(requestBody, response);
 	}
 

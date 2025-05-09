@@ -8,27 +8,28 @@ import TicketingSystem.eventorganizer.EventOrganizerFactory;
 import vmj.auth.annotations.Restricted;
 //add other required packages
 
-
 public class EventOrganizerResourceImpl extends EventOrganizerResourceComponent{
 	
 	private EventOrganizerServiceImpl eventorganizerServiceImpl = new EventOrganizerServiceImpl();
 
-	
     @Route(url="call/eventorganizer/save")
     public List<HashMap<String,Object>> saveEventOrganizer(VMJExchange vmjExchange){
-		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
-			return null;
-		}
-		EventOrganizer eventorganizer = createEventOrganizer(vmjExchange);
-		eventorganizerRepository.saveObject(eventorganizer);
+		eventorganizerServiceImpl.saveEventOrganizer(vmjExchange);
 		return getAllEventOrganizer(vmjExchange);
+		// if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
+		// 	return null;
+		// }
+		// EventOrganizer eventorganizer = createEventOrganizer(vmjExchange);
+		// // eventorganizerRepository.saveObject(eventorganizer);
+		// Repository.saveObject(eventorganizer);
+		// return getAllEventOrganizer(vmjExchange);
 	}
 
 	
     @Route(url="call/eventorganizer")
-    public HashMap<String,Object> eventorganizer(VMJExchange vmjExchange){
-		if (vmjExchange.getHttpMethod().equals("POST")) {
-		    Map<String, Object> requestBody = vmjExchange.getPayload(); 
+    public HashMap<String, Object> eventOrganizer(VMJExchange vmjExhange){
+		if (vmjExhange.getHttpMethod().equals("POST")) {
+		    Map<String, Object> requestBody = vmjExhange.getPayload(); 
 			EventOrganizer result = eventorganizerServiceImpl.createEventOrganizer(requestBody);
 			return result.toHashMap();
 		}
@@ -39,7 +40,7 @@ public class EventOrganizerResourceImpl extends EventOrganizerResourceComponent{
 		if (vmjExchange.getHttpMethod().equals("POST")) {
 		    Map<String, Object> requestBody = vmjExchange.getPayload(); 
 			EventOrganizer result = eventorganizerServiceImpl.createEventOrganizer(requestBody);
-			return result.toHashMap();
+			return result;
 		}
 		throw new NotFoundException("Route tidak ditemukan");
 	}
@@ -47,8 +48,10 @@ public class EventOrganizerResourceImpl extends EventOrganizerResourceComponent{
     public EventOrganizer createEventOrganizer(VMJExchange vmjExchange, int id){
 		if (vmjExchange.getHttpMethod().equals("POST")) {
 		    Map<String, Object> requestBody = vmjExchange.getPayload(); 
-			EventOrganizer result = eventorganizerServiceImpl.createEventOrganizer(requestBody, id);
-			return result.toHashMap();
+			// EventOrganizer result = eventorganizerServiceImpl.createEventOrganizer(requestBody, id);
+			EventOrganizer result = eventorganizerServiceImpl.createEventOrganizer(requestBody);
+			// return result.toHashMap();
+			return result;
 		}
 		throw new NotFoundException("Route tidak ditemukan");
 	}

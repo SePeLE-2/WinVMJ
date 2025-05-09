@@ -1,4 +1,5 @@
 package TicketingSystem.eventorganizer.core;
+
 import java.util.*;
 import com.google.gson.Gson;
 import java.util.*;
@@ -17,16 +18,25 @@ import vmj.routing.route.exceptions.*;
 import TicketingSystem.eventorganizer.EventOrganizerFactory;
 import vmj.auth.annotations.Restricted;
 //add other required packages
+import TicketingSystem.event.core.EventImpl;
 
 public class EventOrganizerServiceImpl extends EventOrganizerServiceComponent{
 
+	@Override
     public List<HashMap<String,Object>> saveEventOrganizer(VMJExchange vmjExchange){
+
 		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
 			return null;
 		}
-		EventOrganizer eventorganizer = createEventOrganizer(vmjExchange);
-		eventorganizerRepository.saveObject(eventorganizer);
-		return getAllEventOrganizer(vmjExchange);
+
+		Map<String, Object> requestBody = vmjExchange.getPayload();
+		EventOrganizer eventorganizer = createEventOrganizer(requestBody);
+
+		Repository.saveObject(eventorganizer);
+		return getAllEventOrganizer(requestBody);
+		// EventOrganizer eventorganizer = createEventOrganizer(vmjExchange);
+		// Repository.saveObject(eventorganizer);
+		// return getAllEventOrganizer(vmjExchange);
 	}
 
     public EventOrganizer createEventOrganizer(Map<String, Object> requestBody){
@@ -37,32 +47,36 @@ public class EventOrganizerServiceImpl extends EventOrganizerServiceComponent{
 		String location = (String) requestBody.get("location");
 		
 		//to do: fix association attributes
-		EventOrganizer EventOrganizer = EventOrganizerFactory.createEventOrganizer(
+		EventImpl eventimpl = new EventImpl();
+
+		EventOrganizer eventOrganizer = EventOrganizerFactory.createEventOrganizer(
 			"TicketingSystem.eventorganizer.core.EventOrganizerImpl",
-		id
-		, name
-		, email
-		, location
-		, eventimpl
+			id, name, email, location, eventimpl
 		);
-		Repository.saveObject(eventorganizer);
-		return eventorganizer;
+		Repository.saveObject(eventOrganizer);
+		return eventOrganizer;
 	}
 
-    public EventOrganizer createEventOrganizer(Map<String, Object> requestBody, int id){
-		String name = (String) vmjExchange.getRequestBodyForm("name");
-		String email = (String) vmjExchange.getRequestBodyForm("email");
-		String location = (String) vmjExchange.getRequestBodyForm("location");
-		
-		//to do: fix association attributes
-		
-		EventOrganizer eventorganizer = EventOrganizerFactory.createEventOrganizer("TicketingSystem.eventorganizer.core.EventOrganizerImpl", name, email, location, eventimpl);
-		return eventorganizer;
+	public EventOrganizer createEventOrganizer(Map<String, Object> requestBody, Map<String, Object> response) {
+		return createEventOrganizer(requestBody);
 	}
+
+    // public EventOrganizer createEventOrganizer(Map<String, Object> requestBody, int id){
+	// 	String name = (String) vmjExchange.getRequestBodyForm("name");
+	// 	String email = (String) vmjExchange.getRequestBodyForm("email");
+	// 	String location = (String) vmjExchange.getRequestBodyForm("location");
+		
+	// 	//to do: fix association attributes
+	// 	EventImpl eventimpl = new EventImpl();
+	// 	// EventImpl eventimpl = (EventImpl) vmjExchange.getRequestBodyForm("eventimpl");
+		
+	// 	EventOrganizer eventorganizer = EventOrganizerFactory.createEventOrganizer("TicketingSystem.eventorganizer.core.EventOrganizerImpl", name, email, location, eventimpl);
+	// 	return eventorganizer;
+	// }
 
     public HashMap<String, Object> updateEventOrganizer(Map<String, Object> requestBody){
 		String idStr = (String) requestBody.get("id");
-		int id = Integer.parseInt(idStr);
+		UUID id = UUID.fromString(idStr);
 		EventOrganizer eventorganizer = Repository.getObject(id);
 		
 		eventorganizer.setName((String) requestBody.get("name"));
@@ -77,11 +91,16 @@ public class EventOrganizerServiceImpl extends EventOrganizerServiceComponent{
 		
 	}
 
-    public HashMap<String, Object> getEventOrganizer(Map<String, Object> requestBody){
-		List<HashMap<String, Object>> eventorganizerList = getAllEventOrganizer("eventorganizer_impl");
+	public HashMap<String, Object> getEventOrganizer(Map<String, Object> requestBody){
+		// String idStr = (String) requestBody.get("id");
+		// int id = Integer.parseInt(idStr);
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("table_name", "eventorganizer_impl");
+		List<HashMap<String, Object>> eventorganizerList = getAllEventOrganizer(map);
 		for (HashMap<String, Object> eventorganizer : eventorganizerList){
 			int record_id = ((Double) eventorganizer.get("record_id")).intValue();
-			if (record_id == id){
+			if (eventorganizer.get("id").equals(record_id)){
 				return eventorganizer;
 			}
 		}
@@ -89,7 +108,7 @@ public class EventOrganizerServiceImpl extends EventOrganizerServiceComponent{
 	}
 
 	public HashMap<String, Object> getEventOrganizerById(int id){
-		EventOrganizer eventorganizer = eventorganizerRepository.getObject(id);
+		EventOrganizer eventorganizer = Repository.getObject(id);
 		return eventorganizer.toHashMap();
 	}
 

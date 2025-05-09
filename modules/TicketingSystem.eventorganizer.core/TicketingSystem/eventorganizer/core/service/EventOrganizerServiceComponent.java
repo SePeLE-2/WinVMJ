@@ -14,7 +14,7 @@ public abstract class EventOrganizerServiceComponent implements EventOrganizerSe
 
     public abstract List<HashMap<String,Object>> saveEventOrganizer(VMJExchange vmjExchange);
     public abstract EventOrganizer createEventOrganizer(Map<String, Object> requestBodye);
-	public abstract EventOrganizer createEventOrganizer(Map<String, Object> requestBody, Map<String, Object> response);    
+	public abstract EventOrganizer createEventOrganizer(Map<String, Object> requestBody, Map<String, Object> response);
 	public abstract HashMap<String, Object> updateEventOrganizer(Map<String, Object> requestBody);
     public abstract HashMap<String, Object> getEventOrganizer(Map<String, Object> requestBody);
     public abstract List<HashMap<String,Object>> getAllEventOrganizer(Map<String, Object> requestBody);
