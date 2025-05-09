@@ -10,17 +10,20 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
+import TicketingSystem.event.core.EventImpl;
+import javax.persistence.ManyToOne;
+
 @Entity
 @Table(name="eventorganizer_comp")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class EventOrganizerComponent implements EventOrganizer{
 	@Id
-	protected int id; 
+	protected UUID id; 
 	protected String name;
 	protected String email;
 	protected String location;
-	@ManyToOne(targetEntity=TicketingSystem..core.Component.class)
-	public  eventimpl;
+	@ManyToOne(targetEntity=TicketingSystem.event.core.EventImpl.class)
+	public  EventImpl eventimpl;
 	protected String objectName = EventOrganizerComponent.class.getName();
 
 	public EventOrganizerComponent() {
@@ -28,7 +31,7 @@ public abstract class EventOrganizerComponent implements EventOrganizer{
 	} 
 
 	public EventOrganizerComponent(
-        int id, String name, String email, String location, EventImpl eventimpl
+        UUID id, String name, String email, String location, EventImpl eventimpl
     ) {
         this.id = id;
         this.name = name;
@@ -37,11 +40,11 @@ public abstract class EventOrganizerComponent implements EventOrganizer{
         this.eventimpl = eventimpl;
     }
 
-	public int getId() {
+	public UUID getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 	public String getName() {

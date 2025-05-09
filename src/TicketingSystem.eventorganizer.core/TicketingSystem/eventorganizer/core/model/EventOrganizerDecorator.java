@@ -9,6 +9,9 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.CascadeType;
 //add other required packages
 
+import TicketingSystem.event.core.EventImpl;
+
+
 @MappedSuperclass
 public abstract class EventOrganizerDecorator extends EventOrganizerComponent{
     @OneToOne(cascade=CascadeType.ALL)
@@ -17,30 +20,30 @@ public abstract class EventOrganizerDecorator extends EventOrganizerComponent{
 	public EventOrganizerDecorator () {
 		super();
 		this.record = record;
-		this.id =  id.randomUUID();
+		this.id =  UUID.randomUUID();
+	}
 		
 	public EventOrganizerDecorator (EventOrganizerComponent record) {
-		this.id =  id.randomUUID();
+		this.id =  UUID.randomUUID();
 		this.record = record;
 	}
 
-	public EventOrganizerDecorator (int id, EventOrganizerComponent record) {
+	public EventOrganizerDecorator (UUID id, EventOrganizerComponent record) {
 		this.id =  id;
 		this.record = record;
 	}
 	
 	public EventOrganizerDecorator (EventOrganizerComponent record, String objectName) {
-		this.id =  id.randomUUID();
+		this.id =  UUID.randomUUID();
 		this.record = record;	
 		this.objectName=objectName;
 	}
 
-	public EventOrganizerDecorator() { }
 
-	public int getId() {
+	public UUID getId() {
 		return record.getId();
 	}
-	public void setId(int id) {
+	public void setId(UUID id) {
 		record.setId(id);
 	}
 	public String getName() {
@@ -62,6 +65,13 @@ public abstract class EventOrganizerDecorator extends EventOrganizerComponent{
 		record.setLocation(location);
 	}
 
+	public EventImpl getEventimpl() {
+		return record.getEventimpl();
+	}
+
+	public void setEventimpl(EventImpl eventimpl) {
+		record.setEventimpl(eventimpl);
+	}
 
 	public HashMap<String, Object> toHashMap() {
         return this.record.toHashMap();

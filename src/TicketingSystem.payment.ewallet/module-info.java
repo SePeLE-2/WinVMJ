@@ -1,6 +1,9 @@
 module TicketingSystem.payment.ewallet {
 	requires TicketingSystem.payment.core;
-    exports TicketingSystem.payment.ewallet;
+	requires TicketingSystem.ticket.core; // ?
+	requires TicketingSystem.bundling.core; // ?
+
+	exports TicketingSystem.payment.ewallet;
 
 	requires vmj.routing.route;
 	requires vmj.hibernate.integrator;

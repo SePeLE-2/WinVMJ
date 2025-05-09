@@ -2,7 +2,7 @@
 <configuration>
 	<feature automatic="selected" name="TicketingSystem"/>
 	<feature automatic="selected" name="Event"/>
-	<feature manual="selected" name="Rating"/>
+	<feature name="Rating"/>
 	<feature name="SeatMapping"/>
 	<feature automatic="selected" name="EventOrganizer"/>
 	<feature automatic="selected" name="Payment"/>

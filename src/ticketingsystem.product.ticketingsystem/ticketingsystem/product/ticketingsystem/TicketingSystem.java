@@ -80,7 +80,6 @@ public class TicketingSystem {
 		configuration.addAnnotatedClass(TicketingSystem.event.core.EventComponent.class);
 		configuration.addAnnotatedClass(TicketingSystem.event.core.EventDecorator.class);
 		configuration.addAnnotatedClass(TicketingSystem.event.core.EventImpl.class);
-		configuration.addAnnotatedClass(TicketingSystem.event.rating.EventImpl.class);
 		configuration.addAnnotatedClass(TicketingSystem.eventorganizer.core.EventOrganizer.class);
 		configuration.addAnnotatedClass(TicketingSystem.eventorganizer.core.EventOrganizerComponent.class);
 		configuration.addAnnotatedClass(TicketingSystem.eventorganizer.core.EventOrganizerDecorator.class);
@@ -140,14 +139,6 @@ public class TicketingSystem {
         EventResource eventEvent2Resource = EventResourceFactory
             .createEventResource("TicketingSystem.event.core.EventResourceImpl"
                 );
-			
-        EventService ratingEvent2Service = EventServiceFactory
-            .createEventService("TicketingSystem.event.rating.EventServiceImpl"
-            	, eventEvent2Service);		
-
-        EventResource ratingEvent2Resource = EventResourceFactory
-            .createEventResource("TicketingSystem.event.rating.EventResourceImpl"
-                , eventEvent2Resource, eventEvent2Service);
 			
         EventOrganizerService eventorganizerEventOrganizer2Service = EventOrganizerServiceFactory
             .createEventOrganizerService("TicketingSystem.eventorganizer.core.EventOrganizerServiceImpl"
@@ -220,12 +211,6 @@ public class TicketingSystem {
 		System.out.println("eventorganizerEventOrganizer2Service endpoints binding");
 		Router.route(eventorganizerEventOrganizer2Service);
 		
-		System.out.println("ratingEvent2Resource endpoints binding");
-		Router.route(ratingEvent2Resource);
-		
-		System.out.println("ratingEvent2Service endpoints binding");
-		Router.route(ratingEvent2Service);
-		
 		System.out.println("eventEvent2Resource endpoints binding");
 		Router.route(eventEvent2Resource);
 		
@@ -248,7 +233,6 @@ public class TicketingSystem {
 					TicketingSystem.event.core.EventComponent.class.getName()
 				});
 				put("deltas", new String[] {
-					TicketingSystem.event.rating.EventImpl.class.getName()
 				});
 			}}
         );

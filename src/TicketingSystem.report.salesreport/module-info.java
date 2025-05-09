@@ -1,6 +1,8 @@
 module TicketingSystem.report.salesreport {
 	requires TicketingSystem.report.core;
-    exports TicketingSystem.report.salesreport;
+	requires TicketingSystem.event.core; // ?
+
+	exports TicketingSystem.report.salesreport;
 
 	requires vmj.routing.route;
 	requires vmj.hibernate.integrator;

@@ -14,12 +14,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import TicketingSystem.event.core.EventImpl;
 
 @Entity(name="eventorganizer_impl")
 @Table(name="eventorganizer_impl")
 public class EventOrganizerImpl extends EventOrganizerComponent {
 
-	public EventOrganizerImpl(int id, String name, String email, String location, EventImpl eventimpl) {
+	public EventOrganizerImpl(UUID id, String name, String email, String location, EventImpl eventimpl) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
@@ -37,11 +38,11 @@ public class EventOrganizerImpl extends EventOrganizerComponent {
 
 	public EventOrganizerImpl() { }
 
-	public int getId() {
+	public UUID getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 	public String getName() {
@@ -64,6 +65,14 @@ public class EventOrganizerImpl extends EventOrganizerComponent {
 
 	public void setLocation(String location) {
 		this.location = location;
+	}
+
+	public EventImpl getEventimpl() {
+		return this.eventimpl;
+	}
+
+	public void setEventimpl(EventImpl eventimpl) {
+		this.eventimpl = eventimpl;
 	}
 
 	

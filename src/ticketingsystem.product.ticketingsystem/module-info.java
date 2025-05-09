@@ -10,7 +10,6 @@ module ticketingsystem.product.ticketingsystem {
     requires jdk.unsupported;
 
     requires TicketingSystem.event.core;
-    requires TicketingSystem.event.rating;
     requires TicketingSystem.eventorganizer.core;
     requires TicketingSystem.payment.core;
     requires TicketingSystem.payment.ewallet;

@@ -1,1 +1,5 @@
 /TicketResource.java
+/TicketResourceComponent.java
+/.gitignore
+/TicketResourceDecorator.java
+/TicketResourceImpl.java

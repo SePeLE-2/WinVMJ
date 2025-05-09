@@ -1,116 +1,113 @@
 package TicketingSystem.payment.core;
-import java.util.*;
-import com.google.gson.Gson;
-import java.util.*;
-import java.util.logging.Logger;
-import java.io.File;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 
+import java.util.*;
+import TicketingSystem.bundling.core.BundlingImpl;
+import TicketingSystem.ticket.core.Ticket;
+import TicketingSystem.ticket.core.TicketImpl;
+import TicketingSystem.payment.PaymentFactory;
 import vmj.routing.route.Route;
 import vmj.routing.route.VMJExchange;
 import vmj.routing.route.exceptions.*;
-import TicketingSystem.payment.PaymentFactory;
-import prices.auth.vmj.annotations.Restricted;
-//add other required packages
+import vmj.auth.annotations.Restricted;
 
-public class PaymentServiceImpl extends PaymentServiceComponent{
+public class PaymentServiceImpl extends PaymentServiceComponent {
+	private Ticket ticketimpl;
+	private BundlingImpl bundlingimpl;
 
-    public List<HashMap<String,Object>> savePayment(VMJExchange vmjExchange){
-		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
-			return null;
-		}
-		Payment payment = createPayment(vmjExchange);
-		paymentRepository.saveObject(payment);
-		return getAllPayment(vmjExchange);
+	@Override
+	public List<HashMap<String,Object>> savePayment(VMJExchange vmjExchange) {
+		if (vmjExchange.getHttpMethod().equals("OPTIONS")) return null;
+
+		Map<String, Object> requestBody = vmjExchange.getPayload();
+		Payment payment = createPayment(requestBody);
+
+		Repository.saveObject(payment);
+		return getAllPayment(requestBody);
 	}
 
-    public Payment createPayment(Map<String, Object> requestBody){
+	@Override
+	public Payment createPayment(Map<String, Object> requestBody) {
 		String amountStr = (String) requestBody.get("amount");
 		int amount = Integer.parseInt(amountStr);
-		
-		//to do: fix association attributes
-		Payment Payment = PaymentFactory.createPayment(
+
+		BundlingImpl bundlingimpl = new BundlingImpl(); // TODO: retrieve from DB
+		TicketImpl ticketimpl = new TicketImpl();       // TODO: retrieve from DB
+
+		return PaymentFactory.createPayment(
 			"TicketingSystem.payment.core.PaymentImpl",
-		amount
-		, bundlingimpl
-		, ticketimpl
+			amount,
+			bundlingimpl,
+			ticketimpl
 		);
+	}
+
+	@Override
+	public Payment createPayment(Map<String, Object> requestBody, Map<String, Object> response) {
+		return createPayment(requestBody);
+	}
+
+	@Override
+	public List<HashMap<String,Object>> savePayment(Map<String, Object> requestBody) {
+		Payment payment = createPayment(requestBody);
 		Repository.saveObject(payment);
-		return payment;
+		return getAllPayment(requestBody);
 	}
 
-    public Payment createPayment(Map<String, Object> requestBody, int id){
-		String amountStr = (String) vmjExchange.getRequestBodyForm("amount");
-		int amount = Integer.parseInt(amountStr);
-		
-		//to do: fix association attributes
-		
-		Payment payment = PaymentFactory.createPayment("TicketingSystem.payment.core.PaymentImpl", amount, bundlingimpl, ticketimpl);
-		return payment;
-	}
-
-    public HashMap<String, Object> updatePayment(Map<String, Object> requestBody){
-		String idStr = (String) requestBody.get("");
-		int id = Integer.parseInt(idStr);
+	public HashMap<String, Object> updatePayment(Map<String, Object> requestBody) {
+		String idStr = (String) requestBody.get("id");
+		UUID id = UUID.fromString(idStr);
 		Payment payment = Repository.getObject(id);
-		
+
 		String amountStr = (String) requestBody.get("amount");
 		payment.setAmount(Integer.parseInt(amountStr));
-		
+
 		Repository.updateObject(payment);
-		
-		//to do: fix association attributes
-		
 		return payment.toHashMap();
-		
 	}
 
-    public HashMap<String, Object> getPayment(Map<String, Object> requestBody){
-		List<HashMap<String, Object>> paymentList = getAllPayment("payment_impl");
-		for (HashMap<String, Object> payment : paymentList){
-			int record_id = ((Double) payment.get("record_id")).intValue();
-			if (record_id == id){
+	public HashMap<String, Object> getPayment(Map<String, Object> requestBody) {
+		UUID id = UUID.fromString((String) requestBody.get("id"));
+
+		Map<String, Object> temp = new HashMap<>();
+		temp.put("table_name", "payment_impl");
+
+		List<HashMap<String, Object>> paymentList = getAllPayment(temp);
+		for (HashMap<String, Object> payment : paymentList) {
+			UUID recordId = UUID.fromString((String) payment.get("record_id"));
+			if (recordId.equals(id)) {
 				return payment;
 			}
 		}
 		return null;
 	}
 
-	public HashMap<String, Object> getPaymentById(int id){
-		String idStr = vmjExchange.getGETParam(""); 
-		int id = Integer.parseInt(idStr);
-		Payment payment = paymentRepository.getObject(id);
+	public HashMap<String, Object> getPaymentById(UUID id) {
+		Payment payment = Repository.getObject(id);
 		return payment.toHashMap();
 	}
 
-    public List<HashMap<String,Object>> getAllPayment(Map<String, Object> requestBody){
+	public List<HashMap<String,Object>> getAllPayment(Map<String, Object> requestBody) {
 		String table = (String) requestBody.get("table_name");
-		List<Payment> List = Repository.getAllObject(table);
-		return transformListToHashMap(List);
+		List<Payment> list = Repository.getAllObject(table);
+		return transformListToHashMap(list);
 	}
 
-    public List<HashMap<String,Object>> transformListToHashMap(List<Payment> List){
-		List<HashMap<String,Object>> resultList = new ArrayList<HashMap<String,Object>>();
-        for(int i = 0; i < List.size(); i++) {
-            resultList.add(List.get(i).toHashMap());
-        }
-
-        return resultList;
+	public List<HashMap<String,Object>> transformListToHashMap(List<Payment> list) {
+		List<HashMap<String,Object>> resultList = new ArrayList<>();
+		for (Payment payment : list) {
+			resultList.add(payment.toHashMap());
+		}
+		return resultList;
 	}
 
-    public List<HashMap<String,Object>> deletePayment(Map<String, Object> requestBody){
-		String idStr = ((String) requestBody.get("id"));
-		int id = Integer.parseInt(idStr);
+	public List<HashMap<String,Object>> deletePayment(Map<String, Object> requestBody) {
+		String idStr = (String) requestBody.get("id");
+		UUID id = UUID.fromString(idStr);
 		Repository.deleteObject(id);
 		return getAllPayment(requestBody);
 	}
 
 	public void pay() {
-		// TODO: implement this method
+		// TODO: implement
 	}
 }

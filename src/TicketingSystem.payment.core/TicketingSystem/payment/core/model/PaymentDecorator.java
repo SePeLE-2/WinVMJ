@@ -17,29 +17,22 @@ public abstract class PaymentDecorator extends PaymentComponent{
 	public PaymentDecorator () {
 		super();
 		this.record = record;
-		this. =  .randomUUID();
+		this.id = UUID.randomUUID();
+	}
 		
 	public PaymentDecorator (PaymentComponent record) {
-		this. =  .randomUUID();
-		this.record = record;
-	}
-
-	public PaymentDecorator (, PaymentComponent record) {
-		this. =  ;
+		this.id = UUID.randomUUID();
 		this.record = record;
 	}
 	
 	public PaymentDecorator (PaymentComponent record, String objectName) {
-		this. =  .randomUUID();
+		this.id = UUID.randomUUID();
 		this.record = record;	
 		this.objectName=objectName;
 	}
 
-	public PaymentDecorator() { }
-
-
 	public void pay() {
-		return record.pay();
+		System.out.println("Paying item");
 	}
 
 	public HashMap<String, Object> toHashMap() {
