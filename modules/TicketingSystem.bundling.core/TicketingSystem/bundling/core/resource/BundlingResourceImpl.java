@@ -48,7 +48,6 @@ public class BundlingResourceImpl extends BundlingResourceComponent {
 			return null;
 		}
 		return bundlingServiceImpl.updateBundling(requestBody).toHashMap();
-
 	}
 
 	@Route(url = "call/bundling/detail")

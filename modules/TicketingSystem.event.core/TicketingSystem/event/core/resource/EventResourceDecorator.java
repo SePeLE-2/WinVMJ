@@ -12,17 +12,17 @@ public abstract class EventResourceDecorator extends EventResourceComponent {
 		this.record = record;
 	}
 
-	public List<HashMap<String, Object>> saveEvent(VMJExchange vmjExchange) {
+	public HashMap<String, Object> saveEvent(VMJExchange vmjExchange) {
 		return record.saveEvent(vmjExchange);
 	}
 
-	public Event createEvent(VMJExchange vmjExchange) {
-		return record.createEvent(vmjExchange);
-	}
+	// public Event createEvent(VMJExchange vmjExchange) {
+	// return record.createEvent(vmjExchange);
+	// }
 
-	public Event createEvent(VMJExchange vmjExchange, int id) {
-		return record.createEvent(vmjExchange, id);
-	}
+	// public Event createEvent(VMJExchange vmjExchange, int id) {
+	// return record.createEvent(vmjExchange, id);
+	// }
 
 	public HashMap<String, Object> updateEvent(VMJExchange vmjExchange) {
 		return record.updateEvent(vmjExchange);

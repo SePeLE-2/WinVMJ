@@ -11,27 +11,28 @@ public abstract class EventServiceDecorator extends EventServiceComponent {
 		this.record = record;
 	}
 
-	public Event createEvent(Map<String, Object> requestBody) {
-		return record.createEvent(requestBody);
+	// public Event createEvent(Map<String, Object> requestBody) {
+	// return record.createEvent(requestBody);
+	// }
+
+	// public Event createEvent(Map<String, Object> requestBody, Map<String, Object>
+	// response) {
+	// return record.createEvent(requestBody, response);
+	// }
+
+	public Event getEvent(UUID id) {
+		return record.getEvent(id);
 	}
 
-	public Event createEvent(Map<String, Object> requestBody, Map<String, Object> response) {
-		return record.createEvent(requestBody, response);
+	public List<Event> getAllEvent() {
+		return record.getAllEvent();
 	}
 
-	public HashMap<String, Object> getEvent(Map<String, Object> requestBody) {
-		return record.getEvent(requestBody);
+	public Event saveEvent(HashMap<String, Object> body, String email) {
+		return record.saveEvent(body, email);
 	}
 
-	public List<HashMap<String, Object>> getAllEvent(Map<String, Object> requestBody) {
-		return record.getAllEvent(requestBody);
-	}
-
-	public List<HashMap<String, Object>> saveEvent(VMJExchange vmjExchange) {
-		return record.saveEvent(vmjExchange);
-	}
-
-	public HashMap<String, Object> updateEvent(Map<String, Object> requestBody) {
+	public Event updateEvent(Map<String, Object> requestBody) {
 		return record.updateEvent(requestBody);
 	}
 
@@ -39,13 +40,13 @@ public abstract class EventServiceDecorator extends EventServiceComponent {
 		return record.transformListToHashMap(List);
 	}
 
-	public List<HashMap<String, Object>> deleteEvent(Map<String, Object> requestBody) {
-		return record.deleteEvent(requestBody);
+	public List<Event> deleteEvent(UUID Id) {
+		return record.deleteEvent(Id);
 	}
 
-	public HashMap<String, Object> getEventById(int id) {
-		return record.getEventById(id);
-	}
+	// public Event getEventById(UUID id) {
+	// return record.getEventById(id);
+	// }
 
 	public void createEvent() {
 		record.createEvent();
