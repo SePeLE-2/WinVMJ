@@ -1,5 +1,6 @@
 #!/bin/bash
-source ~/.zshrc  
+# source ~/.zshrc  
+source ~/.bashrc
 
 cleanup() {
     pkill -P $$

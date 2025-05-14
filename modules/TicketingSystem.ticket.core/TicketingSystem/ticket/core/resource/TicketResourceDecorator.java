@@ -12,21 +12,9 @@ public abstract class TicketResourceDecorator extends TicketResourceComponent {
 		this.record = record;
 	}
 
-	// public List<HashMap<String, Object>> saveTicket(VMJExchange vmjExchange) {
-	// return record.saveTicket(vmjExchange);
-	// }
-
-	public HashMap<String, Object> createTicket(VMJExchange vmjExchange) {
-		return record.createTicket(vmjExchange);
+	public HashMap<String, Object> saveTicket(VMJExchange vmjExchange) {
+		return record.saveTicket(vmjExchange);
 	}
-
-	// public Ticket createTicket(VMJExchange vmjExchange){
-	// return record.createTicket(vmjExchange);
-	// }
-
-	// public Ticket createTicket(VMJExchange vmjExchange, int id){
-	// return record.createTicket(vmjExchange, id);
-	// }
 
 	public HashMap<String, Object> updateTicket(VMJExchange vmjExchange) {
 		return record.updateTicket(vmjExchange);

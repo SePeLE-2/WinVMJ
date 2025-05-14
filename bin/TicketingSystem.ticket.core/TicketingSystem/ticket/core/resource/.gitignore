@@ -3,7 +3,3 @@
 /.gitignore
 /TicketResourceDecorator.java
 /TicketResourceImpl.java
-/TicketResource.class
-/TicketResourceComponent.class
-/TicketResourceDecorator.class
-/TicketResourceImpl.class

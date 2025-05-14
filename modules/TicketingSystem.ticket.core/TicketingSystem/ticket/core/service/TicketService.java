@@ -5,22 +5,17 @@ import java.util.*;
 import vmj.routing.route.VMJExchange;
 
 public interface TicketService {
-    Ticket createTicket(Map<String, Object> requestBody);
+    Ticket saveTicket(HashMap<String, Object> body, String email);
 
-    // Ticket createTicket(Map<String, Object> requestBody, Map<String, Object>
-    // response);
+    Ticket updateTicket(HashMap<String, Object> body);
 
-    HashMap<String, Object> getTicket(Map<String, Object> requestBody);
+    Ticket getTicket(UUID Id);
 
-    List<HashMap<String, Object>> saveTicket(Map<String, Object> requestBody);
+    List<Ticket> getAllTicket();
 
-    HashMap<String, Object> updateTicket(Map<String, Object> requestBody);
+    List<Ticket> deleteTicket(UUID Id);
 
-    HashMap<String, Object> getTicketById(int id);
+    List<HashMap<String, Object>> transformTicketListToHashMap(List<Ticket> List);
 
-    List<HashMap<String, Object>> getAllTicket(Map<String, Object> requestBody);
-
-    List<HashMap<String, Object>> deleteTicket(Map<String, Object> requestBody);
-    // List<HashMap<String, Object>> transformListToHashMap(List<Disbursement>
-    // List);
+    void purchase();
 }

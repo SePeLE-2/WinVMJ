@@ -20,129 +20,130 @@ import vmj.auth.annotations.Restricted;
 //add other required packages
 
 public class TicketServiceImpl extends TicketServiceComponent {
-	private TicketFactory ticketFactory = new TicketFactory();
+	public Ticket saveTicket(HashMap<String, Object> body, String email) {
+		if (!body.containsKey("eventName")) {
+			throw new FieldValidationException("Field 'eventName' not found in the request body.");
+		}
 
-	// public List<HashMap<String, Object>> saveTicket(VMJExchange vmjExchange) {
-	// if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
-	// return null;
-	// }
-	// Ticket ticket = createTicket(vmjExchange);
-	// ticketRepository.saveObject(ticket);
-	// return getAllTicket(vmjExchange);
-	// }
+		if (!body.containsKey("eventName")) {
+			throw new FieldValidationException("Field 'eventName' not found in the request body.");
+		}
+		String eventName = (String) body.get("eventName");
 
-	public List<HashMap<String, Object>> saveTicket(Map<String, Object> requestBody) {
-		String eventName = (String) requestBody.get("eventName");
-		String ticketName = (String) requestBody.get("ticketName");
-		String priceStr = (String) requestBody.get("price");
+		if (!body.containsKey("ticketName")) {
+			throw new FieldValidationException("Field 'ticketName' not found in the request body.");
+		}
+		String ticketName = (String) body.get("ticketName");
+
+		if (!body.containsKey("price")) {
+			throw new FieldValidationException("Field 'price' not found in the request body.");
+		}
+		String priceStr = (String) body.get("price");
 		int price = Integer.parseInt(priceStr);
-		String availabilityStr = (String) requestBody.get("availability");
+
+		if (!body.containsKey("availability")) {
+			throw new FieldValidationException("Field 'availability' not found in the request body.");
+		}
+		String availabilityStr = (String) body.get("availability");
 		int availability = Integer.parseInt(availabilityStr);
 
-		Ticket Ticket = TicketFactory.createTicket(
-				"TicketingSystem.ticket.core.TicketImpl",
-				eventName, ticketName, price, availability);
-		Repository.saveObject(Ticket);
-		return getAllTicket(requestBody);
+		UUID ticketId = UUID.randomUUID();
+
+		Ticket ticket = TicketFactory.createTicket("TicketingSystem.ticket.core.TicketImpl",
+				ticketId,
+				eventName,
+				ticketName,
+				price, availability);
+		ticketRepository.saveObject(ticket);
+		return ticketRepository.getObject(ticketId);
+
 	}
 
-	public Ticket createTicket(Map<String, Object> requestBody) {
-		String idStr = (String) requestBody.get("id");
-		int id = Integer.parseInt(idStr);
-		String eventName = (String) requestBody.get("eventName");
-		String ticketName = (String) requestBody.get("ticketName");
-		String priceStr = (String) requestBody.get("price");
-		int price = Integer.parseInt(priceStr);
-		String availabilityStr = (String) requestBody.get("availability");
-		int availability = Integer.parseInt(availabilityStr);
-
-		// to do: fix association attributes
-		Ticket Ticket = TicketFactory.createTicket(
-				"TicketingSystem.ticket.core.TicketImpl",
-				id, eventName, ticketName, price, availability);
-		Repository.saveObject(Ticket);
-		return Ticket;
-	}
-
-	// public Ticket createTicket(Map<String, Object> requestBody, int id) {
-	// String eventName = (String) vmjExchange.getRequestBodyForm("eventName");
-	// String ticketName = (String) vmjExchange.getRequestBodyForm("ticketName");
-	// String priceStr = (String) vmjExchange.getRequestBodyForm("price");
-	// int price = Integer.parseInt(priceStr);
-	// String availabilityStr = (String)
-	// vmjExchange.getRequestBodyForm("availability");
-	// int availability = Integer.parseInt(availabilityStr);
-
-	// // to do: fix association attributes
-
-	// Ticket ticket =
-	// TicketFactory.createTicket("TicketingSystem.ticket.core.TicketImpl",
-	// eventName, ticketName,
-	// price, availability);
-	// return ticket;
-	// }
-
-	public HashMap<String, Object> updateTicket(Map<String, Object> requestBody) {
-		String idStr = (String) requestBody.get("id");
-		// int id = Integer.parseInt(idStr);
+	public Ticket updateTicket(HashMap<String, Object> body) {
+		if (!body.containsKey("id")) {
+			throw new NotFoundException("Field 'id' not found in the request body.");
+		}
+		String idStr = (String) body.get("id");
 		UUID id = UUID.fromString(idStr);
-		Ticket ticket = Repository.getObject(id);
 
-		ticket.setEventName((String) requestBody.get("eventName"));
-		ticket.setTicketName((String) requestBody.get("ticketName"));
-		String priceStr = (String) requestBody.get("price");
-		ticket.setPrice(Integer.parseInt(priceStr));
-		String availabilityStr = (String) requestBody.get("availability");
-		ticket.setAvailability(Integer.parseInt(availabilityStr));
+		Ticket ticket = ticketRepository.getObject(id);
+		if (ticket == null) {
+			throw new NotFoundException("Ticket with id " + id + " not found");
+		}
 
-		Repository.updateObject(ticket);
+		if (body.containsKey("eventName")) {
+			String eventName = (String) body.get("eventName");
+			ticket.setEventName(eventName);
+		}
+		if (body.containsKey("ticketName")) {
+			String ticketName = (String) body.get("ticketName");
+			ticket.setTicketName(ticketName);
+		}
 
-		// to do: fix association attributes
-
-		return ticket.toHashMap();
-
-	}
-
-	public HashMap<String, Object> getTicket(Map<String, Object> requestBody) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("table_name", "ticket_impl");
-		List<HashMap<String, Object>> ticketList = getAllTicket(map);
-		for (HashMap<String, Object> ticket : ticketList) {
-			UUID record_id = UUID.fromString(ticket.get("record_id").toString());
-			String idStr = (String) requestBody.get("record_id");
-			UUID id = UUID.fromString(idStr);
-			if (record_id.equals(id)) {
-				return ticket;
+		int price = -1;
+		if (body.containsKey("price")) {
+			try {
+				price = Integer.parseInt((String) body.get("price"));
+			} catch (NumberFormatException e) {
+				throw new FieldValidationException("Price must be an integer");
 			}
 		}
-		return null;
+
+		if (price != -1) {
+			ticket.setPrice(price);
+		}
+
+		int availability = -1;
+		if (body.containsKey("availability")) {
+			try {
+				availability = Integer.parseInt((String) body.get("availability"));
+			} catch (NumberFormatException e) {
+				throw new FieldValidationException("Availability must be an integer");
+			}
+		}
+		if (availability != -1) {
+			ticket.setAvailability(availability);
+		}
+
+		ticketRepository.updateObject(ticket);
+		ticket = ticketRepository.getObject(id);
+
+		return ticket;
 	}
 
-	public HashMap<String, Object> getTicketById(int id) {
-		Ticket ticket = Repository.getObject(id);
-		return ticket.toHashMap();
+	public Ticket getTicket(UUID Id) {
+		Ticket ticket = ticketRepository.getObject(Id);
+		if (ticket == null) {
+			throw new NotFoundException("Ticket with Id " + Id + " not found");
+		}
+		return ticket;
 	}
 
-	public List<HashMap<String, Object>> getAllTicket(Map<String, Object> requestBody) {
-		String table = (String) requestBody.get("table_name");
-		List<Ticket> List = Repository.getAllObject(table);
-		return transformListToHashMap(List);
+	public List<Ticket> getAllTicket() {
+		List<Ticket> ticketList = ticketRepository.getListObject("ticket_impl", null, null);
+		Set<String> uniqueNames = new HashSet<>();
+		List<Ticket> uniqueTickets = new ArrayList<>();
+		for (Ticket ticket : ticketList) {
+			if (uniqueNames.add(ticket.getEventName())) {
+				uniqueTickets.add(ticket);
+			}
+		}
+		return uniqueTickets;
 	}
 
-	public List<HashMap<String, Object>> transformListToHashMap(List<Ticket> List) {
+	public List<Ticket> deleteTicket(UUID Id) {
+		Ticket ticket = ticketRepository.getObject(Id);
+		// TODO: delete ticket
+		return getAllTicket();
+	}
+
+	public List<HashMap<String, Object>> transformTicketListToHashMap(List<Ticket> List) {
 		List<HashMap<String, Object>> resultList = new ArrayList<HashMap<String, Object>>();
 		for (int i = 0; i < List.size(); i++) {
 			resultList.add(List.get(i).toHashMap());
 		}
 
 		return resultList;
-	}
-
-	public List<HashMap<String, Object>> deleteTicket(Map<String, Object> requestBody) {
-		String idStr = ((String) requestBody.get("id"));
-		int id = Integer.parseInt(idStr);
-		Repository.deleteObject(id);
-		return getAllTicket(requestBody);
 	}
 
 	public void purchase() {
