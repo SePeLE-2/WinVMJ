@@ -26,15 +26,6 @@ public abstract class TicketComponent implements Ticket {
 
 	}
 
-	// public TicketComponent(
-	// UUID id, String eventName, String ticketName, int price, int availability) {
-	// this.id = id;
-	// this.eventName = eventName;
-	// this.ticketName = ticketName;
-	// this.price = price;
-	// this.availability = availability;
-	// }
-
 	public UUID getId() {
 		return this.id;
 	}

@@ -13,31 +13,21 @@ import TicketingSystem.ticket.core.TicketImpl;
 import javax.persistence.ManyToOne;
 
 @Entity
-@Table(name="bundling_comp")
+@Table(name = "bundling_comp")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class BundlingComponent implements Bundling{
+public abstract class BundlingComponent implements Bundling {
 	@Id
-	protected UUID id; 
+	protected UUID id;
 	protected String bundlingName;
 	protected int price;
 	protected int availability;
-	@ManyToOne(targetEntity=TicketingSystem.ticket.core.TicketImpl.class)
+	@ManyToOne(targetEntity = TicketingSystem.ticket.core.TicketImpl.class)
 	public TicketImpl ticketimpl;
 	protected String objectName = BundlingComponent.class.getName();
 
 	public BundlingComponent() {
 
-	} 
-
-	public BundlingComponent(
-        UUID id, String bundlingName, int price, int availability, TicketImpl ticketimpl
-    ) {
-        this.id = id;
-        this.bundlingName = bundlingName;
-        this.price = price;
-        this.availability = availability;
-        this.ticketimpl = ticketimpl;
-    }
+	}
 
 	public UUID getId() {
 		return this.id;
@@ -46,6 +36,7 @@ public abstract class BundlingComponent implements Bundling{
 	public void setId(UUID id) {
 		this.id = id;
 	}
+
 	public String getBundlingName() {
 		return this.bundlingName;
 	}
@@ -53,6 +44,7 @@ public abstract class BundlingComponent implements Bundling{
 	public void setBundlingName(String bundlingName) {
 		this.bundlingName = bundlingName;
 	}
+
 	public int getPrice() {
 		return this.price;
 	}
@@ -60,6 +52,7 @@ public abstract class BundlingComponent implements Bundling{
 	public void setPrice(int price) {
 		this.price = price;
 	}
+
 	public int getAvailability() {
 		return this.availability;
 	}
@@ -67,21 +60,39 @@ public abstract class BundlingComponent implements Bundling{
 	public void setAvailability(int availability) {
 		this.availability = availability;
 	}
-	public abstract TicketImpl getTicketimpl();
-	public abstract void setTicketimpl(TicketImpl ticketimpl);
-	
- 
-	protected abstract void purchase();
+
+	public TicketImpl getTicketimpl() {
+		return this.ticketimpl;
+	}
+
+	public void setTicketimpl(TicketImpl ticketimpl) {
+		this.ticketimpl = ticketimpl;
+	}
+
+	protected void purchase() {
+		this.availability--;
+	}
 
 	@Override
-    public String toString() {
-        return "{" +
-            " id='" + getId() + "'" +
-            " bundlingName='" + getBundlingName() + "'" +
-            " price='" + getPrice() + "'" +
-            " availability='" + getAvailability() + "'" +
-            " ticketimpl='" + getTicketimpl() + "'" +
-            "}";
-    }
-	
+	public String toString() {
+		return "{" +
+				" id='" + getId() + "'" +
+				" bundlingName='" + getBundlingName() + "'" +
+				" price='" + getPrice() + "'" +
+				" availability='" + getAvailability() + "'" +
+				" ticketimpl='" + getTicketimpl() + "'" +
+				"}";
+	}
+
+	public HashMap<String, Object> toHashMap() {
+		HashMap<String, Object> bundlingMap = new HashMap<String, Object>();
+		bundlingMap.put("id", getId());
+		bundlingMap.put("bundlingName", getBundlingName());
+		bundlingMap.put("price", getPrice());
+		bundlingMap.put("availability", getAvailability());
+		bundlingMap.put("ticketimpl", getTicketimpl());
+
+		return bundlingMap;
+	}
+
 }

@@ -15,8 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import TicketingSystem.ticket.core.TicketImpl;
 
-@Entity(name="bundling_impl")
-@Table(name="bundling_impl")
+@Entity(name = "bundling_impl")
+@Table(name = "bundling_impl")
 public class BundlingImpl extends BundlingComponent {
 
 	public BundlingImpl(UUID id, String bundlingName, int price, int availability, TicketImpl ticketimpl) {
@@ -35,61 +35,11 @@ public class BundlingImpl extends BundlingComponent {
 		this.ticketimpl = ticketimpl;
 	}
 
-	public BundlingImpl() { }
-
-	// public UUID getId() {
-	// 	return this.id;
-	// }
-
-	@Override
-	public void setTicketimpl(TicketImpl ticketimpl) {
-    	this.ticketimpl = ticketimpl;
+	public BundlingImpl() {
+		this.id = UUID.randomUUID();
+		this.bundlingName = "";
+		this.price = 0;
+		this.availability = 0;
+		this.ticketimpl = null;
 	}
-
-	@Override
-	public TicketImpl getTicketimpl() {
-    	return this.ticketimpl;
-	}
-
-	public void setId(UUID id) {
-		this.id = id;
-	}
-
-	public String getBundlingName() {
-		return this.bundlingName;
-	}
-
-	public void setBundlingName(String bundlingName) {
-		this.bundlingName = bundlingName;
-	}
-	public int getPrice() {
-		return this.price;
-	}
-
-	public void setPrice(int price) {
-		this.price = price;
-	}
-	public int getAvailability() {
-		return this.availability;
-	}
-
-	public void setAvailability(int availability) {
-		this.availability = availability;
-	}
-
-	protected void purchase() {
-		System.out.println("Purchasing " + this.getBundlingName() + " for " + this.getPrice() + " dollars.");
-	}
-	
-	public HashMap<String, Object> toHashMap() {
-        HashMap<String, Object> bundlingMap = new HashMap<String,Object>();
-		bundlingMap.put("id",getId());
-		bundlingMap.put("bundlingName",getBundlingName());
-		bundlingMap.put("price",getPrice());
-		bundlingMap.put("availability",getAvailability());
-		bundlingMap.put("ticketimpl",getTicketimpl());
-
-        return bundlingMap;
-    }
-
 }

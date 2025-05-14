@@ -30,12 +30,6 @@ public abstract class TicketDecorator extends TicketComponent {
 		this.record = record;
 	}
 
-	// public TicketDecorator(TicketComponent record, String objectName) {
-	// this.id = UUID.randomUUID();
-	// this.record = record;
-	// this.objectName = objectName;
-	// }
-
 	public UUID getId() {
 		return record.getId();
 	}

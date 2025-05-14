@@ -24,10 +24,6 @@ public class TicketServiceImpl extends TicketServiceComponent {
 		if (!body.containsKey("eventName")) {
 			throw new FieldValidationException("Field 'eventName' not found in the request body.");
 		}
-
-		if (!body.containsKey("eventName")) {
-			throw new FieldValidationException("Field 'eventName' not found in the request body.");
-		}
 		String eventName = (String) body.get("eventName");
 
 		if (!body.containsKey("ticketName")) {
@@ -56,7 +52,6 @@ public class TicketServiceImpl extends TicketServiceComponent {
 				price, availability);
 		ticketRepository.saveObject(ticket);
 		return ticketRepository.getObject(ticketId);
-
 	}
 
 	public Ticket updateTicket(HashMap<String, Object> body) {
