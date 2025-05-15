@@ -1,6 +1,9 @@
 module TicketingSystem.payment.creditcard {
 	requires TicketingSystem.payment.core;
-    exports TicketingSystem.payment.creditcard;
+	requires TicketingSystem.ticket.core; // ?
+	requires TicketingSystem.bundling.core; // ?
+
+	exports TicketingSystem.payment.creditcard;
 
 	requires vmj.routing.route;
 	requires vmj.hibernate.integrator;
