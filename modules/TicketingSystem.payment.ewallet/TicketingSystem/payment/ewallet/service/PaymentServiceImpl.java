@@ -23,14 +23,6 @@ public class PaymentServiceImpl extends PaymentServiceDecorator {
         return record.savePayment(vmjExchange);
     }
 
-    public Payment createPayment(Map<String, Object> requestBody) {
-        return record.createPayment(requestBody);
-    }
-
-    public Payment createPayment(Map<String, Object> requestBody, Map<String, Object> response) {
-        return record.createPayment(requestBody, response);
-    }
-
     public HashMap<String, Object> getPayment(Map<String, Object> requestBody) {
         return record.getPayment(requestBody);
     }
@@ -53,9 +45,5 @@ public class PaymentServiceImpl extends PaymentServiceDecorator {
 
     public List<HashMap<String, Object>> savePayment(Map<String, Object> requestBody) {
         return record.savePayment(requestBody);
-    }
-
-    public HashMap<String, Object> getPaymentById(UUID id) {
-        return record.getPaymentById(id);
     }
 }

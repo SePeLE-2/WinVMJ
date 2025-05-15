@@ -31,37 +31,47 @@ public class PaymentImpl extends PaymentDecorator {
 
 	public void pay() {
 		// TODO: implement this method
-		System.out.println("ewallet pay() called in service; this should ideally be in entity logic.");
+		System.out.println("ewallet pay() called in service");
 	}
 
-	@Override
 	public int getAmount() {
 		return this.amount;
 	}
 
-	@Override
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
 
-	@Override
+	public BundlingImpl getBundlingimpl() {
+		return this.bundlingimpl;
+	}
+
+	public void setBundlingimpl(BundlingImpl bundlingimpl) {
+		this.bundlingimpl = bundlingimpl;
+	}
+
+	public TicketImpl getTicketimpl() {
+		return this.ticketimpl;
+	}
+
 	public void setTicketimpl(TicketImpl ticketimpl) {
 		this.ticketimpl = ticketimpl;
 	}
 
 	@Override
-	public TicketImpl getTicketimpl() {
-		return this.ticketimpl;
+	public String toString() {
+		return "{" +
+				" amount='" + getAmount() + "'" +
+				" bundlingimpl='" + getBundlingimpl() + "'" +
+				" ticketimpl='" + getTicketimpl() + "'" +
+				"}";
 	}
 
-	@Override
-	public void setBundlingimpl(BundlingImpl bundlingimpl) {
-		this.bundlingimpl = bundlingimpl;
+	public HashMap<String, Object> toHashMap() {
+		HashMap<String, Object> paymentMap = new HashMap<String, Object>();
+		paymentMap.put("amount", getAmount());
+		paymentMap.put("bundlingimpl", getBundlingimpl());
+		paymentMap.put("ticketimpl", getTicketimpl());
+		return paymentMap;
 	}
-
-	@Override
-	public BundlingImpl getBundlingimpl() {
-		return this.bundlingimpl;
-	}
-
 }

@@ -33,24 +33,6 @@ public class PaymentResourceImpl extends PaymentResourceComponent {
 		return payment.toHashMap();
 	}
 
-	// public Payment createPayment(VMJExchange vmjExchange) {
-	// if (vmjExchange.getHttpMethod().equals("POST")) {
-	// Map<String, Object> requestBody = vmjExchange.getPayload();
-	// Payment result = paymentServiceImpl.createPayment(requestBody);
-	// return result;
-	// }
-	// throw new NotFoundException("Route tidak ditemukan");
-	// }
-
-	// public Payment createPayment(VMJExchange vmjExchange, UUID id) {
-	// if (vmjExchange.getHttpMethod().equals("POST")) {
-	// Map<String, Object> requestBody = vmjExchange.getPayload();
-	// Payment result = paymentServiceImpl.createPayment(requestBody);
-	// return result;
-	// }
-	// throw new NotFoundException("Route tidak ditemukan");
-	// }
-
 	@Route(url = "call/payment/update")
 	public HashMap<String, Object> updatePayment(VMJExchange vmjExchange) {
 		Map<String, Object> requestBody = vmjExchange.getPayload();

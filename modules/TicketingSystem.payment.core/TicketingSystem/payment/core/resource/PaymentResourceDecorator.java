@@ -16,14 +16,6 @@ public abstract class PaymentResourceDecorator extends PaymentResourceComponent 
 		return record.savePayment(vmjExchange);
 	}
 
-	// public Payment createPayment(VMJExchange vmjExchange) {
-	// return record.createPayment(vmjExchange);
-	// }
-
-	// public Payment createPayment(VMJExchange vmjExchange, UUID id) {
-	// return record.createPayment(vmjExchange, id);
-	// }
-
 	public HashMap<String, Object> updatePayment(VMJExchange vmjExchange) {
 		return record.updatePayment(vmjExchange);
 	}

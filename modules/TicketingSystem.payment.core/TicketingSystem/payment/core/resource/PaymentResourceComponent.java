@@ -14,10 +14,6 @@ public abstract class PaymentResourceComponent implements PaymentResource {
 
     public abstract HashMap<String, Object> savePayment(VMJExchange vmjExchange);
 
-    // public abstract Payment createPayment(VMJExchange vmjExchange);
-
-    // public abstract Payment createPayment(VMJExchange vmjExchange, UUID id);
-
     public abstract HashMap<String, Object> updatePayment(VMJExchange vmjExchange);
 
     public abstract HashMap<String, Object> getPayment(VMJExchange vmjExchange);
