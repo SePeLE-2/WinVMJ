@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+	<feature automatic="selected" name="TicketingSystem"/>
+	<feature automatic="selected" name="Event"/>
+	<feature name="Rating"/>
+	<feature name="SeatMapping"/>
+	<feature automatic="selected" name="EventOrganizer"/>
+	<feature automatic="selected" name="Payment"/>
+	<feature manual="selected" name="CreditCard"/>
+	<feature name="EWallet"/>
+	<feature automatic="selected" name="Ticket"/>
+	<feature manual="selected" name="Bundling"/>
+	<feature name="Promo"/>
+	<feature automatic="selected" name="Reporting"/>
+	<feature automatic="selected" name="SalesReport"/>
+	<feature name="AttendanceStats"/>
+	<feature automatic="selected" manual="selected" name="NewsArticle"/>
+	<feature manual="selected" name="Comment"/>
+	<feature manual="selected" name="Customer"/>
+</configuration>

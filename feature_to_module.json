@@ -4,6 +4,7 @@
     "Payment": ["TicketingSystem.payment.core"],
     "CreditCard": ["TicketingSystem.payment.creditcard"],
     "EWallet": ["TicketingSystem.payment.ewallet"],
+    "Customer": ["TicketingSystem.customer.core"],
     "Event": ["TicketingSystem.event.core"],
     "Rating": ["TicketingSystem.event.rating"],
     "SeatMapping": ["TicketingSystem.event.seatmapping"],
@@ -12,6 +13,5 @@
     "AttendanceStats": ["TicketingSystem.report.attendancestats"],
     "SalesReport": ["TicketingSystem.report.salesreport"],
     "NewsArticle": ["TicketingSystem.article.core"],
-    "Comment": ["TicketingSystem.comment.core"],
-    "Customer": ["TicketingSystem.customer.core"]
+    "Comment": ["TicketingSystem.comment.core"]
 }

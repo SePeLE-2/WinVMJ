@@ -16,4 +16,5 @@
 	<feature name="AttendanceStats"/>
 	<feature name="NewsArticle"/>
 	<feature name="Comment"/>
+	<feature name="Customer"/>
 </configuration>
