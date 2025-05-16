@@ -21,5 +21,6 @@ public abstract class EventOrganizerServiceComponent implements EventOrganizerSe
     public abstract List<HashMap<String,Object>> transformListToHashMap(List<EventOrganizer> List);
     public abstract List<HashMap<String,Object>> deleteEventOrganizer(Map<String, Object> requestBody);
 	public abstract HashMap<String, Object> getEventOrganizerById(int id);
+    public abstract EventOrganizer getEventOrganizerByName(String name);
 
 }

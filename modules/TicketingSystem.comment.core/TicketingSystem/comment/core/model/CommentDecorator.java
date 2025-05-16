@@ -8,6 +8,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.CascadeType;
 //add other required packages
+import TicketingSystem.eventorganizer.core.*;
+import TicketingSystem.customer.core.*;
+import TicketingSystem.article.core.*;
 
 @MappedSuperclass
 public abstract class CommentDecorator extends CommentComponent{
@@ -25,7 +28,7 @@ public abstract class CommentDecorator extends CommentComponent{
 		this.record = record;
 	}
 
-	public CommentDecorator (int idContent, CommentComponent record) {
+	public CommentDecorator (UUID idContent, CommentComponent record) {
 		this.idContent =  idContent;
 		this.record = record;
 	}
@@ -37,10 +40,10 @@ public abstract class CommentDecorator extends CommentComponent{
 	}
 
 
-	public int getIdContent() {
+	public UUID getIdContent() {
 		return record.getIdContent();
 	}
-	public void setIdContent(int idContent) {
+	public void setIdContent(UUID idContent) {
 		record.setIdContent(idContent);
 	}
 	public String getComment() {
@@ -55,7 +58,26 @@ public abstract class CommentDecorator extends CommentComponent{
 	public void setCommentAuthor(String commentAuthor) {
 		record.setCommentAuthor(commentAuthor);
 	}
-
+	public EventOrganizerComponent getEventorganizerimpl(){
+		return record.getEventorganizerimpl();
+	}
+	public void setEventorganizerimpl(EventOrganizerImpl eventorganizerimpl){
+		record.setEventorganizerimpl(eventorganizerimpl);
+	}
+	
+	public CustomerComponent getCustomerimpl(){
+		return record.getCustomerimpl();
+	}
+	public void setCustomerimpl(CustomerImpl customerimpl){
+		record.setCustomerimpl(customerimpl);
+	}
+	
+	public ArticleComponent getArticleimpl(){
+		return record.getArticleimpl();
+	}
+	public void setArticleimpl(ArticleImpl articleimpl){
+		record.setArticleimpl(articleimpl);
+	}
 
 	public HashMap<String, Object> toHashMap() {
         return this.record.toHashMap();

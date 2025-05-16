@@ -14,4 +14,5 @@ public interface CustomerService {
     List<HashMap<String,Object>> getAllCustomer(Map<String, Object> requestBody);
     List<HashMap<String,Object>> deleteCustomer(Map<String, Object> requestBody);
 	List<HashMap<String, Object>> transformListToHashMap(List<Customer> List);
+    Customer getCustomerByName(String name);
 }

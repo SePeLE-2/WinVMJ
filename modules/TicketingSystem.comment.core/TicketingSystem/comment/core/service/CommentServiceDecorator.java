@@ -10,24 +10,24 @@ public abstract class CommentServiceDecorator extends CommentServiceComponent{
         this.record = record;
     }
 
-	public CommentImpl createComment(Map<String, Object> requestBody){
-		return record.createComment(requestBody);
+	// public CommentImpl createComment(Map<String, Object> requestBody){
+	// 	return record.createComment(requestBody);
+	// }
+
+    // public Comment createComment(Map<String, Object> requestBody, Map<String, Object> response){
+	// 	return record.createComment(requestBody, response);
+	// }
+
+	// public HashMap<String, Object> getComment(Map<String, Object> requestBody){
+	// 	return record.getComment(requestBody);
+	// }
+
+	public List<HashMap<String,Object>> getAllComment(){
+		return record.getAllComment();
 	}
 
-    public Comment createComment(Map<String, Object> requestBody, Map<String, Object> response){
-		return record.createComment(requestBody, response);
-	}
-
-	public HashMap<String, Object> getComment(Map<String, Object> requestBody){
-		return record.getComment(requestBody);
-	}
-
-	public List<HashMap<String,Object>> getAllComment(Map<String, Object> requestBody){
-		return record.getAllComment(requestBody);
-	}
-
-    public List<HashMap<String,Object>> saveComment(VMJExchange vmjExchange){
-		return record.saveComment(vmjExchange);
+    public HashMap<String,Object> saveComment(Map<String, Object> requestBody, int idArticle){
+		return record.saveComment(requestBody, idArticle);
 	}
 
     public HashMap<String, Object> updateComment(Map<String, Object> requestBody){
@@ -42,8 +42,8 @@ public abstract class CommentServiceDecorator extends CommentServiceComponent{
 		return record.deleteComment(requestBody);
 	}
 
-	public HashMap<String, Object> getCommentById(int id){
-        return record.getCommentById(id);
-    }
+	// public HashMap<String, Object> getCommentById(int id){
+    //     return record.getCommentById(id);
+    // }
 
 }

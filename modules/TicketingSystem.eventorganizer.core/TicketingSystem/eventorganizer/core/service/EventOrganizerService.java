@@ -13,4 +13,5 @@ public interface EventOrganizerService {
     List<HashMap<String,Object>> getAllEventOrganizer(Map<String, Object> requestBody);
     List<HashMap<String,Object>> deleteEventOrganizer(Map<String, Object> requestBody);
 	List<HashMap<String, Object>> transformListToHashMap(List<EventOrganizer> List);
+    EventOrganizer getEventOrganizerByName(String name);
 }
