@@ -8,7 +8,9 @@ import vmj.routing.route.exceptions.*;
 
 import TicketingSystem.payment.core.PaymentResourceDecorator;
 import TicketingSystem.payment.core.PaymentImpl;
-import TicketingSystem.payment.core.PaymentServiceImpl;
+import TicketingSystem.payment.creditcard.PaymentServiceImpl;
+import TicketingSystem.payment.core.PaymentService;
+import TicketingSystem.payment.core.PaymentServiceComponent;
 import TicketingSystem.payment.core.PaymentResourceComponent;
 import TicketingSystem.payment.core.Payment;
 import TicketingSystem.payment.PaymentFactory;
@@ -19,10 +21,13 @@ import TicketingSystem.bundling.core.BundlingImpl;
 
 public class PaymentResourceImpl extends PaymentResourceDecorator {
 	private PaymentFactory PaymentFactory = new PaymentFactory();
-	private PaymentServiceImpl paymentServiceImpl = new PaymentServiceImpl();
+	// private PaymentServiceImpl paymentServiceImpl = new PaymentServiceImpl();
+	private PaymentService paymentService;
+	
 
-	public PaymentResourceImpl(PaymentResourceComponent record) {
+	public PaymentResourceImpl(PaymentResourceComponent record, PaymentServiceComponent paymentService) {
 		super(record);
+		this.paymentService = new PaymentServiceImpl(paymentService);
 	}
 
 	@Route(url = "call/payment/creditcard/")
@@ -37,7 +42,7 @@ public class PaymentResourceImpl extends PaymentResourceDecorator {
 			return null;
 		}
 		String email = vmjExchange.getAuthPayload().getEmail();
-		Payment payment = paymentServiceImpl.savePayment((HashMap<String, Object>) vmjExchange.getPayload(), email);
+		Payment payment = paymentService.savePayment((HashMap<String, Object>) vmjExchange.getPayload(), email);
 		return payment.toHashMap();
 	}
 
@@ -47,7 +52,7 @@ public class PaymentResourceImpl extends PaymentResourceDecorator {
 			return null;
 		}
 		String email = vmjExchange.getAuthPayload().getEmail();
-		Payment payment = paymentServiceImpl.savePayment((HashMap<String, Object>) vmjExchange.getPayload(), email);
+		Payment payment = paymentService.savePayment((HashMap<String, Object>) vmjExchange.getPayload(), email);
 		return payment.toHashMap();
 	}
 
@@ -57,20 +62,20 @@ public class PaymentResourceImpl extends PaymentResourceDecorator {
 		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
 			return null;
 		}
-		return paymentServiceImpl.updatePayment(requestBody).toHashMap();
+		return paymentService.updatePayment(requestBody).toHashMap();
 	}
 
 	@Route(url = "call/payment/detail")
 	public HashMap<String, Object> getPayment(VMJExchange vmjExchange) {
 		String idStr = vmjExchange.getGETParam("id");
 		UUID id = UUID.fromString(idStr);
-		return paymentServiceImpl.getPayment(id).toHashMap();
+		return paymentService.getPayment(id).toHashMap();
 	}
 
 	@Route(url = "call/payment/list")
 	public List<HashMap<String, Object>> getAllPayment(VMJExchange vmjExchange) {
-		List<Payment> List = paymentServiceImpl.getAllPayment();
-		return paymentServiceImpl.transformListToHashMap(List);
+		List<Payment> List = paymentService.getAllPayment();
+		return paymentService.transformListToHashMap(List);
 	}
 
 	@Route(url = "call/payment/delete")
@@ -83,7 +88,7 @@ public class PaymentResourceImpl extends PaymentResourceDecorator {
 		String idStr = (String) body.get("id");
 		UUID id = UUID.fromString(idStr);
 		Payment payment = paymentRepository.getObject(id);
-		List<Payment> List = paymentServiceImpl.deletePayment(id);
-		return paymentServiceImpl.transformListToHashMap(List);
+		List<Payment> List = paymentService.deletePayment(id);
+		return paymentService.transformListToHashMap(List);
 	}
 }

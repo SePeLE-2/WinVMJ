@@ -6,8 +6,10 @@ import vmj.routing.route.Route;
 import vmj.routing.route.VMJExchange;
 
 import TicketingSystem.report.core.ReportResourceDecorator;
+import TicketingSystem.report.core.ReportServiceComponent;
 import TicketingSystem.report.core.ReportImpl;
-import TicketingSystem.report.core.ReportServiceImpl;
+import TicketingSystem.report.core.ReportService;
+import TicketingSystem.report.salesreport.ReportServiceImpl;
 import TicketingSystem.report.core.ReportResourceComponent;
 import TicketingSystem.report.core.Report;
 import TicketingSystem.report.ReportFactory;
@@ -17,10 +19,11 @@ import TicketingSystem.event.core.EventImpl;
 
 public class ReportResourceImpl extends ReportResourceDecorator {
 	private ReportFactory ReportSalesReportFactory = new ReportFactory();
-	private ReportServiceImpl reportServiceImpl = new ReportServiceImpl();
+	private ReportService reportService;
 
-	public ReportResourceImpl(ReportResourceComponent record) {
+	public ReportResourceImpl(ReportResourceComponent record, ReportServiceComponent reportService) {
 		super(record);
+		this.reportService =  new ReportServiceImpl(reportService);
 	}
 
 	@Route(url = "call/salesreport/save")
@@ -29,7 +32,7 @@ public class ReportResourceImpl extends ReportResourceDecorator {
 			return null;
 		}
 		Map<String, Object> requestBody = vmjExchange.getPayload();
-		Report reportsalesreport = reportServiceImpl.createReport(requestBody);
+		Report reportsalesreport = reportService.createReport(requestBody);
 		Repository.saveObject(reportsalesreport);
 		return getAllReportSalesReport(vmjExchange);
 	}
