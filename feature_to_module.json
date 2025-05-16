@@ -1,7 +1,7 @@
 {
-    "Payment": ["TicketingSystem.payment.core"],
     "Ticket": ["TicketingSystem.ticket.core"],
     "Bundling": ["TicketingSystem.bundling.core"],
+    "Payment": ["TicketingSystem.payment.core"],
     "CreditCard": ["TicketingSystem.payment.creditcard"],
     "EWallet": ["TicketingSystem.payment.ewallet"],
     "Event": ["TicketingSystem.event.core"],
