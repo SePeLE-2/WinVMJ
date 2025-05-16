@@ -26,15 +26,6 @@ public abstract class TicketComponent implements Ticket {
 
 	}
 
-	public TicketComponent(
-			UUID id, String eventName, String ticketName, int price, int availability) {
-		this.id = id;
-		this.eventName = eventName;
-		this.ticketName = ticketName;
-		this.price = price;
-		this.availability = availability;
-	}
-
 	public UUID getId() {
 		return this.id;
 	}
@@ -88,6 +79,17 @@ public abstract class TicketComponent implements Ticket {
 				" price='" + getPrice() + "'" +
 				" availability='" + getAvailability() + "'" +
 				"}";
+	}
+
+	public HashMap<String, Object> toHashMap() {
+		HashMap<String, Object> ticketMap = new HashMap<String, Object>();
+		ticketMap.put("id", getId());
+		ticketMap.put("eventName", getEventName());
+		ticketMap.put("ticketName", getTicketName());
+		ticketMap.put("price", getPrice());
+		ticketMap.put("availability", getAvailability());
+
+		return ticketMap;
 	}
 
 }

@@ -28,7 +28,6 @@ public class TicketImpl extends TicketComponent {
 
 	public TicketImpl(String eventName, String ticketName, int price, int availability) {
 		this.id = UUID.randomUUID();
-		;
 		this.eventName = eventName;
 		this.ticketName = ticketName;
 		this.price = price;
@@ -36,57 +35,10 @@ public class TicketImpl extends TicketComponent {
 	}
 
 	public TicketImpl() {
+		this.id = UUID.randomUUID();
+		this.eventName = "";
+		this.ticketName = "";
+		this.price = 0;
+		this.availability = 0;
 	}
-
-	public void setId(UUID id) {
-		this.id = id;
-	}
-
-	public String getEventName() {
-		return this.eventName;
-	}
-
-	public void setEventName(String eventName) {
-		this.eventName = eventName;
-	}
-
-	public String getTicketName() {
-		return this.ticketName;
-	}
-
-	public void setTicketName(String ticketName) {
-		this.ticketName = ticketName;
-	}
-
-	public int getPrice() {
-		return this.price;
-	}
-
-	public void setPrice(int price) {
-		this.price = price;
-	}
-
-	public int getAvailability() {
-		return this.availability;
-	}
-
-	public void setAvailability(int availability) {
-		this.availability = availability;
-	}
-
-	public void purchase() {
-		// TODO: implement this method
-	}
-
-	public HashMap<String, Object> toHashMap() {
-		HashMap<String, Object> ticketMap = new HashMap<String, Object>();
-		ticketMap.put("id", getId());
-		ticketMap.put("eventName", getEventName());
-		ticketMap.put("ticketName", getTicketName());
-		ticketMap.put("price", getPrice());
-		ticketMap.put("availability", getAvailability());
-
-		return ticketMap;
-	}
-
 }

@@ -10,15 +10,10 @@ public abstract class TicketResourceComponent implements TicketResource {
     protected RepositoryUtil<Ticket> ticketRepository;
 
     public TicketResourceComponent() {
+        this.ticketRepository = new RepositoryUtil<Ticket>(TicketingSystem.ticket.core.TicketComponent.class);
     }
 
-    // public abstract List<HashMap<String, Object>> saveTicket(VMJExchange
-    // vmjExchange);
-
-    // public abstract Ticket createTicket(VMJExchange vmjExchange);
-
-    // public abstract Ticket createTicket(VMJExchange vmjExchange, int id);
-    public abstract HashMap<String, Object> createTicket(VMJExchange vmjExchange);
+    public abstract HashMap<String, Object> saveTicket(VMJExchange vmjExchange);
 
     public abstract HashMap<String, Object> updateTicket(VMJExchange vmjExchange);
 

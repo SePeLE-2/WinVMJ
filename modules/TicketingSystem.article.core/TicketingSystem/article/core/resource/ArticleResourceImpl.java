@@ -14,44 +14,32 @@ public class ArticleResourceImpl extends ArticleResourceComponent{
 	private ArticleServiceImpl articleServiceImpl = new ArticleServiceImpl();
 
 	
-    @Route(url="call/article/save")
-    public List<HashMap<String,Object>> saveArticle(VMJExchange vmjExchange){
-		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
-			return null;
-		}
-		Article article = createArticle(vmjExchange);
-		articleRepository.saveObject(article);
-		return getAllArticle(vmjExchange);
-	}
+    // @Route(url="call/article")
+    // public HashMap<String,Object> article(VMJExchange vmjExchange){
+	// 	if (vmjExchange.getHttpMethod().equals("POST")) {
+	// 	    Map<String, Object> requestBody = vmjExchange.getPayload(); 
+	// 		return articleServiceImpl.getArticle(requestBody);
+	// 	}
+	// 	throw new NotFoundException("Route tidak ditemukan");
+	// }
 
+	@Route(url="call/article/save")
+    public HashMap<String, Object> saveArticle(VMJExchange vmjExchange){
+		if (vmjExchange.getHttpMethod().equals("POST")) {
+		    Map<String, Object> requestBody = vmjExchange.getPayload(); 
+			return articleServiceImpl.saveArticle(requestBody);
+		}
+		throw new NotFoundException("Route tidak ditemukan");
+	}
 	
-    @Route(url="call/article")
-    public HashMap<String,Object> article(VMJExchange vmjExchange){
-		if (vmjExchange.getHttpMethod().equals("POST")) {
-		    Map<String, Object> requestBody = vmjExchange.getPayload(); 
-			Article result = articleServiceImpl.createArticle(requestBody);
-			return result.toHashMap();
-		}
-		throw new NotFoundException("Route tidak ditemukan");
-	}
-
-    public Article createArticle(VMJExchange vmjExchange){
-		if (vmjExchange.getHttpMethod().equals("POST")) {
-		    Map<String, Object> requestBody = vmjExchange.getPayload(); 
-			Article result = articleServiceImpl.createArticle(requestBody);
-			return result.toHashMap();
-		}
-		throw new NotFoundException("Route tidak ditemukan");
-	}
-
-    public Article createArticle(VMJExchange vmjExchange, int id){
-		if (vmjExchange.getHttpMethod().equals("POST")) {
-		    Map<String, Object> requestBody = vmjExchange.getPayload(); 
-			Article result = articleServiceImpl.createArticle(requestBody, id);
-			return result.toHashMap();
-		}
-		throw new NotFoundException("Route tidak ditemukan");
-	}
+    // public Article createArticle(VMJExchange vmjExchange, int id){
+	// 	if (vmjExchange.getHttpMethod().equals("POST")) {
+	// 	    Map<String, Object> requestBody = vmjExchange.getPayload(); 
+	// 		Article result = articleServiceImpl.createArticle(requestBody, id);
+	// 		return result.toHashMap();
+	// 	}
+	// 	throw new NotFoundException("Route tidak ditemukan");
+	// }
 
 	
     @Route(url="call/article/update")
@@ -67,8 +55,9 @@ public class ArticleResourceImpl extends ArticleResourceComponent{
 	
     @Route(url="call/article/detail")
     public HashMap<String, Object> getArticle(VMJExchange vmjExchange){
-		Map<String, Object> requestBody = vmjExchange.getPayload(); 
-		return articleServiceImpl.getArticle(requestBody);
+		String idArticleString = vmjExchange.getGETParam("articleId");
+		int idArticle = Integer.parseInt(idArticleString);
+		return articleServiceImpl.getArticleById(idArticle).toHashMap();
 	}
 
 	

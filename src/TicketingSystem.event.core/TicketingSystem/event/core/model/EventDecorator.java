@@ -30,12 +30,6 @@ public abstract class EventDecorator extends EventComponent {
 		this.record = record;
 	}
 
-	public EventDecorator(EventComponent record, String objectName) {
-		this.idEvent = UUID.randomUUID();
-		this.record = record;
-		this.objectName = objectName;
-	}
-
 	public UUID getIdEvent() {
 		return record.getIdEvent();
 	}

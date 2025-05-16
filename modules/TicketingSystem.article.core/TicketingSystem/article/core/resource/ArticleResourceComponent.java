@@ -9,9 +9,7 @@ public abstract class ArticleResourceComponent implements ArticleResource{
 	
 	public ArticleResourceComponent() { }
  
-    public abstract List<HashMap<String,Object>> saveArticle(VMJExchange vmjExchange);
-    public abstract Article createArticle(VMJExchange vmjExchange);
-	public abstract Article createArticle(VMJExchange vmjExchange, int id);    
+    public abstract HashMap<String, Object> saveArticle(VMJExchange vmjExchange);   
 	public abstract HashMap<String, Object> updateArticle(VMJExchange vmjExchange);
     public abstract HashMap<String, Object> getArticle(VMJExchange vmjExchange);
     public abstract List<HashMap<String,Object>> getAllArticle(VMJExchange vmjExchange);

@@ -14,12 +14,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import TicketingSystem.eventorganizer.core.EventOrganizerComponent;
+import TicketingSystem.eventorganizer.core.EventOrganizerImpl;
+
 
 @Entity(name="article_impl")
 @Table(name="article_impl")
 public class ArticleImpl extends ArticleComponent {
 
-	public ArticleImpl(int idArticle, String articleTitle, String articleContent, String articleAuthor, String articleDatePublished, EventOrganizerImpl eventorganizerimpl) {
+	public ArticleImpl(UUID idArticle, String articleTitle, String articleContent, String articleAuthor, String articleDatePublished, EventOrganizerImpl eventorganizerimpl) {
 		this.idArticle = idArticle;
 		this.articleTitle = articleTitle;
 		this.articleContent = articleContent;
@@ -39,11 +42,11 @@ public class ArticleImpl extends ArticleComponent {
 
 	public ArticleImpl() { }
 
-	public int getIdArticle() {
+	public UUID getIdArticle() {
 		return this.idArticle;
 	}
 
-	public void setIdArticle(int idArticle) {
+	public void setIdArticle(UUID idArticle) {
 		this.idArticle = idArticle;
 	}
 	public String getArticleTitle() {
@@ -60,6 +63,11 @@ public class ArticleImpl extends ArticleComponent {
 	public void setArticleContent(String articleContent) {
 		this.articleContent = articleContent;
 	}
+
+	public void setEventorganizerimpl(EventOrganizerImpl eventorganizerimpl){
+		this.eventorganizerimpl = eventorganizerimpl;
+	}
+
 	public String getArticleAuthor() {
 		return this.articleAuthor;
 	}
@@ -69,6 +77,10 @@ public class ArticleImpl extends ArticleComponent {
 	}
 	public String getArticleDatePublished() {
 		return this.articleDatePublished;
+	}
+
+	public EventOrganizerComponent getEventorganizerimpl(){
+		return this.eventorganizerimpl;
 	}
 
 	public void setArticleDatePublished(String articleDatePublished) {
