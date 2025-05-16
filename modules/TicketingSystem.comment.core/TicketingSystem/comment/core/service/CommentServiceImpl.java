@@ -33,17 +33,16 @@ public class CommentServiceImpl extends CommentServiceComponent{
 	private CustomerService customerService = new CustomerServiceImpl();
 	private ArticleService articleService = new ArticleServiceImpl();
 
-    public List<HashMap<String,Object>> saveComment(VMJExchange vmjExchange){
-		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
-			return null;
-		}
-		Comment comment = createComment(vmjExchange);
-		Repository.saveObject(comment);
-		return getAllComment(vmjExchange);
-	}
+    // public List<HashMap<String,Object>> saveComment(VMJExchange vmjExchange){
+	// 	if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
+	// 		return null;
+	// 	}
+	// 	Comment comment = createComment(vmjExchange);
+	// 	Repository.saveObject(comment);
+	// 	return getAllComment(vmjExchange);
+	// }
 
-    public Comment createComment(Map<String, Object> requestBody){
-		String idArticle = vmjExchange.getGETParam("idArticle"); 
+    public HashMap<String, Object> saveComment(Map<String, Object> requestBody, int idArticle){
 		String idContentStr = (String) requestBody.get("idContent");
 		int idContent = Integer.parseInt(idContentStr);
 		String comment = (String) requestBody.get("comment");
@@ -54,7 +53,7 @@ public class CommentServiceImpl extends CommentServiceComponent{
 		
 		
 		//to do: fix association attributes
-		Comment Comment = CommentFactory.createComment(
+		Comment commentObj = CommentFactory.createComment(
 			"TicketingSystem.comment.core.CommentImpl",
 		idContent
 		, comment
@@ -63,24 +62,24 @@ public class CommentServiceImpl extends CommentServiceComponent{
 		, customerimpl
 		, articleimpl
 		);
-		Repository.saveObject(comment);
-		return comment;
+		Repository.saveObject(commentObj);
+		return commentObj.toHashMap();
 	}
 
-    public Comment createComment(Map<String, Object> requestBody, int id){
-		String idArticle = vmjExchange.getGETParam("idArticle"); 
-		String commentString = (String) vmjExchange.getRequestBodyForm("comment");
-		String commentAuthor = (String) vmjExchange.getRequestBodyForm("commentAuthor");
-		EventOrganizer eventorganizerimpl = eventOrganizerService.getEventOrganizerByName(commentAuthor);
-		Customer customerimpl = customerService.getCustomerByName(commentAuthor);
-		Article articleimpl = articleService.getArticleById(idArticle);
-		//to do: fix association attributes
+    // public Comment createComment(Map<String, Object> requestBody, int id){
+	// 	String idArticle = vmjExchange.getGETParam("idArticle"); 
+	// 	String commentString = (String) vmjExchange.getRequestBodyForm("comment");
+	// 	String commentAuthor = (String) vmjExchange.getRequestBodyForm("commentAuthor");
+	// 	EventOrganizer eventorganizerimpl = eventOrganizerService.getEventOrganizerByName(commentAuthor);
+	// 	Customer customerimpl = customerService.getCustomerByName(commentAuthor);
+	// 	Article articleimpl = articleService.getArticleById(idArticle);
+	// 	//to do: fix association attributes
 		
-		Comment comment = CommentFactory.createComment("TicketingSystem.comment.core.CommentImpl", commentString, commentAuthor
-		// , eventorganizerimpl, customerimpl, articleimpl
-		);
-		return comment;
-	}
+	// 	Comment comment = CommentFactory.createComment("TicketingSystem.comment.core.CommentImpl", commentString, commentAuthor
+	// 	// , eventorganizerimpl, customerimpl, articleimpl
+	// 	);
+	// 	return comment;
+	// }
 
     public HashMap<String, Object> updateComment(Map<String, Object> requestBody){
 		String idStr = (String) requestBody.get("idContent");
@@ -98,27 +97,27 @@ public class CommentServiceImpl extends CommentServiceComponent{
 		
 	}
 
-    public HashMap<String, Object> getComment(Map<String, Object> requestBody){
-		List<HashMap<String, Object>> commentList = getAllComment("comment_impl");
-		for (HashMap<String, Object> comment : commentList){
-			int record_id = ((Double) comment.get("record_id")).intValue();
-			if (record_id == id){
-				return comment;
-			}
-		}
-		return null;
-	}
+    // public HashMap<String, Object> getComment(Map<String, Object> requestBody){
+	// 	List<HashMap<String, Object>> commentList = getAllComment();
+	// 	for (HashMap<String, Object> comment : commentList){
+	// 		int record_id = ((Double) comment.get("record_id")).intValue();
+	// 		if (record_id == id){
+	// 			return comment;
+	// 		}
+	// 	}
+	// 	return null;
+	// }
 
-	public HashMap<String, Object> getCommentById(int id){
-		String idStr = vmjExchange.getGETParam("idContent"); 
-		int idComment = Integer.parseInt(idStr);
-		Comment comment = commentRepository.getObject(idComment);
-		return comment.toHashMap();
-	}
+	// public HashMap<String, Object> getCommentById(int id){
+	// 	String idStr = vmjExchange.getGETParam("idContent"); 
+	// 	int idComment = Integer.parseInt(idStr);
+	// 	Comment comment = commentRepository.getObject(idComment);
+	// 	return comment.toHashMap();
+	// }
 
-    public List<HashMap<String,Object>> getAllComment(Map<String, Object> requestBody){
-		String table = (String) requestBody.get("table_name");
-		List<Comment> List = Repository.getAllObject(table);
+    public List<HashMap<String,Object>> getAllComment(){
+		// String table = (String) requestBody.get("table_name");
+		List<Comment> List = Repository.getAllObject("comment_impl");
 		return transformListToHashMap(List);
 	}
 
@@ -135,7 +134,7 @@ public class CommentServiceImpl extends CommentServiceComponent{
 		String idStr = ((String) requestBody.get("id"));
 		int id = Integer.parseInt(idStr);
 		Repository.deleteObject(id);
-		return getAllComment(requestBody);
+		return getAllComment();
 	}
 
 }

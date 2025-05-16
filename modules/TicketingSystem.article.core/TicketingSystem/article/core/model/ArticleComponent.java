@@ -9,20 +9,22 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import javax.persistence.ManyToOne;
 
 import TicketingSystem.eventorganizer.core.EventOrganizerComponent;
+import TicketingSystem.eventorganizer.core.EventOrganizerImpl;
 
 @Entity
 @Table(name="article_comp")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class ArticleComponent implements Article{
 	@Id
-	protected int idArticle; 
+	protected UUID idArticle; 
 	protected String articleTitle;
 	protected String articleContent;
 	protected String articleAuthor;
 	protected String articleDatePublished;
-	@ManyToOne(targetEntity=TicketingSystem.core.Component.class)
+	@ManyToOne(targetEntity=TicketingSystem.eventorganizer.core.EventOrganizerComponent.class)
 	public EventOrganizerComponent eventorganizerimpl;
 	protected String objectName = ArticleComponent.class.getName();
 
@@ -31,7 +33,7 @@ public abstract class ArticleComponent implements Article{
 	} 
 
 	public ArticleComponent(
-        int idArticle, String articleTitle, String articleContent, String articleAuthor, String articleDatePublished, EventOrganizerImpl eventorganizerimpl
+        UUID idArticle, String articleTitle, String articleContent, String articleAuthor, String articleDatePublished, EventOrganizerImpl eventorganizerimpl
     ) {
         this.idArticle = idArticle;
         this.articleTitle = articleTitle;
@@ -41,11 +43,11 @@ public abstract class ArticleComponent implements Article{
         this.eventorganizerimpl = eventorganizerimpl;
     }
 
-	public int getIdArticle() {
+	public UUID getIdArticle() {
 		return this.idArticle;
 	}
 
-	public void setIdArticle(int idArticle) {
+	public void setIdArticle(UUID idArticle) {
 		this.idArticle = idArticle;
 	}
 	public String getArticleTitle() {
@@ -76,7 +78,7 @@ public abstract class ArticleComponent implements Article{
 	public void setArticleDatePublished(String articleDatePublished) {
 		this.articleDatePublished = articleDatePublished;
 	}
-	public abstract EventOrganizerImpl getEventorganizerimpl();
+	public abstract EventOrganizerComponent getEventorganizerimpl();
 	public abstract void setEventorganizerimpl(EventOrganizerImpl eventorganizerimpl);
 	
  

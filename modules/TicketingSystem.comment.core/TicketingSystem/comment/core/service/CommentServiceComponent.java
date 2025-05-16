@@ -12,14 +12,14 @@ public abstract class CommentServiceComponent implements CommentService{
         this.Repository = new RepositoryUtil<Comment>(TicketingSystem.comment.core.CommentComponent.class);
     }	
 
-    public abstract List<HashMap<String,Object>> saveComment(VMJExchange vmjExchange);
-    public abstract Comment createComment(Map<String, Object> requestBodye);
-	public abstract Comment createComment(Map<String, Object> requestBody, Map<String, Object> response);    
+    public abstract HashMap<String,Object> saveComment(Map<String, Object> requestBody, int idArticle);
+    // public abstract Comment createComment(Map<String, Object> requestBodye);
+	// public abstract Comment createComment(Map<String, Object> requestBody, Map<String, Object> response);    
 	public abstract HashMap<String, Object> updateComment(Map<String, Object> requestBody);
-    public abstract HashMap<String, Object> getComment(Map<String, Object> requestBody);
-    public abstract List<HashMap<String,Object>> getAllComment(Map<String, Object> requestBody);
+    // public abstract HashMap<String, Object> getComment(Map<String, Object> requestBody);
+    public abstract List<HashMap<String,Object>> getAllComment();
     public abstract List<HashMap<String,Object>> transformListToHashMap(List<Comment> List);
     public abstract List<HashMap<String,Object>> deleteComment(Map<String, Object> requestBody);
-	public abstract HashMap<String, Object> getCommentById(int id);
+	// public abstract HashMap<String, Object> getCommentById(int id);
 
 }

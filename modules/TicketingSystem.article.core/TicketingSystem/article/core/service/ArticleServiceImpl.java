@@ -11,9 +11,7 @@ import java.net.http.HttpResponse;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
-import TicketingSystem.eventorganizer.core.EventOrganizer;
-import TicketingSystem.eventorganizer.core.EventOrganizerService;
-import TicketingSystem.eventorganizer.core.EventOrganizerServiceImpl;
+import TicketingSystem.eventorganizer.core.*;
 import vmj.routing.route.Route;
 import vmj.routing.route.VMJExchange;
 import vmj.routing.route.exceptions.*;
@@ -24,16 +22,7 @@ import vmj.auth.annotations.Restricted;
 public class ArticleServiceImpl extends ArticleServiceComponent{
 	private EventOrganizerService eventOrganizerService = new EventOrganizerServiceImpl();
 	
-    public List<HashMap<String,Object>> saveArticle(VMJExchange vmjExchange){
-		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
-			return null;
-		}
-		Article article = createArticle(vmjExchange);
-		Repository.saveObject(article);
-		return getAllArticle(vmjExchange);
-	}
-
-    public Article createArticle(Map<String, Object> requestBody){
+    public HashMap<String, Object> saveArticle(Map<String, Object> requestBody){
 		String idArticleStr = (String) requestBody.get("idArticle");
 		int idArticle = Integer.parseInt(idArticleStr);
 		String articleTitle = (String) requestBody.get("articleTitle");
@@ -52,34 +41,22 @@ public class ArticleServiceImpl extends ArticleServiceComponent{
 		, articleDatePublished
 		, eventorganizerimpl
 		);
-		Repository.saveObject(article);
-		return article;
+		this.Repository.saveObject(article);
+		return article.toHashMap();
 	}
 
-    public Article createArticle(Map<String, Object> requestBody, int id){
-		String articleTitle = (String) vmjExchange.getRequestBodyForm("articleTitle");
-		String articleContent = (String) vmjExchange.getRequestBodyForm("articleContent");
-		String articleAuthor = (String) vmjExchange.getRequestBodyForm("articleAuthor");
-		String articleDatePublished = (String) vmjExchange.getRequestBodyForm("articleDatePublished");
-		EventOrganizer eventorganizerimpl  = eventOrganizerService.getEventOrganizerByName(articleAuthor);
-		
-		//to do: fix association attributes
-		
-		Article article = ArticleFactory.createArticle("TicketingSystem.article.core.ArticleImpl", articleTitle, articleContent, articleAuthor, articleDatePublished ,eventorganizerimpl);
-		return article;
-	}
 
     public HashMap<String, Object> updateArticle(Map<String, Object> requestBody){
 		String idStr = (String) requestBody.get("idArticle");
 		int id = Integer.parseInt(idStr);
-		Article article = Repository.getObject(id);
+		Article article = this.Repository.getObject(id);
 		
 		article.setArticleTitle((String) requestBody.get("articleTitle"));
 		article.setArticleContent((String) requestBody.get("articleContent"));
 		article.setArticleAuthor((String) requestBody.get("articleAuthor"));
 		article.setArticleDatePublished((String) requestBody.get("articleDatePublished"));
 		
-		Repository.updateObject(article);
+		this.Repository.updateObject(article);
 		
 		//to do: fix association attributes
 		
@@ -87,31 +64,29 @@ public class ArticleServiceImpl extends ArticleServiceComponent{
 		
 	}
 
-    public HashMap<String, Object> getArticle(Map<String, Object> requestBody){
-		List<HashMap<String, Object>> articleList = getAllArticle("article_impl");
-		String articleId = (String) vmjExchange.getRequestBodyForm("idArticle");
-		for (HashMap<String, Object> article : articleList){
-			int record_id = ((Double) article.get("record_id")).intValue();
-			if (record_id == articleId){
-				return article;
-			}
-		}
-		return null;
-	}
+    // public HashMap<String, Object> getArticle(Map<String, Object> requestBody){
+	// 	List<HashMap<String, Object>> articleList = getAllArticle("article_impl");
+	// 	String articleId = (String) vmjExchange.getRequestBodyForm("idArticle");
+	// 	for (HashMap<String, Object> article : articleList){
+	// 		int record_id = ((Double) article.get("record_id")).intValue();
+	// 		if (record_id == articleId){
+	// 			return article;
+	// 		}
+	// 	}
+	// 	return null;
+	// }
 
-	public HashMap<String, Object> getArticleById(int id){
-		String idStr = vmjExchange.getGETParam("idArticle"); 
-		int idArticle = Integer.parseInt(idStr);
-		Article article = articleRepository.getObject(idArticle);
-		return article.toHashMap();
+	public Article getArticleById(int id){
+		Article article = this.Repository.getObject(id);
+		return article;
 	}
 
     public List<HashMap<String,Object>> getAllArticle(Map<String, Object> requestBody){
 		String table = (String) requestBody.get("table_name");
-		List<Article> List = Repository.getAllObject(table);
+		List<Article> List = this.Repository.getAllObject(table);
 		return transformListToHashMap(List);
 	}
-
+	
     public List<HashMap<String,Object>> transformListToHashMap(List<Article> List){
 		List<HashMap<String,Object>> resultList = new ArrayList<HashMap<String,Object>>();
         for(int i = 0; i < List.size(); i++) {
@@ -124,7 +99,7 @@ public class ArticleServiceImpl extends ArticleServiceComponent{
     public List<HashMap<String,Object>> deleteArticle(Map<String, Object> requestBody){
 		String idStr = ((String) requestBody.get("id"));
 		int id = Integer.parseInt(idStr);
-		Repository.deleteObject(id);
+		this.Repository.deleteObject(id);
 		return getAllArticle(requestBody);
 	}
 

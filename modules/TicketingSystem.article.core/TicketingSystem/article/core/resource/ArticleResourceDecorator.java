@@ -11,16 +11,8 @@ public abstract class ArticleResourceDecorator extends ArticleResourceComponent{
         this.record = record;
     }
 
-    public List<HashMap<String,Object>> saveArticle(VMJExchange vmjExchange){
+    public HashMap<String,Object> saveArticle(VMJExchange vmjExchange){
 		return record.saveArticle(vmjExchange);
-	}
-
-    public Article createArticle(VMJExchange vmjExchange){
-		return record.createArticle(vmjExchange);
-	}
-
-    public Article createArticle(VMJExchange vmjExchange, int id){
-		return record.createArticle(vmjExchange, id);
 	}
 
     public HashMap<String, Object> updateArticle(VMJExchange vmjExchange){
@@ -40,6 +32,6 @@ public abstract class ArticleResourceDecorator extends ArticleResourceComponent{
 	}
 
 	public void publish() {
-		return record.publish();
+		record.publish();
 	}
 }

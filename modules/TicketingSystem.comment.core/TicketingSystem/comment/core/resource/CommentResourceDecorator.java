@@ -11,25 +11,25 @@ public abstract class CommentResourceDecorator extends CommentResourceComponent{
         this.record = record;
     }
 
-    public List<HashMap<String,Object>> saveComment(VMJExchange vmjExchange){
+    public HashMap<String,Object> saveComment(VMJExchange vmjExchange){
 		return record.saveComment(vmjExchange);
 	}
 
-    public Comment createComment(VMJExchange vmjExchange){
-		return record.createComment(vmjExchange);
-	}
+    // public Comment createComment(VMJExchange vmjExchange){
+	// 	return record.createComment(vmjExchange);
+	// }
 
-    public Comment createComment(VMJExchange vmjExchange, int id){
-		return record.createComment(vmjExchange, id);
-	}
+    // public Comment createComment(VMJExchange vmjExchange, int id){
+	// 	return record.createComment(vmjExchange, id);
+	// }
 
     public HashMap<String, Object> updateComment(VMJExchange vmjExchange){
 		return record.updateComment(vmjExchange);
 	}
 
-    public HashMap<String, Object> getComment(VMJExchange vmjExchange){
-		return record.getComment(vmjExchange);
-	}
+    // public HashMap<String, Object> getComment(VMJExchange vmjExchange){
+	// 	return record.getComment(vmjExchange);
+	// }
 
     public List<HashMap<String,Object>> getAllComment(VMJExchange vmjExchange){
 		return record.getAllComment(vmjExchange);

@@ -25,7 +25,7 @@ public abstract class ArticleDecorator extends ArticleComponent{
 		this.record = record;
 	}
 
-	public ArticleDecorator (int idArticle, ArticleComponent record) {
+	public ArticleDecorator (UUID idArticle, ArticleComponent record) {
 		this.idArticle =  idArticle;
 		this.record = record;
 	}
@@ -37,12 +37,13 @@ public abstract class ArticleDecorator extends ArticleComponent{
 	}
 
 
-	public int getIdArticle() {
+	public UUID getIdArticle() {
 		return record.getIdArticle();
 	}
-	public void setIdArticle(int idArticle) {
-		record.setIdArticle(idArticle);
+	public void setIdArticle(UUID idArticle) {
+    	record.setIdArticle(idArticle);
 	}
+
 	public String getArticleTitle() {
 		return record.getArticleTitle();
 	}
@@ -69,7 +70,7 @@ public abstract class ArticleDecorator extends ArticleComponent{
 	}
 
 	public void publish() {
-		return record.publish();
+		record.publish();
 	}
 
 	public HashMap<String, Object> toHashMap() {

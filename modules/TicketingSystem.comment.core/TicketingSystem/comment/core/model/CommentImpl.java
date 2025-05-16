@@ -14,12 +14,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import TicketingSystem.eventorganizer.core.*;
+import TicketingSystem.customer.core.*;
+import TicketingSystem.article.core.*;
 
 @Entity(name="comment_impl")
 @Table(name="comment_impl")
 public class CommentImpl extends CommentComponent {
 
-	public CommentImpl(int idContent, String comment, String commentAuthor, EventOrganizerImpl eventorganizerimpl, CustomerImpl customerimpl, ArticleImpl articleimpl) {
+	public CommentImpl(UUID idContent, String comment, String commentAuthor, EventOrganizerImpl eventorganizerimpl, CustomerImpl customerimpl, ArticleImpl articleimpl) {
 		this.idContent = idContent;
 		this.comment = comment;
 		this.commentAuthor = commentAuthor;
@@ -39,11 +42,11 @@ public class CommentImpl extends CommentComponent {
 
 	public CommentImpl() { }
 
-	public int getIdContent() {
+	public UUID getIdContent() {
 		return this.idContent;
 	}
 
-	public void setIdContent(int idContent) {
+	public void setIdContent(UUID idContent) {
 		this.idContent = idContent;
 	}
 	public String getComment() {
@@ -59,6 +62,27 @@ public class CommentImpl extends CommentComponent {
 
 	public void setCommentAuthor(String commentAuthor) {
 		this.commentAuthor = commentAuthor;
+	}
+
+	public EventOrganizerComponent getEventorganizerimpl(){
+		return this.eventorganizerimpl;
+	}
+	public void setEventorganizerimpl(EventOrganizerImpl eventorganizerimpl){
+		this.eventorganizerimpl = eventorganizerimpl;
+	}
+	
+	public CustomerComponent getCustomerimpl(){
+		return this.customerimpl;
+	}
+	public void setCustomerimpl(CustomerImpl customerimpl){
+		this.customerimpl = customerimpl;
+	}
+	
+	public ArticleComponent getArticleimpl(){
+		return this.articleimpl;
+	}
+	public void setArticleimpl(ArticleImpl articleimpl){
+		this.articleimpl = articleimpl;
 	}
 
 	
