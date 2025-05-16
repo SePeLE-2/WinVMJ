@@ -8,7 +8,7 @@
     "Rating": ["TicketingSystem.event.rating"],
     "SeatMapping": ["TicketingSystem.event.seatmapping"],
     "EventOrganizer": ["TicketingSystem.eventorganizer.core"],
-    "Report": ["TicketingSystem.report.core"],
+    "Reporting": ["TicketingSystem.report.core"],
     "AttendanceStats": ["TicketingSystem.report.attendancestats"],
     "SalesReport": ["TicketingSystem.report.salesreport"],
     "NewsArticle": ["TicketingSystem.article.core"],
