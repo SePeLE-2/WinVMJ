@@ -7,32 +7,23 @@ import vmj.routing.route.VMJExchange;
 //add other required packages
 
 public abstract class TicketServiceComponent implements TicketService {
-    protected RepositoryUtil<Ticket> Repository;
+    protected RepositoryUtil<Ticket> ticketRepository;
 
     public TicketServiceComponent() {
-        this.Repository = new RepositoryUtil<Ticket>(TicketingSystem.ticket.core.TicketComponent.class);
+        this.ticketRepository = new RepositoryUtil<Ticket>(TicketingSystem.ticket.core.TicketComponent.class);
     }
 
-    // public abstract List<HashMap<String, Object>> saveTicket(VMJExchange
-    // vmjExchange);
+    public abstract Ticket saveTicket(HashMap<String, Object> body, String email);
 
-    public abstract List<HashMap<String, Object>> saveTicket(Map<String, Object> requestBody);
+    public abstract Ticket updateTicket(HashMap<String, Object> body);
 
-    public abstract Ticket createTicket(Map<String, Object> requestBody);
+    public abstract Ticket getTicket(UUID Id);
 
-    // public abstract Ticket createTicket(Map<String, Object> requestBody,
-    // Map<String, Object> response);
-    public abstract HashMap<String, Object> updateTicket(Map<String, Object> requestBody);
+    public abstract List<Ticket> getAllTicket();
 
-    public abstract HashMap<String, Object> getTicket(Map<String, Object> requestBody);
+    public abstract List<Ticket> deleteTicket(UUID Id);
 
-    public abstract List<HashMap<String, Object>> getAllTicket(Map<String, Object> requestBody);
-
-    public abstract List<HashMap<String, Object>> transformListToHashMap(List<Ticket> List);
-
-    public abstract List<HashMap<String, Object>> deleteTicket(Map<String, Object> requestBody);
-
-    public abstract HashMap<String, Object> getTicketById(int id);
+    public abstract List<HashMap<String, Object>> transformTicketListToHashMap(List<Ticket> List);
 
     public abstract void purchase();
 }

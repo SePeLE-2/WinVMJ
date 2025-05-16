@@ -7,29 +7,30 @@ import vmj.routing.route.VMJExchange;
 //add other required packages
 
 public abstract class EventServiceComponent implements EventService {
-    protected RepositoryUtil<Event> Repository;
+    protected RepositoryUtil<Event> eventRepository;
 
     public EventServiceComponent() {
-        this.Repository = new RepositoryUtil<Event>(TicketingSystem.event.core.EventComponent.class);
+        this.eventRepository = new RepositoryUtil<Event>(TicketingSystem.event.core.EventComponent.class);
     }
 
-    public abstract List<HashMap<String, Object>> saveEvent(VMJExchange vmjExchange);
+    public abstract Event saveEvent(HashMap<String, Object> body, String email);
 
-    public abstract Event createEvent(Map<String, Object> requestBodye);
+    // public abstract Event createEvent(Map<String, Object> requestBodye);
 
-    public abstract Event createEvent(Map<String, Object> requestBody, Map<String, Object> response);
+    // public abstract Event createEvent(Map<String, Object> requestBody,
+    // Map<String, Object> response);
 
-    public abstract HashMap<String, Object> updateEvent(Map<String, Object> requestBody);
+    public abstract Event updateEvent(Map<String, Object> requestBody);
 
-    public abstract HashMap<String, Object> getEvent(Map<String, Object> requestBody);
+    public abstract Event getEvent(UUID Id);
 
-    public abstract List<HashMap<String, Object>> getAllEvent(Map<String, Object> requestBody);
+    public abstract List<Event> getAllEvent();
 
     public abstract List<HashMap<String, Object>> transformListToHashMap(List<Event> List);
 
-    public abstract List<HashMap<String, Object>> deleteEvent(Map<String, Object> requestBody);
+    public abstract List<Event> deleteEvent(UUID Id);
 
-    public abstract HashMap<String, Object> getEventById(int id);
+    // public abstract Event getEventById(UUID Id);
 
     public abstract void createEvent();
 

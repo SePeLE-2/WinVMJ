@@ -34,18 +34,6 @@ public abstract class EventComponent implements Event {
 
 	}
 
-	public EventComponent(
-			UUID idEvent, String name, String date, String location, String description, TicketImpl ticketimpl,
-			BundlingImpl bundlingimpl) {
-		this.idEvent = idEvent;
-		this.name = name;
-		this.date = date;
-		this.location = location;
-		this.description = description;
-		this.ticketimpl = ticketimpl;
-		this.bundlingimpl = bundlingimpl;
-	}
-
 	public UUID getIdEvent() {
 		return this.idEvent;
 	}
@@ -86,17 +74,37 @@ public abstract class EventComponent implements Event {
 		this.description = description;
 	}
 
-	public abstract TicketImpl getTicketimpl();
+	public TicketImpl getTicketimpl() {
+		return this.ticketimpl;
+	}
 
-	public abstract void setTicketimpl(TicketImpl ticketimpl);
+	public void setTicketimpl(TicketImpl ticketimpl) {
+		this.ticketimpl = ticketimpl;
+	}
 
-	public abstract BundlingImpl getBundlingimpl();
+	public BundlingImpl getBundlingimpl() {
+		return this.bundlingimpl;
+	}
 
-	public abstract void setBundlingimpl(BundlingImpl bundlingimpl);
+	public void setBundlingimpl(BundlingImpl bundlingimpl) {
+		this.bundlingimpl = bundlingimpl;
+	}
 
-	public abstract void createEvent();
+	public void createEvent() {
 
-	public abstract String getDetails();
+	}
+
+	public String getDetails() {
+		return "{" +
+				" idEvent='" + getIdEvent() + "'" +
+				" name='" + getName() + "'" +
+				" date='" + getDate() + "'" +
+				" location='" + getLocation() + "'" +
+				" description='" + getDescription() + "'" +
+				" ticketimpl='" + getTicketimpl() + "'" +
+				" bundlingimpl='" + getBundlingimpl() + "'" +
+				"}";
+	}
 
 	@Override
 	public String toString() {
@@ -111,4 +119,16 @@ public abstract class EventComponent implements Event {
 				"}";
 	}
 
+	public HashMap<String, Object> toHashMap() {
+		HashMap<String, Object> eventMap = new HashMap<String, Object>();
+		eventMap.put("idEvent", getIdEvent());
+		eventMap.put("name", getName());
+		eventMap.put("date", getDate());
+		eventMap.put("location", getLocation());
+		eventMap.put("description", getDescription());
+		eventMap.put("ticketimpl", getTicketimpl());
+		eventMap.put("bundlingimpl", getBundlingimpl());
+
+		return eventMap;
+	}
 }

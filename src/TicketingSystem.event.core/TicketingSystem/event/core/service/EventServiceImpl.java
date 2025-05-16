@@ -24,42 +24,63 @@ import TicketingSystem.bundling.core.BundlingImpl;
 public class EventServiceImpl extends EventServiceComponent {
 
 	@Override
-	public List<HashMap<String, Object>> saveEvent(VMJExchange vmjExchange) {
-		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
-			return null;
+	public Event saveEvent(HashMap<String, Object> body, String email) {
+		if (!body.containsKey("name")) {
+			throw new FieldValidationException("Field 'name' not found in the request body.");
 		}
-		// Event event = createEvent(vmjExchange);
+		String name = (String) body.get("name");
 
-		Map<String, Object> requestBody = vmjExchange.getPayload();
-		Event event = createEvent(requestBody);
+		if (!body.containsKey("date")) {
+			throw new FieldValidationException("Field 'date' not found in the request body.");
+		}
+		String date = (String) body.get("date");
 
-		// eventRepository.saveObject(event);
-		Repository.saveObject(event);
-		return getAllEvent(requestBody);
+		if (!body.containsKey("location")) {
+			throw new FieldValidationException("Field 'location' not found in the request body.");
+		}
+		String location = (String) body.get("location");
+
+		if (!body.containsKey("description")) {
+			throw new FieldValidationException("Field 'description' not found in the request body.");
+		}
+		String description = (String) body.get("description");
+
+		UUID id = UUID.randomUUID();
+
+		Event event = EventFactory.createEvent("TicketingSystem.event.core.EventImpl",
+				id,
+				name,
+				date,
+				location,
+				description);
+		eventRepository.saveObject(event);
+		return eventRepository.getObject(id);
 	}
 
-	public Event createEvent(Map<String, Object> requestBody) {
-		String idEventStr = (String) requestBody.get("idEvent");
-		int idEvent = Integer.parseInt(idEventStr);
-		String name = (String) requestBody.get("name");
-		String date = (String) requestBody.get("date");
-		String location = (String) requestBody.get("location");
-		String description = (String) requestBody.get("description");
+	// public Event createEvent(Map<String, Object> requestBody) {
+	// String idEventStr = (String) requestBody.get("idEvent");
+	// int idEvent = Integer.parseInt(idEventStr);
+	// String name = (String) requestBody.get("name");
+	// String date = (String) requestBody.get("date");
+	// String location = (String) requestBody.get("location");
+	// String description = (String) requestBody.get("description");
 
-		// to do: fix association attributes
-		TicketImpl dummyTicketImpl = new TicketImpl();
-		BundlingImpl dummyBundlingImpl = new BundlingImpl();
+	// // to do: fix association attributes
+	// TicketImpl dummyTicketImpl = new TicketImpl();
+	// BundlingImpl dummyBundlingImpl = new BundlingImpl();
 
-		Event Event = EventFactory.createEvent(
-				"TicketingSystem.event.core.EventImpl",
-				idEvent, name, date, location, description, dummyTicketImpl, dummyBundlingImpl);
-		Repository.saveObject(Event);
-		return Event;
-	}
+	// Event Event = EventFactory.createEvent(
+	// "TicketingSystem.event.core.EventImpl",
+	// idEvent, name, date, location, description, dummyTicketImpl,
+	// dummyBundlingImpl);
+	// Repository.saveObject(Event);
+	// return Event;
+	// }
 
-	public Event createEvent(Map<String, Object> requestBody, Map<String, Object> response) {
-		return createEvent(requestBody);
-	}
+	// public Event createEvent(Map<String, Object> requestBody, Map<String, Object>
+	// response) {
+	// return createEvent(requestBody);
+	// }
 
 	// public Event createEvent(Map<String, Object> requestBody, int id) {
 	// String name = (String) vmjExchange.getRequestBodyForm("name");
@@ -78,57 +99,78 @@ public class EventServiceImpl extends EventServiceComponent {
 	// return event;
 	// }
 
-	public HashMap<String, Object> updateEvent(Map<String, Object> requestBody) {
-		String idStr = (String) requestBody.get("idEvent");
-		// int id = Integer.parseInt(idStr);
+	public Event updateEvent(Map<String, Object> body) {
+		if (!body.containsKey("idEvent")) {
+			throw new NotFoundException("Field 'idEvent' not found in the request body.");
+		}
+		String idStr = (String) body.get("idEvent");
 		UUID id = UUID.fromString(idStr);
-		Event event = Repository.getObject(id);
 
-		event.setName((String) requestBody.get("name"));
-		event.setDate((String) requestBody.get("date"));
-		event.setLocation((String) requestBody.get("location"));
-		event.setDescription((String) requestBody.get("description"));
+		Event event = eventRepository.getObject(id);
+		if (event == null) {
+			throw new NotFoundException("Event with id " + id + " not found");
+		}
 
-		Repository.updateObject(event);
+		if (body.containsKey("name")) {
+			String name = (String) body.get("name");
+			event.setName(name);
+		}
 
-		// to do: fix association attributes
+		if (body.containsKey("date")) {
+			String date = (String) body.get("date");
+			event.setDate(date);
+		}
 
-		return event.toHashMap();
+		if (body.containsKey("location")) {
+			String location = (String) body.get("location");
+			event.setLocation(location);
+		}
 
+		if (body.containsKey("description")) {
+			String description = (String) body.get("description");
+			event.setDescription(description);
+		}
+
+		eventRepository.updateObject(event);
+		event = eventRepository.getObject(id);
+
+		return event;
 	}
 
-	public HashMap<String, Object> getEvent(Map<String, Object> requestBody) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("table_name", "event_impl");
-		List<HashMap<String, Object>> eventList = getAllEvent(map);
-		for (HashMap<String, Object> event : eventList) {
-			int record_id = ((Double) event.get("record_id")).intValue();
-			if (event.get("id").equals(record_id)) {
-				return event;
+	public Event getEvent(UUID Id) {
+		Event event = eventRepository.getObject(Id);
+		if (event == null) {
+			throw new NotFoundException("Event with Id " + Id + " not found");
+		}
+		return event;
+	}
+
+	// public HashMap<String, Object> getEventById(int id) {
+	// // String idStr = vmjExchange.getGETParam("idEvent");
+	// // int id = Integer.parseInt(idStr);
+	// // Event event = eventRepository.getObject(id);
+	// // return event.toHashMap();
+
+	// // You declared UUID id before, but abstract method still uses int
+	// // Here we assume int → UUID mapping is handled elsewhere or refactor later
+	// throw new UnsupportedOperationException("getBundlingById(int) not
+	// implemented. Use UUID instead.");
+	// }
+
+	public List<Event> getAllEvent() {
+		List<Event> resultList = eventRepository.getListObject("event_impl", null, null);
+		Set<String> uniqueNames = new HashSet<>();
+		List<Event> uniqueEvents = new ArrayList<>();
+		for (Event event : resultList) {
+			if (uniqueNames.add(event.getName())) {
+				uniqueEvents.add(event);
 			}
 		}
-		return null;
-	}
-
-	public HashMap<String, Object> getEventById(int id) {
-		// String idStr = vmjExchange.getGETParam("idEvent");
-		// int id = Integer.parseInt(idStr);
-		// Event event = eventRepository.getObject(id);
-		// return event.toHashMap();
-
-		// You declared UUID id before, but abstract method still uses int
-		// Here we assume int → UUID mapping is handled elsewhere or refactor later
-		throw new UnsupportedOperationException("getBundlingById(int) not implemented. Use UUID instead.");
-	}
-
-	public List<HashMap<String, Object>> getAllEvent(Map<String, Object> requestBody) {
-		String table = (String) requestBody.get("table_name");
-		List<Event> List = Repository.getAllObject(table);
-		return transformListToHashMap(List);
+		return uniqueEvents;
 	}
 
 	public List<HashMap<String, Object>> transformListToHashMap(List<Event> List) {
-		List<HashMap<String, Object>> resultList = new ArrayList<HashMap<String, Object>>();
+		List<HashMap<String, Object>> resultList = new ArrayList<>();
 		for (int i = 0; i < List.size(); i++) {
 			resultList.add(List.get(i).toHashMap());
 		}
@@ -136,11 +178,10 @@ public class EventServiceImpl extends EventServiceComponent {
 		return resultList;
 	}
 
-	public List<HashMap<String, Object>> deleteEvent(Map<String, Object> requestBody) {
-		String idStr = ((String) requestBody.get("id"));
-		int id = Integer.parseInt(idStr);
-		Repository.deleteObject(id);
-		return getAllEvent(requestBody);
+	public List<Event> deleteEvent(UUID Id) {
+		Event event = eventRepository.getObject(Id);
+		// TODO: delete ticket
+		return getAllEvent();
 	}
 
 	public void createEvent() {

@@ -27,49 +27,17 @@ public class PaymentImpl extends PaymentComponent {
 		this.ticketimpl = ticketimpl;
 	}
 
-	public PaymentImpl() { }
-
-	@Override
-	public void setTicketimpl(TicketImpl ticketimpl) {
+	public PaymentImpl(UUID id, int amount, BundlingImpl bundlingimpl, TicketImpl ticketimpl) {
+		this.id = id;
+		this.amount = amount;
+		this.bundlingimpl = bundlingimpl;
 		this.ticketimpl = ticketimpl;
 	}
 
-	@Override
-	public TicketImpl getTicketimpl() {
-    	return this.ticketimpl;
+	public PaymentImpl() { 
+		this.id = UUID.randomUUID();
+		this.amount = 0;
+		this.bundlingimpl = null;
+		this.ticketimpl = null;
 	}
-
-	@Override
-	public void setBundlingimpl(BundlingImpl bundlingimpl) {
-    	this.bundlingimpl = bundlingimpl;
-	}
-
-	@Override
-	public BundlingImpl getBundlingimpl() {
-		return this.bundlingimpl;
-	}
-
-	@Override
-	public int getAmount() {
-		return this.amount;
-	}
-	
-	@Override
-	public void setAmount(int amount) {
-		this.amount = amount;
-	}
-
-	public void pay() {
-		System.out.println("Payment of " + amount + " made for ticket: " + ticketimpl.getTicketName());
-	}
-	
-	public HashMap<String, Object> toHashMap() {
-        HashMap<String, Object> paymentMap = new HashMap<String,Object>();
-		paymentMap.put("amount",getAmount());
-		paymentMap.put("bundlingimpl",getBundlingimpl());
-		paymentMap.put("ticketimpl",getTicketimpl());
-
-        return paymentMap;
-    }
-
 }

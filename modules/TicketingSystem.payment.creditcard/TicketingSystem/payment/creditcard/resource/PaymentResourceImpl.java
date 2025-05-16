@@ -25,114 +25,65 @@ public class PaymentResourceImpl extends PaymentResourceDecorator {
 		super(record);
 	}
 
-	@Route(url = "call/payment")
-	public HashMap<String, Object> payment(VMJExchange vmjExchange) {
-		if (vmjExchange.getHttpMethod().equals("POST")) {
-			Map<String, Object> requestBody = vmjExchange.getPayload();
-			Payment result = paymentServiceImpl.createPayment(requestBody);
-			return result.toHashMap();
-		}
-		throw new NotFoundException("Route tidak ditemukan");
-	}
-
-	@Route(url = "call/creditcard/save")
-	public List<HashMap<String, Object>> save(VMJExchange vmjExchange) {
-		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
-			return null;
-		}
-		Payment paymentcreditcard = createPaymentCreditcard(vmjExchange);
-		Repository.saveObject(paymentcreditcard);
-		return getAllPaymentCreditcard(vmjExchange);
-	}
-
-	public Payment createPaymentCreditcard(VMJExchange vmjExchange) {
-		Payment paymentcreditcard = record.createPayment(vmjExchange);
-
-		String amountStr = (String) vmjExchange.getRequestBodyForm("amount");
-		int amount = Integer.parseInt(amountStr);
-
-		BundlingImpl bundlingimpl = new BundlingImpl(); // TODO: retrieve from DB
-		TicketImpl ticketimpl = new TicketImpl(); // TODO: retrieve from DB
-
-		Payment paymentcreditcarddeco = PaymentFactory.createPayment(
-				"TicketingSystem.creditcard.core.PaymentImpl", paymentcreditcard, amount, bundlingimpl, ticketimpl);
-		return paymentcreditcarddeco;
-	}
-
-	public Payment createPaymentCreditcard(VMJExchange vmjExchange, int id) {
-		Payment paymentcreditcard = Repository.getObject(id);
-		// int recordPaymentCreditcardId = (((PaymentDecorator)
-		// paymentCreditcard.getRecord()).getId());
-
-		String amountStr = (String) vmjExchange.getRequestBodyForm("amount");
-		int amount = Integer.parseInt(amountStr);
-		// int recordPaymentCreditcardId = (((PaymentDecorator)
-		// savedPaymentCreditcard.getRecord()).getId());
-
-		// PaymentCreditcard paymentcreditcard =
-		// record.createPaymentCreditcard(vmjExchange);
-		BundlingImpl bundlingimpl = new BundlingImpl(); // TODO: retrieve from DB
-		TicketImpl ticketimpl = new TicketImpl(); // TODO: retrieve from DB
-
-		Payment paymentcreditcarddeco = PaymentFactory.createPayment(
-				"TicketingSystem.creditcard.core.PaymentImpl", id, paymentcreditcard, amount, bundlingimpl, ticketimpl);
-		return paymentcreditcarddeco;
-	}
-
-	@Route(url = "call/creditcard/update")
-	public HashMap<String, Object> updatePaymentCreditcard(VMJExchange vmjExchange) {
-		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
-			return null;
-		}
-		String idStr = (String) vmjExchange.getRequestBodyForm("");
-		int id = Integer.parseInt(idStr);
-
-		Payment paymentcreditcard = Repository.getObject(id);
-		paymentcreditcard = createPaymentCreditcard(vmjExchange, id);
-
-		Repository.updateObject(paymentcreditcard);
-		paymentcreditcard = Repository.getObject(id);
-		// to do: fix association attributes
-
-		return paymentcreditcard.toHashMap();
-
-	}
-
-	@Route(url = "call/creditcard/detail")
-	public HashMap<String, Object> getPaymentCreditcard(VMJExchange vmjExchange) {
-		return record.getPayment(vmjExchange);
-	}
-
-	@Route(url = "call/creditcard/list")
-	public List<HashMap<String, Object>> getAllPaymentCreditcard(VMJExchange vmjExchange) {
-		List<Payment> paymentcreditcardList = Repository.getAllObject("paymentcreditcard_impl");
-		return transformPaymentCreditcardListToHashMap(paymentcreditcardList);
-	}
-
-	public List<HashMap<String, Object>> transformPaymentCreditcardListToHashMap(List<Payment> PaymentCreditcardList) {
-		List<HashMap<String, Object>> resultList = new ArrayList<HashMap<String, Object>>();
-		for (int i = 0; i < PaymentCreditcardList.size(); i++) {
-			resultList.add(PaymentCreditcardList.get(i).toHashMap());
-		}
-
-		return resultList;
-	}
-
-	@Route(url = "call/creditcard/delete")
-	public List<HashMap<String, Object>> deletePaymentCreditcard(VMJExchange vmjExchange) {
-		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
-			return null;
-		}
-
-		String idStr = (String) vmjExchange.getRequestBodyForm("");
-		int id = Integer.parseInt(idStr);
-		Repository.deleteObject(id);
-		return getAllPaymentCreditcard(vmjExchange);
-	}
-
+	@Route(url = "call/payment/creditcard/")
 	public void pay() {
 		// TODO: implement this method
 		System.out.println("creditcard pay() called in service; this should ideally be in entity logic.");
 	}
 
+	@Route(url = "call/payment/save")
+	public HashMap<String, Object> savePayment(VMJExchange vmjExchange) {
+		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
+			return null;
+		}
+		String email = vmjExchange.getAuthPayload().getEmail();
+		Payment payment = paymentServiceImpl.savePayment((HashMap<String, Object>) vmjExchange.getPayload(), email);
+		return payment.toHashMap();
+	}
+
+	@Route(url = "call/payment")
+	public HashMap<String, Object> payment(VMJExchange vmjExchange) {
+		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
+			return null;
+		}
+		String email = vmjExchange.getAuthPayload().getEmail();
+		Payment payment = paymentServiceImpl.savePayment((HashMap<String, Object>) vmjExchange.getPayload(), email);
+		return payment.toHashMap();
+	}
+
+	@Route(url = "call/payment/update")
+	public HashMap<String, Object> updatePayment(VMJExchange vmjExchange) {
+		Map<String, Object> requestBody = vmjExchange.getPayload();
+		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
+			return null;
+		}
+		return paymentServiceImpl.updatePayment(requestBody).toHashMap();
+	}
+
+	@Route(url = "call/payment/detail")
+	public HashMap<String, Object> getPayment(VMJExchange vmjExchange) {
+		String idStr = vmjExchange.getGETParam("id");
+		UUID id = UUID.fromString(idStr);
+		return paymentServiceImpl.getPayment(id).toHashMap();
+	}
+
+	@Route(url = "call/payment/list")
+	public List<HashMap<String, Object>> getAllPayment(VMJExchange vmjExchange) {
+		List<Payment> List = paymentServiceImpl.getAllPayment();
+		return paymentServiceImpl.transformListToHashMap(List);
+	}
+
+	@Route(url = "call/payment/delete")
+	public List<HashMap<String, Object>> deletePayment(VMJExchange vmjExchange) {
+		Map<String, Object> requestBody = vmjExchange.getPayload();
+		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
+			return null;
+		}
+		HashMap<String, Object> body = (HashMap<String, Object>) vmjExchange.getPayload();
+		String idStr = (String) body.get("id");
+		UUID id = UUID.fromString(idStr);
+		Payment payment = paymentRepository.getObject(id);
+		List<Payment> List = paymentServiceImpl.deletePayment(id);
+		return paymentServiceImpl.transformListToHashMap(List);
+	}
 }

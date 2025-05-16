@@ -6,10 +6,10 @@
 	<feature name="SeatMapping"/>
 	<feature automatic="selected" name="EventOrganizer"/>
 	<feature automatic="selected" name="Payment"/>
-	<feature name="CreditCard"/>
-	<feature manual="selected" name="EWallet"/>
+	<feature manual="selected" name="CreditCard"/>
+	<feature name="EWallet"/>
 	<feature automatic="selected" name="Ticket"/>
-	<feature name="Bundling"/>
+	<feature manual="selected" name="Bundling"/>
 	<feature name="Promo"/>
 	<feature automatic="selected" name="Reporting"/>
 	<feature automatic="selected" name="SalesReport"/>
