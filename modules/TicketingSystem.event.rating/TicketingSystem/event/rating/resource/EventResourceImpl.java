@@ -12,14 +12,17 @@ import java.util.*;
 
 public class EventResourceImpl extends EventResourceDecorator {
     private RepositoryUtil<Event> eventratingRepository = new RepositoryUtil<>(EventImpl.class);
+    private EventService eventService;
 
-    public EventResourceImpl(EventResourceComponent record) {
+    public EventResourceImpl(EventResourceComponent record, EventServiceComponent eventService) {
         super(record);
+        this.eventService = eventService;
     }
 
     @Route(url = "call/rating/save")
     public HashMap<String, Object> saveEvent(VMJExchange vmjExchange) {
-        if (vmjExchange.getHttpMethod().equals("OPTIONS")) return null;
+        if (vmjExchange.getHttpMethod().equals("OPTIONS"))
+            return null;
 
         UUID id = UUID.randomUUID();
         String name = (String) vmjExchange.getRequestBodyForm("name");
@@ -28,9 +31,8 @@ public class EventResourceImpl extends EventResourceDecorator {
         String description = (String) vmjExchange.getRequestBodyForm("description");
 
         Event event = EventRatingFactory.createEventRating(
-            "TicketingSystem.event.rating.model.EventImpl",
-            id, name, date, location, description
-        );
+                "TicketingSystem.event.rating.model.EventImpl",
+                id, name, date, location, description);
         eventratingRepository.saveObject(event);
 
         return event.toHashMap();

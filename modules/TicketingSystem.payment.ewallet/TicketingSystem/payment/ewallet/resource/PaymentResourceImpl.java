@@ -25,8 +25,9 @@ public class PaymentResourceImpl extends PaymentResourceDecorator {
 
 	private PaymentService paymentService;
 
-	public PaymentResourceImpl(PaymentResourceComponent record) {
+	public PaymentResourceImpl(PaymentResourceComponent record, PaymentServiceComponent paymentService) {
 		super(record);
+		this.paymentService = new PaymentServiceImpl(paymentService);
 	}
 
 	@Route(url = "call/payment/ewallet/")
@@ -38,9 +39,9 @@ public class PaymentResourceImpl extends PaymentResourceDecorator {
 	@Route(url = "call/payment")
 	public HashMap<String, Object> payment(VMJExchange vmjExchange) {
 		// if (vmjExchange.getHttpMethod().equals("POST")) {
-		// 	Map<String, Object> requestBody = vmjExchange.getPayload();
-		// 	Payment result = paymentServiceImpl.createPayment(requestBody);
-		// 	return result.toHashMap();
+		// Map<String, Object> requestBody = vmjExchange.getPayload();
+		// Payment result = paymentServiceImpl.createPayment(requestBody);
+		// return result.toHashMap();
 		// }
 		// throw new NotFoundException("Route tidak ditemukan");
 		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
@@ -65,42 +66,44 @@ public class PaymentResourceImpl extends PaymentResourceDecorator {
 	}
 
 	// public Payment createPaymentEWallet(VMJExchange vmjExchange) {
-	// 	Payment paymentewallet = record.createPayment(vmjExchange);
+	// Payment paymentewallet = record.createPayment(vmjExchange);
 
-	// 	String amountStr = (String) vmjExchange.getRequestBodyForm("amount");
-	// 	int amount = Integer.parseInt(amountStr);
+	// String amountStr = (String) vmjExchange.getRequestBodyForm("amount");
+	// int amount = Integer.parseInt(amountStr);
 
-	// 	BundlingImpl bundlingimpl = new BundlingImpl(); // TODO: retrieve from DB
-	// 	TicketImpl ticketimpl = new TicketImpl(); // TODO: retrieve from DB
+	// BundlingImpl bundlingimpl = new BundlingImpl(); // TODO: retrieve from DB
+	// TicketImpl ticketimpl = new TicketImpl(); // TODO: retrieve from DB
 
-	// 	Payment paymentewalletdeco = PaymentFactory.createPayment(
-	// 			"TicketingSystem.ewallet.core.PaymentImpl", paymentewallet, amount, bundlingimpl, ticketimpl);
-	// 	return paymentewalletdeco;
+	// Payment paymentewalletdeco = PaymentFactory.createPayment(
+	// "TicketingSystem.ewallet.core.PaymentImpl", paymentewallet, amount,
+	// bundlingimpl, ticketimpl);
+	// return paymentewalletdeco;
 	// }
 
 	// public Payment createPaymentEWallet(VMJExchange vmjExchange, int id) {
-	// 	Payment paymentewallet = Repository.getObject(id);
-	// 	// int recordPaymentEWalletId = (((PaymentDecorator)
-	// 	// paymentEWallet.getRecord()).getId());
+	// Payment paymentewallet = Repository.getObject(id);
+	// // int recordPaymentEWalletId = (((PaymentDecorator)
+	// // paymentEWallet.getRecord()).getId());
 
-	// 	String amountStr = (String) vmjExchange.getRequestBodyForm("amount");
-	// 	int amount = Integer.parseInt(amountStr);
-	// 	// int recordPaymentEWalletId = (((PaymentDecorator)
-	// 	// savedPaymentEWallet.getRecord()).getId());
+	// String amountStr = (String) vmjExchange.getRequestBodyForm("amount");
+	// int amount = Integer.parseInt(amountStr);
+	// // int recordPaymentEWalletId = (((PaymentDecorator)
+	// // savedPaymentEWallet.getRecord()).getId());
 
-	// 	// PaymentEWallet paymentewallet = record.createPaymentEWallet(vmjExchange);
-	// 	BundlingImpl bundlingimpl = new BundlingImpl(); // TODO: retrieve from DB
-	// 	TicketImpl ticketimpl = new TicketImpl(); // TODO: retrieve from DB
+	// // PaymentEWallet paymentewallet = record.createPaymentEWallet(vmjExchange);
+	// BundlingImpl bundlingimpl = new BundlingImpl(); // TODO: retrieve from DB
+	// TicketImpl ticketimpl = new TicketImpl(); // TODO: retrieve from DB
 
-	// 	Payment paymentewalletdeco = PaymentFactory.createPayment(
-	// 			"TicketingSystem.ewallet.core.PaymentImpl", id, paymentewallet, amount, bundlingimpl, ticketimpl);
-	// 	return paymentewalletdeco;
+	// Payment paymentewalletdeco = PaymentFactory.createPayment(
+	// "TicketingSystem.ewallet.core.PaymentImpl", id, paymentewallet, amount,
+	// bundlingimpl, ticketimpl);
+	// return paymentewalletdeco;
 	// }
 
 	@Route(url = "call/ewallet/update")
 	public HashMap<String, Object> updatePaymentEWallet(VMJExchange vmjExchange) {
 		// if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
-		// 	return null;
+		// return null;
 		// }
 		// String idStr = (String) vmjExchange.getRequestBodyForm("");
 		// int id = Integer.parseInt(idStr);
@@ -131,19 +134,22 @@ public class PaymentResourceImpl extends PaymentResourceDecorator {
 
 	@Route(url = "call/ewallet/list")
 	public List<HashMap<String, Object>> getAllPaymentEWallet(VMJExchange vmjExchange) {
-		// List<Payment> paymentewalletList = Repository.getAllObject("paymentewallet_impl");
+		// List<Payment> paymentewalletList =
+		// Repository.getAllObject("paymentewallet_impl");
 		// return transformPaymentEWalletListToHashMap(paymentewalletList);
 		List<Payment> List = paymentService.getAllPayment();
 		return paymentService.transformListToHashMap(List);
 	}
 
-	// public List<HashMap<String, Object>> transformPaymentEWalletListToHashMap(List<Payment> PaymentEWalletList) {
-	// 	List<HashMap<String, Object>> resultList = new ArrayList<HashMap<String, Object>>();
-	// 	for (int i = 0; i < PaymentEWalletList.size(); i++) {
-	// 		resultList.add(PaymentEWalletList.get(i).toHashMap());
-	// 	}
+	// public List<HashMap<String, Object>>
+	// transformPaymentEWalletListToHashMap(List<Payment> PaymentEWalletList) {
+	// List<HashMap<String, Object>> resultList = new ArrayList<HashMap<String,
+	// Object>>();
+	// for (int i = 0; i < PaymentEWalletList.size(); i++) {
+	// resultList.add(PaymentEWalletList.get(i).toHashMap());
+	// }
 
-	// 	return resultList;
+	// return resultList;
 	// }
 
 	@Route(url = "call/ewallet/delete")
