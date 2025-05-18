@@ -1,109 +1,71 @@
-package TicketingSystem.event.rating;
-import java.util.*;
+package TicketingSystem.event.rating.resource;
 
+import TicketingSystem.event.core.*;
+import TicketingSystem.event.rating.model.EventImpl;
+import TicketingSystem.event.rating.EventRatingFactory;
+
+import vmj.hibernate.integrator.RepositoryUtil;
 import vmj.routing.route.Route;
 import vmj.routing.route.VMJExchange;
 
-import TicketingSystem.event.core.EventResourceDecorator;
-import TicketingSystem.event.core.EventImpl;
-import TicketingSystem.event.core.EventResourceComponent;
+import java.util.*;
 
 public class EventResourceImpl extends EventResourceDecorator {
-    public EventResourceImpl (EventResourceComponent record) {
+    private RepositoryUtil<Event> eventratingRepository = new RepositoryUtil<>(EventImpl.class);
+
+    public EventResourceImpl(EventResourceComponent record) {
         super(record);
     }
 
-    
-    @Route(url="call/rating/save")
-    public List<HashMap<String,Object>> save(VMJExchange vmjExchange){
-		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
-			return null;
-		}
-		EventRating eventrating = createEventRating(vmjExchange);
-		eventratingRepository.saveObject(eventrating);
-		return getAllEventRating(vmjExchange);
-	}
+    @Route(url = "call/rating/save")
+    public HashMap<String, Object> saveEvent(VMJExchange vmjExchange) {
+        if (vmjExchange.getHttpMethod().equals("OPTIONS")) return null;
 
-    public Event createEventRating(VMJExchange vmjExchange){
-		
-		EventRating eventrating = record.createEventRating(vmjExchange);
-		EventRating eventratingdeco = EventRatingFactory.createEventRating("TicketingSystem.rating.core.EventImpl", eventrating, idEvent, name, date, location, description, ticketimpl, bundlingimpl
-		);
-			return eventratingdeco;
-	}
+        UUID id = UUID.randomUUID();
+        String name = (String) vmjExchange.getRequestBodyForm("name");
+        String date = (String) vmjExchange.getRequestBodyForm("date");
+        String location = (String) vmjExchange.getRequestBodyForm("location");
+        String description = (String) vmjExchange.getRequestBodyForm("description");
 
+        Event event = EventRatingFactory.createEventRating(
+            "TicketingSystem.event.rating.model.EventImpl",
+            id, name, date, location, description
+        );
+        eventratingRepository.saveObject(event);
 
-    public Event createEventRating(VMJExchange vmjExchange, int id){
-		EventRating eventrating = eventratingRepository.getObject(id);
-		int recordEventRatingId = (((EventRatingDecorator) savedEventRating.getRecord()).getId();
-		
-		EventRating eventrating = record.createEventRating(vmjExchange);
-		EventRating eventratingdeco = EventRatingFactory.createEventRating("TicketingSystem.rating.core.EventImpl", id, eventrating, idEvent, name, date, location, description, ticketimpl, bundlingimpl
-		);
-			return eventratingdeco;
-	}
+        return event.toHashMap();
+    }
 
-	
-    @Route(url="call/rating/update")
-    public HashMap<String, Object> updateEventRating(VMJExchange vmjExchange){
-		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
-			return null;
-		}
-		String idStr = (String) vmjExchange.getRequestBodyForm("idEvent");
-		int id = Integer.parseInt(idStr);
-		
-		EventRating eventrating = eventratingRepository.getObject(id);
-		eventrating = createEventRating(vmjExchange, id);
-		
-		eventratingRepository.updateObject(eventrating);
-		eventrating = eventratingRepository.getObject(id);
-		//to do: fix association attributes
-		
-		return eventrating.toHashMap();
-		
-	}
+    public HashMap<String, Object> Event(VMJExchange vmjExchange) {
+        return new HashMap<>(); // implement if needed
+    }
 
-	
-    @Route(url="call/rating/detail")
-    public HashMap<String, Object> getEventRating(VMJExchange vmjExchange){
-		return record.getEventRating(vmjExchange);
-	}
+    @Route(url = "call/rating/list")
+    public List<HashMap<String, Object>> getAllEvent(VMJExchange vmjExchange) {
+        List<Event> list = eventratingRepository.getListObject("event_rating", null, null);
+        return transformListToHashMap(list);
+    }
 
-	
-    @Route(url="call/rating/list")
-    public List<HashMap<String,Object>> getAllEventRating(VMJExchange vmjExchange){
-		List<EventRating> eventratingList = eventratingRepository.getAllObject("eventrating_impl");
-		return transformEventRatingListToHashMap(eventratingList);
-	}
-
-    public List<HashMap<String,Object>> transformEventRatingListToHashMap(List<EventRating> EventRatingList){
-		List<HashMap<String,Object>> resultList = new ArrayList<HashMap<String,Object>>();
-        for(int i = 0; i < EventRatingList.size(); i++) {
-            resultList.add(EventRatingList.get(i).toHashMap());
+    public List<HashMap<String, Object>> transformListToHashMap(List<Event> list) {
+        List<HashMap<String, Object>> result = new ArrayList<>();
+        for (Event e : list) {
+            result.add(e.toHashMap());
         }
+        return result;
+    }
 
-        return resultList;
-	}
+    @Override
+    public HashMap<String, Object> getEvent(VMJExchange vmjExchange) {
+        return record.getEvent(vmjExchange);
+    }
 
-	
-    @Route(url="call/rating/delete")
-    public List<HashMap<String,Object>> deleteEventRating(VMJExchange vmjExchange){
-		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
-			return null;
-		}
-		
-		String idStr = (String) vmjExchange.getRequestBodyForm("idEvent");
-		int id = Integer.parseInt(idStr);
-		eventratingRepository.deleteObject(id);
-		return getAllEventRating(vmjExchange);
-	}
+    @Override
+    public HashMap<String, Object> updateEvent(VMJExchange vmjExchange) {
+        return record.updateEvent(vmjExchange);
+    }
 
-	public void addRating() {
-		// TODO: implement this method
-	}
-
-	public int getAverageRating() {
-		// TODO: implement this method
-	}
-	
+    @Override
+    public List<HashMap<String, Object>> deleteEvent(VMJExchange vmjExchange) {
+        return record.deleteEvent(vmjExchange);
+    }
 }

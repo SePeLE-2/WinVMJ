@@ -1,43 +1,42 @@
-package TicketingSystem.event.rating;
+package TicketingSystem.event.rating.model;
 
-import java.util.*;
-import vmj.routing.route.Route;
-import vmj.routing.route.VMJExchange;
+import TicketingSystem.event.core.EventComponent;
+import TicketingSystem.event.core.EventDecorator;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.Column;
+import java.util.HashMap;
+import java.util.UUID;
 
-import TicketingSystem.event.core.EventDecorator;
-import TicketingSystem.event.core.Event;
-import TicketingSystem.event.core.EventComponent;
-
-@Entity(name="event_rating")
-@Table(name="event_rating")
+@Entity(name = "event_rating")
+@Table(name = "event_rating")
 public class EventImpl extends EventDecorator {
+    private Rating rating;
 
-	public EventImpl() {
+    public EventImpl() {
         super();
         this.objectName = EventImpl.class.getName();
+        this.rating = new Rating();
     }
 
-	    public EventImpl(Rating rating) {
-	        super();
-	        this.objectName = EventImpl.class.getName();
-	    }
-	
-	public EventImpl(EventComponent record, Rating rating) {
-		super(record);
-		this.objectName = EventImpl.class.getName();
-	}
+    public EventImpl(EventComponent record) {
+        super(record);
+        this.objectName = EventImpl.class.getName();
+        this.rating = new Rating();
+    }
 
+    public void addRating(int value) {
+        this.rating.addRating(value);
+    }
 
-	public void addRating() {
-		// TODO: implement this method
-	}
+    public int getAverageRating() {
+        return this.rating.getAverageRating();
+    }
 
-	public int getAverageRating() {
-		// TODO: implement this method
-	}
-
+    @Override
+    public HashMap<String, Object> toHashMap() {
+        HashMap<String, Object> map = super.toHashMap();
+        map.put("averageRating", getAverageRating());
+        return map;
+    }
 }

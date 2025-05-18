@@ -1,24 +1,21 @@
-package TicketingSystem.event.rating;
+package TicketingSystem.event.rating.service;
+
+import TicketingSystem.event.core.*;
+import TicketingSystem.event.rating.EventRatingFactory;
 
 import java.util.*;
 
-import vmj.routing.route.VMJExchange;
-
-import TicketingSystem.event.core.EventServiceDecorator;
-import TicketingSystem.event.core.EventImpl;
-import TicketingSystem.event.core.EventServiceComponent;
-
 public class EventServiceImpl extends EventServiceDecorator {
-    public EventServiceImpl (EventServiceComponent record) {
+    public EventServiceImpl(EventServiceComponent record) {
         super(record);
     }
 
-    
-	public void addRating() {
-		// TODO: implement this method
-	}
+    public void addRating() {
+        // Optional: add logic
+    }
 
-	public int getAverageRating() {
-		// TODO: implement this method
-	}
+    public int getAverageRating() {
+        // Optional: add logic
+        return 0;
+    }
 }
