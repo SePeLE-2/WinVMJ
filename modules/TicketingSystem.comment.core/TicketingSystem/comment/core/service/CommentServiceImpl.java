@@ -115,9 +115,9 @@ public class CommentServiceImpl extends CommentServiceComponent{
 	// 	return comment.toHashMap();
 	// }
 
-    public List<HashMap<String,Object>> getAllComment(){
+    public List<HashMap<String,Object>> getAllComment(UUID articleId){
 		// String table = (String) requestBody.get("table_name");
-		List<Comment> List = Repository.getAllObject("comment_impl");
+		List<Comment> List = Repository.getListObject("comment_comp", "articleimpl_idarticle", articleId);
 		return transformListToHashMap(List);
 	}
 

@@ -10,7 +10,7 @@ public interface CommentService {
     HashMap<String,Object> saveComment(Map<String, Object> requestBody, UUID idArticle);
     HashMap<String, Object> updateComment(Map<String, Object> requestBody);
     // HashMap<String, Object> getCommentById(int id);
-    List<HashMap<String,Object>> getAllComment();
+    List<HashMap<String,Object>> getAllComment(UUID articleId);
     List<HashMap<String,Object>> deleteComment(Map<String, Object> requestBody);
 	List<HashMap<String, Object>> transformListToHashMap(List<Comment> List);
 }

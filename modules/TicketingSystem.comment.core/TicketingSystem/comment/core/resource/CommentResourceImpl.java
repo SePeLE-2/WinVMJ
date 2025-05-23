@@ -75,7 +75,9 @@ public class CommentResourceImpl extends CommentResourceComponent{
     @Route(url="call/comment/list")
     public List<HashMap<String,Object>> getAllComment(VMJExchange vmjExchange){
 		Map<String, Object> requestBody = vmjExchange.getPayload(); 
-		return commentServiceImpl.getAllComment();
+		String idArticleString = vmjExchange.getGETParam("idArticle"); 
+		UUID idArticle = UUID.fromString(idArticleString);
+		return commentServiceImpl.getAllComment(idArticle);
 	}
 
 	
