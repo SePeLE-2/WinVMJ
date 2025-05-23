@@ -52,7 +52,7 @@ public class PaymentResourceImpl extends PaymentResourceDecorator {
 		return payment.toHashMap();
 	}
 
-	@Route(url = "call/ewallet/save")
+	@Route(url = "call/payment/save")
 	public HashMap<String, Object> save(VMJExchange vmjExchange) {
 		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
 			return null;
@@ -100,7 +100,7 @@ public class PaymentResourceImpl extends PaymentResourceDecorator {
 	// return paymentewalletdeco;
 	// }
 
-	@Route(url = "call/ewallet/update")
+	@Route(url = "call/payment/update")
 	public HashMap<String, Object> updatePaymentEWallet(VMJExchange vmjExchange) {
 		// if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
 		// return null;
@@ -124,7 +124,7 @@ public class PaymentResourceImpl extends PaymentResourceDecorator {
 
 	}
 
-	@Route(url = "call/ewallet/detail")
+	@Route(url = "call/payment/detail")
 	public HashMap<String, Object> getPaymentEWallet(VMJExchange vmjExchange) {
 		// return record.getPayment(vmjExchange);
 		String idStr = vmjExchange.getGETParam("id");
@@ -132,7 +132,7 @@ public class PaymentResourceImpl extends PaymentResourceDecorator {
 		return paymentService.getPayment(id).toHashMap();
 	}
 
-	@Route(url = "call/ewallet/list")
+	@Route(url = "call/payment/list")
 	public List<HashMap<String, Object>> getAllPaymentEWallet(VMJExchange vmjExchange) {
 		// List<Payment> paymentewalletList =
 		// Repository.getAllObject("paymentewallet_impl");
@@ -152,7 +152,7 @@ public class PaymentResourceImpl extends PaymentResourceDecorator {
 	// return resultList;
 	// }
 
-	@Route(url = "call/ewallet/delete")
+	@Route(url = "call/payment/delete")
 	public List<HashMap<String, Object>> deletePaymentEWallet(VMJExchange vmjExchange) {
 		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
 			return null;
