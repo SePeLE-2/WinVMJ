@@ -13,7 +13,7 @@
 	<feature name="Promo"/>
 	<feature automatic="selected" name="Reporting"/>
 	<feature automatic="selected" name="SalesReport"/>
-	<feature name="AttendanceStats"/>
+	<feature manual="selected" name="AttendanceStats"/>
 	<feature name="NewsArticle"/>
 	<feature name="Comment"/>
 	<feature manual="selected" name="Customer"/>

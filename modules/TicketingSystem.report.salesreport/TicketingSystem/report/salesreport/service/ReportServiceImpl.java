@@ -8,7 +8,6 @@ import TicketingSystem.report.core.ReportServiceDecorator;
 import TicketingSystem.report.core.ReportImpl;
 import TicketingSystem.report.core.ReportServiceComponent;
 import TicketingSystem.report.core.Report;
-import TicketingSystem.report.core.Repository;
 
 public class ReportServiceImpl extends ReportServiceDecorator {
     public ReportServiceImpl(ReportServiceComponent record) {
@@ -16,14 +15,8 @@ public class ReportServiceImpl extends ReportServiceDecorator {
     }
 
     public void calculateRevenue() {
-        List<Report> reports = Repository.getAllObject("report_salesreport");
-        for (Report report : reports) {
-            if (report instanceof ReportImpl) {
-                ReportImpl salesReport = (ReportImpl) report;
-                salesReport.calculateRevenue();
-                Repository.updateObject(salesReport);
-            }
-        }
+        // TODO: implement this method
+        System.out.println("salesreport calculateRevenue() called in service; this should ideally be in entity logic.");
     }
 
     public List<HashMap<String, Object>> saveReport(Map<String, Object> requestBody) {
