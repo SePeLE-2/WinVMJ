@@ -5,131 +5,101 @@ import vmj.routing.route.Route;
 import vmj.routing.route.VMJExchange;
 
 import TicketingSystem.report.core.ReportResourceDecorator;
-import TicketingSystem.report.core.ReportImpl;
 import TicketingSystem.report.core.ReportResourceComponent;
+import TicketingSystem.report.core.Report;
+import vmj.hibernate.integrator.RepositoryUtil;
+import TicketingSystem.event.core.EventImpl;
+import TicketingSystem.report.attendancestats.ReportImpl;
 
 public class ReportResourceImpl extends ReportResourceDecorator {
+    private RepositoryUtil<Report> repository = new RepositoryUtil<>(TicketingSystem.report.core.ReportComponent.class);
+
     public ReportResourceImpl (ReportResourceComponent record) {
         super(record);
     }
 
-    
     @Route(url="call/attendancestats/save")
     public List<HashMap<String,Object>> save(VMJExchange vmjExchange){
-		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
-			return null;
-		}
-		ReportAttendanceStats reportattendancestats = createReportAttendanceStats(vmjExchange);
-		reportattendancestatsRepository.saveObject(reportattendancestats);
-		return getAllReportAttendanceStats(vmjExchange);
-	}
+        if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
+            return null;
+        }
+        ReportImpl report = createReportAttendanceStats(vmjExchange);
+        repository.saveObject(report);
+        return getAllReportAttendanceStats(vmjExchange);
+    }
 
-    public Report createReportAttendanceStats(VMJExchange vmjExchange){
-		String showingAttendanceStr = (String) vmjExchange.getRequestBodyForm("showingAttendance");
-		int showingAttendance = Integer.parseInt(showingAttendanceStr);
-		String attendancePercentageStr = (String) vmjExchange.getRequestBodyForm("attendancePercentage");
-		int attendancePercentage = Integer.parseInt(attendancePercentageStr);
-		
-		ReportAttendanceStats reportattendancestats = record.createReportAttendanceStats(vmjExchange);
-		ReportAttendanceStats reportattendancestatsdeco = ReportAttendanceStatsFactory.createReportAttendanceStats(
-			"TicketingSystem.attendancestats.core.ReportImpl",
-			reportattendancestats,
-			idReport,
-			idEvent,
-			eventName,
-			eventDate,
-			reportDate,
-			ticketSold,
-			eventimpl,
-			showingAttendance,
-			attendancePercentage
-		);
-		return reportattendancestatsdeco;
-	}
+    public ReportImpl createReportAttendanceStats(VMJExchange vmjExchange){
+        int showingAttendance = Integer.parseInt((String) vmjExchange.getRequestBodyForm("showingAttendance"));
+        int attendancePercentage = Integer.parseInt((String) vmjExchange.getRequestBodyForm("attendancePercentage"));
+        ReportImpl report = new ReportImpl();
+        report.setShowingAttendance(showingAttendance);
+        report.attendancePercentage = attendancePercentage;
+        return report;
+    }
 
-    public Report createReportAttendanceStats(VMJExchange vmjExchange, int id){
-		String showingAttendanceStr = (String) vmjExchange.getRequestBodyForm("showingAttendance");
-		int showingAttendance = Integer.parseInt(showingAttendanceStr);
-		String attendancePercentageStr = (String) vmjExchange.getRequestBodyForm("attendancePercentage");
-		int attendancePercentage = Integer.parseInt(attendancePercentageStr);
-		ReportAttendanceStats savedReportAttendanceStats = reportattendancestatsRepository.getObject(id);
-		int recordReportAttendanceStatsId = ((ReportAttendanceStatsDecorator) savedReportAttendanceStats.getRecord()).getId();
-		
-		ReportAttendanceStats reportattendancestats = record.createReportAttendanceStats(vmjExchange);
-		ReportAttendanceStats reportattendancestatsdeco = ReportAttendanceStatsFactory.createReportAttendanceStats(
-			"TicketingSystem.attendancestats.core.ReportImpl",
-			id,
-			reportattendancestats,
-			idReport,
-			idEvent,
-			eventName,
-			eventDate,
-			reportDate,
-			ticketSold,
-			eventimpl,
-			showingAttendance,
-			attendancePercentage
-		);
-		return reportattendancestatsdeco;
-	}
+    public ReportImpl createReportAttendanceStats(VMJExchange vmjExchange, int id){
+        int showingAttendance = Integer.parseInt((String) vmjExchange.getRequestBodyForm("showingAttendance"));
+        int attendancePercentage = Integer.parseInt((String) vmjExchange.getRequestBodyForm("attendancePercentage"));
+        ReportImpl report = new ReportImpl();
+        report.setShowingAttendance(showingAttendance);
+        report.attendancePercentage = attendancePercentage;
+        return report;
+    }
 
-	
     @Route(url="call/attendancestats/update")
     public HashMap<String, Object> updateReportAttendanceStats(VMJExchange vmjExchange){
-		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
-			return null;
-		}
-		String idStr = (String) vmjExchange.getRequestBodyForm("idReport");
-		int id = Integer.parseInt(idStr);
-		
-		ReportAttendanceStats reportattendancestats = reportattendancestatsRepository.getObject(id);
-		reportattendancestats = createReportAttendanceStats(vmjExchange, id);
-		
-		reportattendancestatsRepository.updateObject(reportattendancestats);
-		reportattendancestats = reportattendancestatsRepository.getObject(id);
-		//to do: fix association attributes
-		
-		return reportattendancestats.toHashMap();
-		
-	}
-
-	
-    @Route(url="call/attendancestats/detail")
-    public HashMap<String, Object> getReportAttendanceStats(VMJExchange vmjExchange){
-		return record.getReportAttendanceStats(vmjExchange);
-	}
-
-	
-    @Route(url="call/attendancestats/list")
-    public List<HashMap<String,Object>> getAllReportAttendanceStats(VMJExchange vmjExchange){
-		List<ReportAttendanceStats> reportattendancestatsList = reportattendancestatsRepository.getAllObject("reportattendancestats_impl");
-		return transformReportAttendanceStatsListToHashMap(reportattendancestatsList);
-	}
-
-    public List<HashMap<String,Object>> transformReportAttendanceStatsListToHashMap(List<ReportAttendanceStats> ReportAttendanceStatsList){
-		List<HashMap<String,Object>> resultList = new ArrayList<HashMap<String,Object>>();
-        for(int i = 0; i < ReportAttendanceStatsList.size(); i++) {
-            resultList.add(ReportAttendanceStatsList.get(i).toHashMap());
+        if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
+            return null;
         }
+        String idStr = (String) vmjExchange.getRequestBodyForm("idReport");
+        int id = Integer.parseInt(idStr);
+        ReportImpl report = createReportAttendanceStats(vmjExchange, id);
+        repository.updateObject(report);
+        return report.toHashMap();
+    }
 
-        return resultList;
-	}
+    @Route(url="call/attendancestats/get")
+    public HashMap<String, Object> getReportAttendanceStats(VMJExchange vmjExchange) {
+        String idStr = (String) vmjExchange.getRequestBodyForm("id");
+        UUID id = UUID.fromString(idStr);
+        Report report = repository.getObject(id);
+        if (report instanceof ReportImpl) {
+            return ((ReportImpl) report).toHashMap();
+        }
+        return null;
+    }
 
-	
+    @Route(url="call/attendancestats/getall")
+    public List<HashMap<String, Object>> getAllReportAttendanceStats(VMJExchange vmjExchange) {
+        List<Report> reports = repository.getAllObject("report_attendancestats");
+        List<HashMap<String, Object>> result = new ArrayList<>();
+        for (Report report : reports) {
+            if (report instanceof ReportImpl) {
+                result.add(((ReportImpl) report).toHashMap());
+            }
+        }
+        return result;
+    }
+
     @Route(url="call/attendancestats/delete")
     public List<HashMap<String,Object>> deleteReportAttendanceStats(VMJExchange vmjExchange){
-		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
-			return null;
-		}
-		
-		String idStr = (String) vmjExchange.getRequestBodyForm("idReportidEvent");
-		int id = Integer.parseInt(idStr);
-		reportattendancestatsRepository.deleteObject(id);
-		return getAllReportAttendanceStats(vmjExchange);
-	}
+        if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
+            return null;
+        }
+        String idStr = (String) vmjExchange.getRequestBodyForm("idReport");
+        int id = Integer.parseInt(idStr);
+        repository.deleteObject(id);
+        return getAllReportAttendanceStats(vmjExchange);
+    }
 
-	public void calculateAttendancePercentage() {
-		// TODO: implement this method
-	}
-	
+    public void calculateAttendancePercentage() {
+        List<Report> reports = repository.getAllObject("report_attendancestats");
+        for (Report report : reports) {
+            if (report instanceof ReportImpl) {
+                ReportImpl attendanceReport = (ReportImpl) report;
+                attendanceReport.calculateAttendancePercentage();
+                repository.updateObject(attendanceReport);
+            }
+        }
+    }
 }
