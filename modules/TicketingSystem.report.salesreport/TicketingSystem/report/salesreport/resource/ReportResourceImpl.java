@@ -41,23 +41,26 @@ public class ReportResourceImpl extends ReportResourceDecorator {
 		String totalRevenueStr = (String) vmjExchange.getRequestBodyForm("totalRevenue");
 		int totalRevenue = Integer.parseInt(totalRevenueStr);
 
+		String ticketPriceStr = (String) vmjExchange.getRequestBodyForm("ticketPrice");
+		int ticketPrice = Integer.parseInt(ticketPriceStr);
+
 		String idReportStr = (String) vmjExchange.getRequestBodyForm("idReport");
-		int idReport = Integer.parseInt(totalRevenueStr);
+		int idReport = Integer.parseInt(idReportStr);
 
 		String idEventStr = (String) vmjExchange.getRequestBodyForm("idEvent");
-		int idEvent = Integer.parseInt(totalRevenueStr);
+		int idEvent = Integer.parseInt(idEventStr);
 
 		String eventNameStr = (String) vmjExchange.getRequestBodyForm("eventName");
-		int eventName = Integer.parseInt(totalRevenueStr);
+		String eventName = eventNameStr;
 
 		String eventDateStr = (String) vmjExchange.getRequestBodyForm("eventDate");
-		int eventDate = Integer.parseInt(totalRevenueStr);
+		String eventDate = eventDateStr;
 
 		String reportDateStr = (String) vmjExchange.getRequestBodyForm("reportDate");
-		int reportDate = Integer.parseInt(totalRevenueStr);
+		String reportDate = reportDateStr;
 
 		String ticketSoldStr = (String) vmjExchange.getRequestBodyForm("ticketSold");
-		int ticketSold = Integer.parseInt(totalRevenueStr);
+		int ticketSold = Integer.parseInt(ticketSoldStr);
 
 		EventImpl eventimpl = new EventImpl();
 
@@ -72,7 +75,8 @@ public class ReportResourceImpl extends ReportResourceDecorator {
 				reportDate,
 				ticketSold,
 				eventimpl,
-				totalRevenue);
+				totalRevenue,
+				ticketPrice);
 		return reportsalesreportdeco;
 	}
 
@@ -80,30 +84,30 @@ public class ReportResourceImpl extends ReportResourceDecorator {
 		String totalRevenueStr = (String) vmjExchange.getRequestBodyForm("totalRevenue");
 		int totalRevenue = Integer.parseInt(totalRevenueStr);
 
+		String ticketPriceStr = (String) vmjExchange.getRequestBodyForm("ticketPrice");
+		int ticketPrice = Integer.parseInt(ticketPriceStr);
+
 		String idReportStr = (String) vmjExchange.getRequestBodyForm("idReport");
-		int idReport = Integer.parseInt(totalRevenueStr);
+		int idReport = Integer.parseInt(idReportStr);
 
 		String idEventStr = (String) vmjExchange.getRequestBodyForm("idEvent");
-		int idEvent = Integer.parseInt(totalRevenueStr);
+		int idEvent = Integer.parseInt(idEventStr);
 
 		String eventNameStr = (String) vmjExchange.getRequestBodyForm("eventName");
-		int eventName = Integer.parseInt(totalRevenueStr);
+		String eventName = eventNameStr;
 
 		String eventDateStr = (String) vmjExchange.getRequestBodyForm("eventDate");
-		int eventDate = Integer.parseInt(totalRevenueStr);
+		String eventDate = eventDateStr;
 
 		String reportDateStr = (String) vmjExchange.getRequestBodyForm("reportDate");
-		int reportDate = Integer.parseInt(totalRevenueStr);
+		String reportDate = reportDateStr;
 
 		String ticketSoldStr = (String) vmjExchange.getRequestBodyForm("ticketSold");
-		int ticketSold = Integer.parseInt(totalRevenueStr);
+		int ticketSold = Integer.parseInt(ticketSoldStr);
 
 		EventImpl eventimpl = new EventImpl();
 
 		Report reportsalesreport = Repository.getObject(id);
-		// int recordReportSalesReportId = (((ReportDecorator)
-		// savedReportSalesReport.getRecord()).getId());
-
 		reportsalesreport = record.createReport(vmjExchange);
 		Report reportsalesreportdeco = ReportSalesReportFactory.createReport(
 				"TicketingSystem.salesreport.core.ReportImpl",
@@ -116,7 +120,8 @@ public class ReportResourceImpl extends ReportResourceDecorator {
 				reportDate,
 				ticketSold,
 				eventimpl,
-				totalRevenue);
+				totalRevenue,
+				ticketPrice);
 		return reportsalesreportdeco;
 	}
 

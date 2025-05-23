@@ -31,26 +31,46 @@ public class ReportResourceImpl extends ReportResourceDecorator {
 		int attendancePercentage = Integer.parseInt(attendancePercentageStr);
 		
 		ReportAttendanceStats reportattendancestats = record.createReportAttendanceStats(vmjExchange);
-		ReportAttendanceStats reportattendancestatsdeco = ReportAttendanceStatsFactory.createReportAttendanceStats("TicketingSystem.attendancestats.core.ReportImpl", reportattendancestats, idReport, idEvent, eventName, eventDate, reportDate, ticketSold, eventimpl
-		showingAttendance, attendancePercentage
+		ReportAttendanceStats reportattendancestatsdeco = ReportAttendanceStatsFactory.createReportAttendanceStats(
+			"TicketingSystem.attendancestats.core.ReportImpl",
+			reportattendancestats,
+			idReport,
+			idEvent,
+			eventName,
+			eventDate,
+			reportDate,
+			ticketSold,
+			eventimpl,
+			showingAttendance,
+			attendancePercentage
 		);
-			return reportattendancestatsdeco;
+		return reportattendancestatsdeco;
 	}
-
 
     public Report createReportAttendanceStats(VMJExchange vmjExchange, int id){
 		String showingAttendanceStr = (String) vmjExchange.getRequestBodyForm("showingAttendance");
 		int showingAttendance = Integer.parseInt(showingAttendanceStr);
 		String attendancePercentageStr = (String) vmjExchange.getRequestBodyForm("attendancePercentage");
 		int attendancePercentage = Integer.parseInt(attendancePercentageStr);
-		ReportAttendanceStats reportattendancestats = reportattendancestatsRepository.getObject(id);
-		int recordReportAttendanceStatsId = (((ReportAttendanceStatsDecorator) savedReportAttendanceStats.getRecord()).getId();
+		ReportAttendanceStats savedReportAttendanceStats = reportattendancestatsRepository.getObject(id);
+		int recordReportAttendanceStatsId = ((ReportAttendanceStatsDecorator) savedReportAttendanceStats.getRecord()).getId();
 		
 		ReportAttendanceStats reportattendancestats = record.createReportAttendanceStats(vmjExchange);
-		ReportAttendanceStats reportattendancestatsdeco = ReportAttendanceStatsFactory.createReportAttendanceStats("TicketingSystem.attendancestats.core.ReportImpl", id, reportattendancestats, idReport, idEvent, eventName, eventDate, reportDate, ticketSold, eventimpl
-		showingAttendance, attendancePercentage
+		ReportAttendanceStats reportattendancestatsdeco = ReportAttendanceStatsFactory.createReportAttendanceStats(
+			"TicketingSystem.attendancestats.core.ReportImpl",
+			id,
+			reportattendancestats,
+			idReport,
+			idEvent,
+			eventName,
+			eventDate,
+			reportDate,
+			ticketSold,
+			eventimpl,
+			showingAttendance,
+			attendancePercentage
 		);
-			return reportattendancestatsdeco;
+		return reportattendancestatsdeco;
 	}
 
 	
