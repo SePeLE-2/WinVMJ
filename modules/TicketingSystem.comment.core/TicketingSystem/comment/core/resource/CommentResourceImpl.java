@@ -36,7 +36,7 @@ public class CommentResourceImpl extends CommentResourceComponent{
     public HashMap<String,Object> saveComment(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("POST")) {
 			String idArticleString = vmjExchange.getGETParam("idArticle"); 
-			int idArticle = Integer.parseInt(idArticleString);
+			UUID idArticle = UUID.fromString(idArticleString);
 		    Map<String, Object> requestBody = vmjExchange.getPayload(); 
 			HashMap<String, Object> result = commentServiceImpl.saveComment(requestBody, idArticle);
 			return result;

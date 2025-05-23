@@ -19,7 +19,7 @@ public abstract class ArticleServiceComponent implements ArticleService{
     public abstract List<HashMap<String,Object>> getAllArticle(Map<String, Object> requestBody);
     // public abstract List<HashMap<String,Object>> transformListToHashMap(List<Article> List);
     public abstract List<HashMap<String,Object>> deleteArticle(Map<String, Object> requestBody);
-	public abstract Article getArticleById(int id);
+	public abstract Article getArticleById(UUID id);
 
 	public abstract void publish();
 }

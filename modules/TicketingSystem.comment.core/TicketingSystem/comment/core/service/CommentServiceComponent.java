@@ -12,7 +12,7 @@ public abstract class CommentServiceComponent implements CommentService{
         this.Repository = new RepositoryUtil<Comment>(TicketingSystem.comment.core.CommentComponent.class);
     }	
 
-    public abstract HashMap<String,Object> saveComment(Map<String, Object> requestBody, int idArticle);
+    public abstract HashMap<String,Object> saveComment(Map<String, Object> requestBody, UUID idArticle);
     // public abstract Comment createComment(Map<String, Object> requestBodye);
 	// public abstract Comment createComment(Map<String, Object> requestBody, Map<String, Object> response);    
 	public abstract HashMap<String, Object> updateComment(Map<String, Object> requestBody);

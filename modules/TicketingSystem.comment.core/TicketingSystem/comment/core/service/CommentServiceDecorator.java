@@ -26,7 +26,7 @@ public abstract class CommentServiceDecorator extends CommentServiceComponent{
 		return record.getAllComment();
 	}
 
-    public HashMap<String,Object> saveComment(Map<String, Object> requestBody, int idArticle){
+    public HashMap<String,Object> saveComment(Map<String, Object> requestBody, UUID idArticle){
 		return record.saveComment(requestBody, idArticle);
 	}
 

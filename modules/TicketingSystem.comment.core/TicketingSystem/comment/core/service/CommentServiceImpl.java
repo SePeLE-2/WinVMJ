@@ -42,7 +42,7 @@ public class CommentServiceImpl extends CommentServiceComponent{
 	// 	return getAllComment(vmjExchange);
 	// }
 
-    public HashMap<String, Object> saveComment(Map<String, Object> requestBody, int idArticle){
+    public HashMap<String, Object> saveComment(Map<String, Object> requestBody, UUID idArticle){
 		String idContentStr = (String) requestBody.get("idContent");
 		int idContent = Integer.parseInt(idContentStr);
 		String comment = (String) requestBody.get("comment");

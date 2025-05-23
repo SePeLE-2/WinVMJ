@@ -37,7 +37,7 @@ public abstract class ArticleServiceDecorator extends ArticleServiceComponent{
 		return record.deleteArticle(requestBody);
 	}
 
-	public Article getArticleById(int id){
+	public Article getArticleById(UUID id){
         return record.getArticleById(id);
     }
 

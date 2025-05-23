@@ -7,7 +7,7 @@ public interface ArticleService {
 	HashMap<String, Object> saveArticle(Map<String, Object> requestBody);
 	// HashMap<String, Object> getArticle(Map<String, Object> requestBody);
     HashMap<String, Object> updateArticle(Map<String, Object> requestBody);
-    Article getArticleById(int id);
+    Article getArticleById(UUID id);
     List<HashMap<String,Object>> getAllArticle(Map<String, Object> requestBody);
     List<HashMap<String,Object>> deleteArticle(Map<String, Object> requestBody);
 }

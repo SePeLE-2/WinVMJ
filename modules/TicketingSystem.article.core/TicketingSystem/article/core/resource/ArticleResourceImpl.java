@@ -56,7 +56,7 @@ public class ArticleResourceImpl extends ArticleResourceComponent{
     @Route(url="call/article/detail")
     public HashMap<String, Object> getArticle(VMJExchange vmjExchange){
 		String idArticleString = vmjExchange.getGETParam("articleId");
-		int idArticle = Integer.parseInt(idArticleString);
+		UUID idArticle = UUID.fromString(idArticleString);
 		return articleServiceImpl.getArticleById(idArticle).toHashMap();
 	}
 

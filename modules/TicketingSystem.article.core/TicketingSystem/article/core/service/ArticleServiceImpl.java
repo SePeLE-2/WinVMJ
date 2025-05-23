@@ -76,14 +76,14 @@ public class ArticleServiceImpl extends ArticleServiceComponent{
 	// 	return null;
 	// }
 
-	public Article getArticleById(int id){
+	public Article getArticleById(UUID id){
 		Article article = this.Repository.getObject(id);
 		return article;
 	}
 
     public List<HashMap<String,Object>> getAllArticle(Map<String, Object> requestBody){
-		String table = (String) requestBody.get("table_name");
-		List<Article> List = this.Repository.getAllObject(table);
+		// String table = (String) requestBody.get("table_name");
+		List<Article> List = this.Repository.getAllObject("article_impl");
 		return transformListToHashMap(List);
 	}
 	
