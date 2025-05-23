@@ -1,4 +1,4 @@
-package TicketingSystem.event.rating.resource;
+package TicketingSystem.event.rating;
 
 import TicketingSystem.event.core.*;
 import TicketingSystem.event.rating.EventRatingFactory;
@@ -10,12 +10,19 @@ import vmj.routing.route.VMJExchange;
 import java.util.*;
 
 public class EventResourceImpl extends EventResourceDecorator {
-    private RepositoryUtil<Event> eventratingRepository = new RepositoryUtil<>(EventImpl.class);
+    private RepositoryUtil<Event> eventratingRepository;
     private EventService eventService;
 
     public EventResourceImpl(EventResourceComponent record, EventServiceComponent eventService) {
         super(record);
         this.eventService = eventService;
+        try {
+            this.eventratingRepository = new RepositoryUtil<>(
+                (Class<Event>) Class.forName("TicketingSystem.event.rating.EventImpl")
+            );
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("EventImpl class not found", e);
+        }
     }
 
     @Route(url = "call/rating/save")
@@ -30,7 +37,7 @@ public class EventResourceImpl extends EventResourceDecorator {
         String description = (String) vmjExchange.getRequestBodyForm("description");
 
         Event event = EventRatingFactory.createEventRating(
-                "TicketingSystem.event.rating.model.EventImpl",
+                "TicketingSystem.event.rating.EventImpl",
                 id, name, date, location, description);
         eventratingRepository.saveObject(event);
 
@@ -38,7 +45,7 @@ public class EventResourceImpl extends EventResourceDecorator {
     }
 
     public HashMap<String, Object> Event(VMJExchange vmjExchange) {
-        return new HashMap<>(); // implement if needed
+        return new HashMap<>();
     }
 
     @Route(url = "call/rating/list")

@@ -1,4 +1,4 @@
-package TicketingSystem.event.rating.service;
+package TicketingSystem.event.rating;
 
 import TicketingSystem.event.core.*;
 import TicketingSystem.event.rating.EventRatingFactory;

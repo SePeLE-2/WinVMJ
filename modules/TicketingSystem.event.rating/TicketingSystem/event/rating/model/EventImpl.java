@@ -1,4 +1,4 @@
-package TicketingSystem.event.rating.model;
+package TicketingSystem.event.rating;
 
 import TicketingSystem.event.core.EventComponent;
 import TicketingSystem.event.core.EventDecorator;
