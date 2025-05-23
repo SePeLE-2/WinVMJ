@@ -14,7 +14,7 @@
 	<feature automatic="selected" name="Reporting"/>
 	<feature automatic="selected" name="SalesReport"/>
 	<feature name="AttendanceStats"/>
-	<feature name="NewsArticle"/>
-	<feature name="Comment"/>
+	<feature automatic="selected" name="NewsArticle"/>
+	<feature manual="selected" name="Comment"/>
 	<feature manual="selected" name="Customer"/>
 </configuration>
