@@ -1,8 +1,6 @@
 package TicketingSystem.report.core;
 import java.util.*;
 
-import vmj.routing.route.VMJExchange;
-
 public interface ReportService {
 	Report createReport(Map<String, Object> requestBody);
 	Report createReport(Map<String, Object> requestBody, Map<String, Object> response);
