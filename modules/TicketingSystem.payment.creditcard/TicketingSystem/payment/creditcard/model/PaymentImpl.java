@@ -27,9 +27,10 @@ public class PaymentImpl extends PaymentDecorator {
 		this.objectName = PaymentImpl.class.getName();
 	}
 
-	public void pay() {
+	public int pay(int amount) {
 		// TODO: implement this method
 		System.out.println("creditcard pay() called in service");
+		return amount + 1000;
 	}
 
 	public int getAmount() {

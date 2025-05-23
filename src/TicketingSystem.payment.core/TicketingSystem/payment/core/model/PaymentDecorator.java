@@ -57,8 +57,8 @@ public abstract class PaymentDecorator extends PaymentComponent {
 		this.ticketimpl = ticketimpl;
 	}
 
-	public void pay() {
-		record.pay();
+	public int pay(int amount) {
+		return record.pay(amount);
 	}
 
 	public HashMap<String, Object> toHashMap() {

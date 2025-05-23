@@ -21,5 +21,5 @@ public interface PaymentService {
 
     List<HashMap<String, Object>> transformListToHashMap(List<Payment> List);
 
-    void pay();
+    int pay(int amount);
 }

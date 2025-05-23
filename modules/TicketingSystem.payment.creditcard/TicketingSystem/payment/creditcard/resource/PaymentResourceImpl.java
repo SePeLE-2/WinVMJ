@@ -23,17 +23,16 @@ public class PaymentResourceImpl extends PaymentResourceDecorator {
 	private PaymentFactory PaymentFactory = new PaymentFactory();
 	// private PaymentServiceImpl paymentServiceImpl = new PaymentServiceImpl();
 	private PaymentService paymentService;
-	
 
 	public PaymentResourceImpl(PaymentResourceComponent record, PaymentServiceComponent paymentService) {
 		super(record);
 		this.paymentService = new PaymentServiceImpl(paymentService);
 	}
 
-	@Route(url = "call/payment/creditcard/")
-	public void pay() {
+	public int pay(int amount) {
 		// TODO: implement this method
-		System.out.println("creditcard pay() called in service; this should ideally be in entity logic.");
+		System.out.println("creditcard pay() called in service");
+		return amount + 1000;
 	}
 
 	@Route(url = "call/payment/save")

@@ -48,7 +48,7 @@ public abstract class PaymentServiceDecorator extends PaymentServiceComponent {
 	// return record.getPaymentById(id);
 	// }
 
-	public void pay() {
-		record.pay();
+	public int pay(int amount) {
+		return record.pay(amount);
 	}
 }

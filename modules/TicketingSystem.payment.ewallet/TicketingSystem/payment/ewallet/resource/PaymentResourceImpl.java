@@ -30,10 +30,10 @@ public class PaymentResourceImpl extends PaymentResourceDecorator {
 		this.paymentService = new PaymentServiceImpl(paymentService);
 	}
 
-	@Route(url = "call/payment/ewallet/")
-	public void pay() {
+	public int pay(int amount) {
 		// TODO: implement this method
-		System.out.println("ewallet pay() called in service; this should ideally be in entity logic.");
+		System.out.println("ewallet pay() called in service");
+		return amount + 2000;
 	}
 
 	@Route(url = "call/payment")

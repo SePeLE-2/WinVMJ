@@ -16,9 +16,10 @@ public class PaymentServiceImpl extends PaymentServiceDecorator {
         super(record);
     }
 
-    public void pay() {
+    public int pay(int amount) {
         // TODO: implement this method
-        System.out.println("creditcard pay() called in service; this should ideally be in entity logic.");
+        System.out.println("creditcard pay() called in service");
+        return amount + 1000;
     }
 
     @Override
@@ -27,6 +28,7 @@ public class PaymentServiceImpl extends PaymentServiceDecorator {
             throw new FieldValidationException("Field 'amount' not found in the request body.");
         }
         int amount = (int) body.get("amount");
+        amount = pay(amount);
 
         UUID id = UUID.randomUUID();
 
