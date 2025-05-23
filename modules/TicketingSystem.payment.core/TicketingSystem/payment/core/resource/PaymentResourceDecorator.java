@@ -32,7 +32,7 @@ public abstract class PaymentResourceDecorator extends PaymentResourceComponent 
 		return record.deletePayment(vmjExchange);
 	}
 
-	public void pay() {
-		record.pay();
+	public int pay(int amount) {
+		return record.pay(amount);
 	}
 }

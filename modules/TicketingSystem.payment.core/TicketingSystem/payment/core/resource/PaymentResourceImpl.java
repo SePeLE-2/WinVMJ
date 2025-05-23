@@ -69,7 +69,8 @@ public class PaymentResourceImpl extends PaymentResourceComponent {
 		return paymentServiceImpl.transformListToHashMap(List);
 	}
 
-	public void pay() {
+	public int pay(int amount) {
 		System.out.println("Paying item");
+		return paymentServiceImpl.pay(amount);
 	}
 }

@@ -124,7 +124,9 @@ public class PaymentServiceImpl extends PaymentServiceComponent {
 		return getAllPayment();
 	}
 
-	public void pay() {
+	public int pay(int amount) {
 		// TODO: implement
+		System.out.println("Payment of " + amount + " made for ticket");
+		return amount;
 	}
 }

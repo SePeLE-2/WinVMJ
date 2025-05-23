@@ -54,8 +54,9 @@ public abstract class PaymentComponent implements Payment {
 		this.ticketimpl = ticketimpl;
 	}
 
-	public void pay() {
-		System.out.println("Payment of " + amount + " made for ticket: " + ticketimpl.getTicketName());
+	public int pay(int amount) {
+		System.out.println("Payment of " + amount + " made for ticket");
+		return amount;
 	}
 
 	@Override
