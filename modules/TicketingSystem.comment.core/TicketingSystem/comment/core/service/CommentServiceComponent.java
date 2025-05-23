@@ -19,7 +19,7 @@ public abstract class CommentServiceComponent implements CommentService{
     // public abstract HashMap<String, Object> getComment(Map<String, Object> requestBody);
     public abstract List<HashMap<String,Object>> getAllComment(UUID articleId);
     public abstract List<HashMap<String,Object>> transformListToHashMap(List<Comment> List);
-    public abstract List<HashMap<String,Object>> deleteComment(Map<String, Object> requestBody);
+    // public abstract List<HashMap<String,Object>> deleteComment(Map<String, Object> requestBody);
 	// public abstract HashMap<String, Object> getCommentById(int id);
 
 }

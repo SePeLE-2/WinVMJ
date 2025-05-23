@@ -117,7 +117,7 @@ public class CommentServiceImpl extends CommentServiceComponent{
 
     public List<HashMap<String,Object>> getAllComment(UUID articleId){
 		// String table = (String) requestBody.get("table_name");
-		List<Comment> List = Repository.getListObject("comment_comp", "articleimpl_idarticle", articleId);
+		List<Comment> List = Repository.getListObject("comment_impl", "articleimpl_idarticle", articleId);
 		return transformListToHashMap(List);
 	}
 
@@ -130,11 +130,11 @@ public class CommentServiceImpl extends CommentServiceComponent{
         return resultList;
 	}
 
-    public List<HashMap<String,Object>> deleteComment(Map<String, Object> requestBody){
-		String idStr = ((String) requestBody.get("id"));
-		int id = Integer.parseInt(idStr);
-		Repository.deleteObject(id);
-		return getAllComment();
-	}
+    // public List<HashMap<String,Object>> deleteComment(Map<String, Object> requestBody){
+	// 	String idStr = ((String) requestBody.get("id"));
+	// 	int id = Integer.parseInt(idStr);
+	// 	Repository.deleteObject(id);
+	// 	return getAllComment();
+	// }
 
 }

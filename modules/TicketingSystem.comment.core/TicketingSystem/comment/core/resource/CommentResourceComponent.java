@@ -15,6 +15,6 @@ public abstract class CommentResourceComponent implements CommentResource{
 	public abstract HashMap<String, Object> updateComment(VMJExchange vmjExchange);
     // public abstract HashMap<String, Object> getComment(VMJExchange vmjExchange);
     public abstract List<HashMap<String,Object>> getAllComment(VMJExchange vmjExchange);
-    public abstract List<HashMap<String,Object>> deleteComment(VMJExchange vmjExchange);
+    // public abstract List<HashMap<String,Object>> deleteComment(VMJExchange vmjExchange);
 
 }

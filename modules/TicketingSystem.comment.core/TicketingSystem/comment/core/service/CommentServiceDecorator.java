@@ -38,9 +38,9 @@ public abstract class CommentServiceDecorator extends CommentServiceComponent{
 		return record.transformListToHashMap(List);
 	}
 
-    public List<HashMap<String,Object>> deleteComment(Map<String, Object> requestBody){
-		return record.deleteComment(requestBody);
-	}
+    // public List<HashMap<String,Object>> deleteComment(Map<String, Object> requestBody){
+	// 	return record.deleteComment(requestBody);
+	// }
 
 	// public HashMap<String, Object> getCommentById(int id){
     //     return record.getCommentById(id);

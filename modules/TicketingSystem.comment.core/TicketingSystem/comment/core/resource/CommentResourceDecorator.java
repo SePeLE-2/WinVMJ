@@ -35,8 +35,8 @@ public abstract class CommentResourceDecorator extends CommentResourceComponent{
 		return record.getAllComment(vmjExchange);
 	}
 
-    public List<HashMap<String,Object>> deleteComment(VMJExchange vmjExchange){
-		return record.deleteComment(vmjExchange);
-	}
+    // public List<HashMap<String,Object>> deleteComment(VMJExchange vmjExchange){
+	// 	return record.deleteComment(vmjExchange);
+	// }
 
 }

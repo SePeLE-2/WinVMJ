@@ -75,21 +75,21 @@ public class CommentResourceImpl extends CommentResourceComponent{
     @Route(url="call/comment/list")
     public List<HashMap<String,Object>> getAllComment(VMJExchange vmjExchange){
 		Map<String, Object> requestBody = vmjExchange.getPayload(); 
-		String idArticleString = vmjExchange.getGETParam("idArticle"); 
+		String idArticleString = vmjExchange.getGETParam("articleId"); 
 		UUID idArticle = UUID.fromString(idArticleString);
 		return commentServiceImpl.getAllComment(idArticle);
 	}
 
 	
-    @Route(url="call/comment/delete")
-    public List<HashMap<String,Object>> deleteComment(VMJExchange vmjExchange){
-		Map<String, Object> requestBody = vmjExchange.getPayload(); 
-		if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
-			return null;
-		}
+    // @Route(url="call/comment/delete")
+    // public List<HashMap<String,Object>> deleteComment(VMJExchange vmjExchange){
+	// 	Map<String, Object> requestBody = vmjExchange.getPayload(); 
+	// 	if (vmjExchange.getHttpMethod().equals("OPTIONS")) {
+	// 		return null;
+	// 	}
 		
-		return commentServiceImpl.deleteComment(requestBody);
-	}
+	// 	return commentServiceImpl.deleteComment(requestBody);
+	// }
 
 
 }
