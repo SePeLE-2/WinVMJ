@@ -46,7 +46,11 @@ public class ReportImpl extends ReportDecorator {
 	}
 
 	public void calculateAttendancePercentage() {
-		// TODO: implement this method
+		if (this.ticketSold > 0) {
+			this.attendancePercentage = (int) Math.round((double) this.showingAttendance / this.ticketSold * 100);
+		} else {
+			this.attendancePercentage = 0;
+		}
 	}
 
 }
