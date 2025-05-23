@@ -1,6 +1,9 @@
 module TicketingSystem.event.rating {
+	requires TicketingSystem.ticket.core;
+	requires TicketingSystem.bundling.core;
 	requires TicketingSystem.event.core;
-    exports TicketingSystem.event.rating;
+
+	exports TicketingSystem.event.rating;
 
 	requires vmj.routing.route;
 	requires vmj.hibernate.integrator;

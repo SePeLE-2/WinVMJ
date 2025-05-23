@@ -1,7 +1,6 @@
 package TicketingSystem.event.rating.resource;
 
 import TicketingSystem.event.core.*;
-import TicketingSystem.event.rating.model.EventImpl;
 import TicketingSystem.event.rating.EventRatingFactory;
 
 import vmj.hibernate.integrator.RepositoryUtil;
