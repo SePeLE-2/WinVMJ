@@ -11,6 +11,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.ManyToOne;
 
+import TicketingSystem.eventorganizer.core.EventOrganizer;
 import TicketingSystem.eventorganizer.core.EventOrganizerComponent;
 import TicketingSystem.eventorganizer.core.EventOrganizerImpl;
 
@@ -25,7 +26,7 @@ public abstract class ArticleComponent implements Article{
 	protected String articleAuthor;
 	protected String articleDatePublished;
 	@ManyToOne(targetEntity=TicketingSystem.eventorganizer.core.EventOrganizerComponent.class)
-	public EventOrganizerComponent eventorganizerimpl;
+	public EventOrganizer eventorganizerimpl;
 	protected String objectName = ArticleComponent.class.getName();
 
 	public ArticleComponent() {
@@ -33,7 +34,7 @@ public abstract class ArticleComponent implements Article{
 	} 
 
 	public ArticleComponent(
-        UUID idArticle, String articleTitle, String articleContent, String articleAuthor, String articleDatePublished, EventOrganizerImpl eventorganizerimpl
+        UUID idArticle, String articleTitle, String articleContent, String articleAuthor, String articleDatePublished, EventOrganizer eventorganizerimpl
     ) {
         this.idArticle = idArticle;
         this.articleTitle = articleTitle;
@@ -78,8 +79,8 @@ public abstract class ArticleComponent implements Article{
 	public void setArticleDatePublished(String articleDatePublished) {
 		this.articleDatePublished = articleDatePublished;
 	}
-	public abstract EventOrganizerComponent getEventorganizerimpl();
-	public abstract void setEventorganizerimpl(EventOrganizerImpl eventorganizerimpl);
+	public abstract EventOrganizer getEventorganizerimpl();
+	public abstract void setEventorganizerimpl(EventOrganizer eventorganizerimpl);
 	
  
 	public abstract void publish();

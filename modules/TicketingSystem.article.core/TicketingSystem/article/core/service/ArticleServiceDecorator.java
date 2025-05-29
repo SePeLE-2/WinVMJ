@@ -11,8 +11,8 @@ public abstract class ArticleServiceDecorator extends ArticleServiceComponent{
         this.record = record;
     }
 
-	public HashMap<String, Object> saveArticle(Map<String, Object> requestBody){
-		return record.saveArticle(requestBody);
+	public HashMap<String, Object> saveArticle(Map<String, Object> requestBody, String email){
+		return record.saveArticle(requestBody, email);
 	}
 
 

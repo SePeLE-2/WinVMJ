@@ -7,7 +7,7 @@ public interface CommentService {
 	// Comment createComment(Map<String, Object> requestBody);
 	// Comment createComment(Map<String, Object> requestBody, Map<String, Object> response);
 	// HashMap<String, Object> getComment(Map<String, Object> requestBody);
-    HashMap<String,Object> saveComment(Map<String, Object> requestBody, UUID idArticle);
+    HashMap<String,Object> saveComment(Map<String, Object> requestBody, UUID idArticle, String email);
     HashMap<String, Object> updateComment(Map<String, Object> requestBody);
     // HashMap<String, Object> getCommentById(int id);
     List<HashMap<String,Object>> getAllComment(UUID articleId);

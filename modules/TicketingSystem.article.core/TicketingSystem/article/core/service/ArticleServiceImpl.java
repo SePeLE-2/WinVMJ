@@ -17,19 +17,21 @@ import vmj.routing.route.VMJExchange;
 import vmj.routing.route.exceptions.*;
 import TicketingSystem.article.ArticleFactory;
 import vmj.auth.annotations.Restricted;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 //add other required packages
 
 public class ArticleServiceImpl extends ArticleServiceComponent{
 	private EventOrganizerService eventOrganizerService = new EventOrganizerServiceImpl();
 	
-    public HashMap<String, Object> saveArticle(Map<String, Object> requestBody){
-		String idArticleStr = (String) requestBody.get("idArticle");
-		int idArticle = Integer.parseInt(idArticleStr);
-		String articleTitle = (String) requestBody.get("articleTitle");
-		String articleContent = (String) requestBody.get("articleContent");
-		String articleAuthor = (String) requestBody.get("articleAuthor");
-		String articleDatePublished = (String) requestBody.get("articleDatePublished");
-		EventOrganizer eventorganizerimpl  = eventOrganizerService.getEventOrganizerByName(articleAuthor);
+    public HashMap<String, Object> saveArticle(Map<String, Object> requestBody, String email){
+		UUID idArticle = UUID.randomUUID();
+		String articleTitle = (String) requestBody.get("articletitle");
+		String articleContent = (String) requestBody.get("articlecontent");
+		String articleAuthor = (email == null || email.trim().isEmpty()) ? "guest" : email;
+		String articleDatePublished = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+		EventOrganizer eventorganizerimpl  = eventOrganizerService.getEventOrganizerByEmail(articleAuthor);
 		
 		//to do: fix association attributes
 		Article article = ArticleFactory.createArticle(

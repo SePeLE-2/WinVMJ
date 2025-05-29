@@ -22,7 +22,7 @@ import TicketingSystem.article.core.*;
 @Table(name="comment_impl")
 public class CommentImpl extends CommentComponent {
 
-	public CommentImpl(UUID idContent, String comment, String commentAuthor, EventOrganizerImpl eventorganizerimpl, CustomerImpl customerimpl, ArticleImpl articleimpl) {
+	public CommentImpl(UUID idContent, String comment, String commentAuthor, EventOrganizer eventorganizerimpl, Customer customerimpl, Article articleimpl) {
 		this.idContent = idContent;
 		this.comment = comment;
 		this.commentAuthor = commentAuthor;
@@ -31,7 +31,7 @@ public class CommentImpl extends CommentComponent {
 		this.articleimpl = articleimpl;
 	}
 
-	public CommentImpl(String comment, String commentAuthor, EventOrganizerImpl eventorganizerimpl, CustomerImpl customerimpl, ArticleImpl articleimpl) {
+	public CommentImpl(String comment, String commentAuthor, EventOrganizer eventorganizerimpl, Customer customerimpl, Article articleimpl) {
 		this.idContent =  idContent.randomUUID();;
 		this.comment = comment;
 		this.commentAuthor = commentAuthor;
@@ -64,24 +64,24 @@ public class CommentImpl extends CommentComponent {
 		this.commentAuthor = commentAuthor;
 	}
 
-	public EventOrganizerComponent getEventorganizerimpl(){
+	public EventOrganizer getEventorganizerimpl(){
 		return this.eventorganizerimpl;
 	}
-	public void setEventorganizerimpl(EventOrganizerImpl eventorganizerimpl){
+	public void setEventorganizerimpl(EventOrganizer eventorganizerimpl){
 		this.eventorganizerimpl = eventorganizerimpl;
 	}
 	
-	public CustomerComponent getCustomerimpl(){
+	public Customer getCustomerimpl(){
 		return this.customerimpl;
 	}
-	public void setCustomerimpl(CustomerImpl customerimpl){
+	public void setCustomerimpl(Customer customerimpl){
 		this.customerimpl = customerimpl;
 	}
 	
-	public ArticleComponent getArticleimpl(){
+	public Article getArticleimpl(){
 		return this.articleimpl;
 	}
-	public void setArticleimpl(ArticleImpl articleimpl){
+	public void setArticleimpl(Article articleimpl){
 		this.articleimpl = articleimpl;
 	}
 

@@ -13,7 +13,7 @@ public abstract class ArticleServiceComponent implements ArticleService{
         this.Repository = new RepositoryUtil<Article>(TicketingSystem.article.core.ArticleComponent.class);
     }	
 
-    public abstract HashMap<String, Object> saveArticle(Map<String, Object> requestBodye);  
+    public abstract HashMap<String, Object> saveArticle(Map<String, Object> requestBody, String email);  
 	public abstract HashMap<String, Object> updateArticle(Map<String, Object> requestBody);
     // public abstract HashMap<String, Object> getArticle(Map<String, Object> requestBody);
     public abstract List<HashMap<String,Object>> getAllArticle(Map<String, Object> requestBody);

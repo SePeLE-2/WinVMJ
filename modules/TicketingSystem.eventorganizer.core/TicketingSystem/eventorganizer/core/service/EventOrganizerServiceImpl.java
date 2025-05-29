@@ -134,12 +134,13 @@ public class EventOrganizerServiceImpl extends EventOrganizerServiceComponent{
 		return getAllEventOrganizer(requestBody);
 	}
 
-	public EventOrganizer getEventOrganizerByName(String name){
+	public EventOrganizer getEventOrganizerByEmail(String email){
 		EventOrganizer eventorganizer = null;
 		try {
-			eventorganizer = Repository.getListObject("eventorganizer_comp", "name", name).get(0);
+			eventorganizer = Repository.getListObject("eventorganizer_impl", "email", email).get(0);
 		} catch (Exception e) {
-			throw new NotFoundException("Event Organizer with name " + name + " not exist.");
+			System.out.println("Event Organizer with email " + email + " not exist.");
+			eventorganizer = null;
 		}
 		return eventorganizer;
 	}

@@ -42,13 +42,12 @@ public class CommentServiceImpl extends CommentServiceComponent{
 	// 	return getAllComment(vmjExchange);
 	// }
 
-    public HashMap<String, Object> saveComment(Map<String, Object> requestBody, UUID idArticle){
-		String idContentStr = (String) requestBody.get("idContent");
-		int idContent = Integer.parseInt(idContentStr);
+    public HashMap<String, Object> saveComment(Map<String, Object> requestBody, UUID idArticle, String email){
+		UUID idContent = UUID.randomUUID();
 		String comment = (String) requestBody.get("comment");
-		String commentAuthor = (String) requestBody.get("commentAuthor");
-		EventOrganizer eventorganizerimpl = eventOrganizerService.getEventOrganizerByName(commentAuthor);
-		Customer customerimpl = customerService.getCustomerByName(commentAuthor);
+		String commentAuthor = (email == null || email.trim().isEmpty()) ? "guest" : email;
+		EventOrganizer eventorganizerimpl = eventOrganizerService.getEventOrganizerByEmail(commentAuthor);
+		Customer customerimpl = customerService.getCustomerByEmail(commentAuthor);
 		Article articleimpl = articleService.getArticleById(idArticle);
 		
 		

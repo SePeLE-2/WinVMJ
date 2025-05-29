@@ -4,7 +4,7 @@ import java.util.*;
 import vmj.routing.route.VMJExchange;
 
 public interface ArticleService {
-	HashMap<String, Object> saveArticle(Map<String, Object> requestBody);
+	HashMap<String, Object> saveArticle(Map<String, Object> requestBody, String email);
 	// HashMap<String, Object> getArticle(Map<String, Object> requestBody);
     HashMap<String, Object> updateArticle(Map<String, Object> requestBody);
     Article getArticleById(UUID id);

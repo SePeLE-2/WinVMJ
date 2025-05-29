@@ -31,14 +31,15 @@ public class CommentResourceImpl extends CommentResourceComponent{
 	// 	}
 	// 	throw new NotFoundException("Route tidak ditemukan");
 	// }
-
+	@Restricted(permissionName = "All")
 	@Route(url="call/comment/save")
     public HashMap<String,Object> saveComment(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("POST")) {
+			String email =  vmjExchange.getAuthPayload().getEmail();
 			String idArticleString = vmjExchange.getGETParam("idArticle"); 
 			UUID idArticle = UUID.fromString(idArticleString);
 		    Map<String, Object> requestBody = vmjExchange.getPayload(); 
-			HashMap<String, Object> result = commentServiceImpl.saveComment(requestBody, idArticle);
+			HashMap<String, Object> result = commentServiceImpl.saveComment(requestBody, idArticle, email);
 			return result;
 		}
 		throw new NotFoundException("Route tidak ditemukan");

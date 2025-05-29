@@ -17,9 +17,50 @@ public class CommentFactory{
         Comment record = null;
         try {
             Class<?> clz = Class.forName(fullyQualifiedName);
-            Constructor<?> constructor = clz.getDeclaredConstructors()[0];
-            record = (Comment) constructor.newInstance(base);
-        } 
+            Constructor<?>[] constructorList = clz.getDeclaredConstructors();
+
+            // Cetak semua constructor untuk debugging
+            LOGGER.info("---- Available constructors for " + fullyQualifiedName + ":");
+            for (Constructor<?> c : constructorList) {
+                LOGGER.info("  " + c.toString());
+            }
+
+            Constructor<?> constructor = null;
+
+            for (int i = 0; i < constructorList.length; i++) {
+                try {
+                    constructor = constructorList[i];
+
+                    LOGGER.info("Trying constructor: " + constructor.toString());
+
+                    // Cetak tipe parameter dari constructor yang sedang dicoba
+                    Class<?>[] paramTypes = constructor.getParameterTypes();
+                    LOGGER.info("Constructor parameter types:");
+                    for (Class<?> type : paramTypes) {
+                        LOGGER.info(" - " + type.getName());
+                    }
+
+                    // Cetak argumen yang diberikan saat runtime
+                    LOGGER.info("Provided arguments for constructor:");
+                    for (Object obj : base) {
+                        LOGGER.info(" - Value: " + obj + ", Type: " + (obj == null ? "null" : obj.getClass().getName()));
+                    }
+
+                    // Mencoba membuat instance
+                    record = (Comment) constructor.newInstance(base);
+
+                    // Berhasil, keluar dari loop
+                    i = constructorList.length;
+                } catch (IllegalArgumentException e) {
+                    if (i < constructorList.length - 1) {
+                        LOGGER.info("Constructor mismatch, trying next one...");
+                        continue;
+                    } else {
+                        throw e;
+                    }
+                }
+            }
+        }
         catch (IllegalArgumentException e)
         {
             LOGGER.severe("Failed to create instance of Comment.");

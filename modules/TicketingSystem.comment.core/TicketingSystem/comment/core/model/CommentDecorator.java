@@ -58,24 +58,24 @@ public abstract class CommentDecorator extends CommentComponent{
 	public void setCommentAuthor(String commentAuthor) {
 		record.setCommentAuthor(commentAuthor);
 	}
-	public EventOrganizerComponent getEventorganizerimpl(){
+	public EventOrganizer getEventorganizerimpl(){
 		return record.getEventorganizerimpl();
 	}
-	public void setEventorganizerimpl(EventOrganizerImpl eventorganizerimpl){
+	public void setEventorganizerimpl(EventOrganizer eventorganizerimpl){
 		record.setEventorganizerimpl(eventorganizerimpl);
 	}
 	
-	public CustomerComponent getCustomerimpl(){
+	public Customer getCustomerimpl(){
 		return record.getCustomerimpl();
 	}
-	public void setCustomerimpl(CustomerImpl customerimpl){
+	public void setCustomerimpl(Customer customerimpl){
 		record.setCustomerimpl(customerimpl);
 	}
 	
-	public ArticleComponent getArticleimpl(){
+	public Article getArticleimpl(){
 		return record.getArticleimpl();
 	}
-	public void setArticleimpl(ArticleImpl articleimpl){
+	public void setArticleimpl(Article articleimpl){
 		record.setArticleimpl(articleimpl);
 	}
 

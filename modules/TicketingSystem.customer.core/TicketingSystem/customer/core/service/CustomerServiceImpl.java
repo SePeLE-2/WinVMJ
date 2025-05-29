@@ -133,12 +133,13 @@ public class CustomerServiceImpl extends CustomerServiceComponent {
 		return getAllCustomer(requestBody);
 	}
 
-	public Customer getCustomerByName(String name) {
+	public Customer getCustomerByEmail(String email) {
 		Customer customer = null;
 		try {
-			customer = Repository.getListObject("customer_comp", "name", name).get(0);
+			customer = Repository.getListObject("customer_impl", "email", email).get(0);
 		} catch (Exception e) {
-			throw new NotFoundException("Event Organizer with name " + name + " not exist.");
+			System.out.println("Event Organizer with email " + email + " not exist.");
+			customer=null;
 		}
 		return customer;
 	}

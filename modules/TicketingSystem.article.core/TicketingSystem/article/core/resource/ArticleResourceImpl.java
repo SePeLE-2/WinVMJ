@@ -22,12 +22,13 @@ public class ArticleResourceImpl extends ArticleResourceComponent{
 	// 	}
 	// 	throw new NotFoundException("Route tidak ditemukan");
 	// }
-
+	@Restricted(permissionName = "Seller")
 	@Route(url="call/article/save")
     public HashMap<String, Object> saveArticle(VMJExchange vmjExchange){
 		if (vmjExchange.getHttpMethod().equals("POST")) {
 		    Map<String, Object> requestBody = vmjExchange.getPayload(); 
-			return articleServiceImpl.saveArticle(requestBody);
+			String email =  vmjExchange.getAuthPayload().getEmail();
+			return articleServiceImpl.saveArticle(requestBody, email);
 		}
 		throw new NotFoundException("Route tidak ditemukan");
 	}
@@ -45,10 +46,11 @@ public class ArticleResourceImpl extends ArticleResourceComponent{
     @Route(url="call/article/update")
     public HashMap<String, Object> updateArticle(VMJExchange vmjExchange){
 		Map<String, Object> requestBody = vmjExchange.getPayload(); 
-		if (vmjExchange.getHttpMethod().equals("OPTIONS")){
-			return null;
+		if (vmjExchange.getHttpMethod().equals("PUT")){
+			String email =  vmjExchange.getAuthPayload().getEmail();
+			return articleServiceImpl.updateArticle(requestBody);
 		}
-		return articleServiceImpl.updateArticle(requestBody);
+		return null;
 		
 	}
 

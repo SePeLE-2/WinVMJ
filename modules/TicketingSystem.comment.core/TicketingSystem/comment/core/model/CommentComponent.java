@@ -24,11 +24,11 @@ public abstract class CommentComponent implements Comment{
 	protected String comment;
 	protected String commentAuthor;
 	@ManyToOne(targetEntity=TicketingSystem.eventorganizer.core.EventOrganizerComponent.class)
-	public EventOrganizerComponent eventorganizerimpl;
+	public EventOrganizer eventorganizerimpl;
 	@ManyToOne(targetEntity=TicketingSystem.customer.core.CustomerComponent.class)
-	public CustomerComponent customerimpl;
+	public Customer customerimpl;
 	@ManyToOne(targetEntity=TicketingSystem.article.core.ArticleComponent.class)
-	public ArticleComponent articleimpl;
+	public Article articleimpl;
 	protected String objectName = CommentComponent.class.getName();
 
 	public CommentComponent() {
@@ -36,7 +36,7 @@ public abstract class CommentComponent implements Comment{
 	} 
 
 	public CommentComponent(
-        UUID idContent, String comment, String commentAuthor, EventOrganizerImpl eventorganizerimpl, CustomerImpl customerimpl, ArticleImpl articleimpl
+        UUID idContent, String comment, String commentAuthor, EventOrganizer eventorganizerimpl, Customer customerimpl, Article articleimpl
     ) {
         this.idContent = idContent;
         this.comment = comment;
@@ -67,14 +67,14 @@ public abstract class CommentComponent implements Comment{
 	public void setCommentAuthor(String commentAuthor) {
 		this.commentAuthor = commentAuthor;
 	}
-	public abstract EventOrganizerComponent getEventorganizerimpl();
-	public abstract void setEventorganizerimpl(EventOrganizerImpl eventorganizerimpl);
+	public abstract EventOrganizer getEventorganizerimpl();
+	public abstract void setEventorganizerimpl(EventOrganizer eventorganizerimpl);
 	
-	public abstract CustomerComponent getCustomerimpl();
-	public abstract void setCustomerimpl(CustomerImpl customerimpl);
+	public abstract Customer getCustomerimpl();
+	public abstract void setCustomerimpl(Customer customerimpl);
 	
-	public abstract ArticleComponent getArticleimpl();
-	public abstract void setArticleimpl(ArticleImpl articleimpl);
+	public abstract Article getArticleimpl();
+	public abstract void setArticleimpl(Article articleimpl);
 	
  
 
