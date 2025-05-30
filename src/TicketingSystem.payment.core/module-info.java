@@ -1,8 +1,11 @@
 module TicketingSystem.payment.core {
 	requires TicketingSystem.bundling.core;
 	requires TicketingSystem.ticket.core;
+	// requires TicketingSystem.customer.core;
+
 	exports TicketingSystem.payment;
-    exports TicketingSystem.payment.core;
+	exports TicketingSystem.payment.core;
+
 	requires vmj.routing.route;
 	requires vmj.hibernate.integrator;
 	requires vmj.auth;

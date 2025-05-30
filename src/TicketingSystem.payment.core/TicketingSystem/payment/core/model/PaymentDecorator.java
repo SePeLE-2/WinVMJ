@@ -8,8 +8,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.CascadeType;
 //add other required packages
-import TicketingSystem.bundling.core.BundlingImpl;
-import TicketingSystem.ticket.core.TicketImpl;
+import TicketingSystem.bundling.core.*;
+import TicketingSystem.ticket.core.*;
+// import TicketingSystem.customer.core.*;
 
 @MappedSuperclass
 public abstract class PaymentDecorator extends PaymentComponent {
@@ -41,20 +42,28 @@ public abstract class PaymentDecorator extends PaymentComponent {
 		record.setAmount(amount);
 	}
 
-	public BundlingImpl getBundlingimpl() {
-		return record.getBundlingimpl();
+	public Bundling getBundling() {
+		return record.getBundling();
 	}
 
-	public void setBundlingimpl(BundlingImpl bundlingimpl) {
-		record.setBundlingimpl(bundlingimpl);
+	public void setBundling(Bundling bundlingimpl) {
+		this.bundling = bundlingimpl;
 	}
 
-	public TicketImpl getTicketimpl() {
-		return record.getTicketimpl();
+	// public Customer getCustomerimpl() {
+	// return record.getCustomerimpl();
+	// }
+
+	// public void setCustomerimpl(Customer customerimpl) {
+	// this.customer = customerimpl;
+	// }
+
+	public Ticket getTicket() {
+		return record.getTicket();
 	}
 
-	public void setTicketimpl(TicketImpl ticketimpl) {
-		this.ticketimpl = ticketimpl;
+	public void setTicket(Ticket ticket) {
+		this.ticket = ticket;
 	}
 
 	public int pay(int amount) {

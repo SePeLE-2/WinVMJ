@@ -16,6 +16,7 @@ public class PaymentServiceImpl extends PaymentServiceDecorator {
         super(record);
     }
 
+    @Override
     public int pay(int amount) {
         // TODO: implement this method
         System.out.println("creditcard pay() called in service");

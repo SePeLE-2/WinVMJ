@@ -21,5 +21,5 @@ public abstract class CustomerServiceComponent implements CustomerService{
     public abstract List<HashMap<String,Object>> transformListToHashMap(List<Customer> List);
     public abstract List<HashMap<String,Object>> deleteCustomer(Map<String, Object> requestBody);
 	public abstract HashMap<String, Object> getCustomerById(UUID id);
-
+    public abstract Customer getCustomerByEmail(String email);
 }

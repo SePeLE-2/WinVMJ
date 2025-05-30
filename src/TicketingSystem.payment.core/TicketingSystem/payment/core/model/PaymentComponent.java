@@ -10,8 +10,10 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.ManyToOne;
-import TicketingSystem.bundling.core.BundlingImpl;
-import TicketingSystem.ticket.core.TicketImpl;
+
+import TicketingSystem.bundling.core.*;
+// import TicketingSystem.customer.core.*;
+import TicketingSystem.ticket.core.Ticket;
 
 @Entity
 @Table(name = "payment_comp")
@@ -20,14 +22,28 @@ public abstract class PaymentComponent implements Payment {
 	@Id
 	protected UUID id;
 	public int amount;
+	// @ManyToOne(targetEntity =
+	// TicketingSystem.customer.core.CustomerComponent.class)
+	// public Customer customer;
 	@ManyToOne(targetEntity = TicketingSystem.bundling.core.BundlingImpl.class)
-	public BundlingImpl bundlingimpl;
+	public Bundling bundling;
 	@ManyToOne(targetEntity = TicketingSystem.ticket.core.TicketImpl.class)
-	public TicketImpl ticketimpl;
+	public Ticket ticket;
 	protected String objectName = PaymentComponent.class.getName();
 
 	public PaymentComponent() {
 
+	}
+
+	public PaymentComponent(
+			UUID idContent, int amount,
+			// Customer customer,
+			Bundling bundling, Ticket ticket) {
+		this.id = idContent;
+		this.amount = amount;
+		// this.customer = customer;
+		this.bundling = bundling;
+		this.ticket = ticket;
 	}
 
 	public int getAmount() {
@@ -38,21 +54,17 @@ public abstract class PaymentComponent implements Payment {
 		this.amount = amount;
 	}
 
-	public BundlingImpl getBundlingimpl() {
-		return this.bundlingimpl;
-	}
+	public abstract Bundling getBundling();
 
-	public void setBundlingimpl(BundlingImpl bundlingimpl) {
-		this.bundlingimpl = bundlingimpl;
-	}
+	public abstract void setBundling(Bundling bundlingimpl);
 
-	public TicketImpl getTicketimpl() {
-		return this.ticketimpl;
-	}
+	// public abstract Customer getCustomerimpl();
 
-	public void setTicketimpl(TicketImpl ticketimpl) {
-		this.ticketimpl = ticketimpl;
-	}
+	// public abstract void setCustomerimpl(Customer customerimpl);
+
+	public abstract Ticket getTicket();
+
+	public abstract void setTicket(Ticket ticket);
 
 	public int pay(int amount) {
 		System.out.println("Payment of " + amount + " made for ticket");
@@ -63,16 +75,16 @@ public abstract class PaymentComponent implements Payment {
 	public String toString() {
 		return "{" +
 				" amount='" + getAmount() + "'" +
-				" bundlingimpl='" + getBundlingimpl() + "'" +
-				" ticketimpl='" + getTicketimpl() + "'" +
+				" bundling='" + getBundling() + "'" +
+				" ticket='" + getTicket() + "'" +
 				"}";
 	}
 
 	public HashMap<String, Object> toHashMap() {
 		HashMap<String, Object> paymentMap = new HashMap<String, Object>();
 		paymentMap.put("amount", getAmount());
-		paymentMap.put("bundlingimpl", getBundlingimpl());
-		paymentMap.put("ticketimpl", getTicketimpl());
+		paymentMap.put("bundlingimpl", getBundling());
+		paymentMap.put("ticketimpl", getTicket());
 		return paymentMap;
 	}
 }

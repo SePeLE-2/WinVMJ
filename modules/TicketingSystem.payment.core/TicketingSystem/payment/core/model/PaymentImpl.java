@@ -13,31 +13,47 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import TicketingSystem.bundling.core.BundlingImpl;
-import TicketingSystem.ticket.core.TicketImpl;
+import TicketingSystem.bundling.core.*;
+import TicketingSystem.ticket.core.*;
 
-@Entity(name="payment_impl")
-@Table(name="payment_impl")
+@Entity(name = "payment_impl")
+@Table(name = "payment_impl")
 public class PaymentImpl extends PaymentComponent {
 
-	public PaymentImpl(int amount, BundlingImpl bundlingimpl, TicketImpl ticketimpl) {
+	public PaymentImpl(int amount, Bundling bundlingimpl, Ticket ticketimpl) {
 		this.id = UUID.randomUUID();
 		this.amount = amount;
-		this.bundlingimpl = bundlingimpl;
-		this.ticketimpl = ticketimpl;
+		this.bundling = bundlingimpl;
+		this.ticket = ticketimpl;
 	}
 
-	public PaymentImpl(UUID id, int amount, BundlingImpl bundlingimpl, TicketImpl ticketimpl) {
+	public PaymentImpl(UUID id, int amount, Bundling bundlingimpl, Ticket ticketimpl) {
 		this.id = id;
 		this.amount = amount;
-		this.bundlingimpl = bundlingimpl;
-		this.ticketimpl = ticketimpl;
+		this.bundling = bundlingimpl;
+		this.ticket = ticketimpl;
 	}
 
-	public PaymentImpl() { 
+	public PaymentImpl() {
 		this.id = UUID.randomUUID();
 		this.amount = 0;
-		this.bundlingimpl = null;
-		this.ticketimpl = null;
+		this.bundling = null;
+		this.ticket = null;
+	}
+
+	public Bundling getBundling() {
+		return this.bundling;
+	}
+
+	public void setBundling(Bundling bundlingimpl) {
+		this.bundling = bundlingimpl;
+	}
+
+	public Ticket getTicket() {
+		return this.ticket;
+	}
+
+	public void setTicket(Ticket ticket) {
+		this.ticket = ticket;
 	}
 }

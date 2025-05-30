@@ -43,36 +43,36 @@ public class PaymentImpl extends PaymentDecorator {
 		this.amount = amount;
 	}
 
-	public BundlingImpl getBundlingimpl() {
-		return this.bundlingimpl;
-	}
+	//public BundlingImpl getBundlingimpl() {
+	//	return this.bundlingimpl;
+	//}
 
-	public void setBundlingimpl(BundlingImpl bundlingimpl) {
-		this.bundlingimpl = bundlingimpl;
-	}
+	//public void setBundlingimpl(BundlingImpl bundlingimpl) {
+	//	this.bundlingimpl = bundlingimpl;
+	//}
 
-	public TicketImpl getTicketimpl() {
-		return this.ticketimpl;
-	}
+	//public TicketImpl getTicketimpl() {
+	//	return this.ticketimpl;
+	//}
 
-	public void setTicketimpl(TicketImpl ticketimpl) {
-		this.ticketimpl = ticketimpl;
-	}
+	//public void setTicketimpl(TicketImpl ticketimpl) {
+	//	this.ticketimpl = ticketimpl;
+	//}
 
 	@Override
 	public String toString() {
 		return "{" +
 				" amount='" + getAmount() + "'" +
-				" bundlingimpl='" + getBundlingimpl() + "'" +
-				" ticketimpl='" + getTicketimpl() + "'" +
+				" bundlingimpl='" + getBundling() + "'" +
+				" ticketimpl='" + getTicket() + "'" +
 				"}";
 	}
 
 	public HashMap<String, Object> toHashMap() {
 		HashMap<String, Object> paymentMap = new HashMap<String, Object>();
 		paymentMap.put("amount", getAmount());
-		paymentMap.put("bundlingimpl", getBundlingimpl());
-		paymentMap.put("ticketimpl", getTicketimpl());
+		paymentMap.put("bundlingimpl", getBundling());
+		paymentMap.put("ticketimpl", getTicket());
 		return paymentMap;
 	}
 }

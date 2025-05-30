@@ -11,13 +11,13 @@ public interface Payment {
 
 	public void setAmount(int amount);
 
-	public BundlingImpl getBundlingimpl();
+	// public BundlingImpl getBundlingimpl();
 
-	public void setBundlingimpl(BundlingImpl bundlingimpl);
+	// public void setBundlingimpl(BundlingImpl bundlingimpl);
 
-	public TicketImpl getTicketimpl();
+	// public TicketImpl getTicketimpl();
 
-	public void setTicketimpl(TicketImpl ticketimpl);
+	// public void setTicketimpl(TicketImpl ticketimpl);
 
 	public int pay(int amount);
 
