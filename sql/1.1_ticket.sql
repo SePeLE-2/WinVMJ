@@ -4,6 +4,15 @@
 -- Data for Name: ticket_comp; Type: TABLE DATA; Schema: public; Owner: deployer
 --
 
+INSERT INTO public.ticket_comp (
+    id, eventname, ticketname, price, availability, objectname
+) VALUES 
+('3119ff33-6dd2-4c0a-b113-a90ee32a01ca', 'Konser A', 'VIP Pass', 500000, 100, 'TicketingSystem.ticket.core.TicketImpl'),
+('3129ff34-6dd2-4c0a-b113-a90ee32a01ca', 'Konser B', 'Regular Pass', 250000, 300, 'TicketingSystem.ticket.core.TicketImpl'),
+('3139ff35-6dd2-4c0a-b113-a90ee32a01ca', 'Seminar C', 'Early Bird', 150000, 50, 'TicketingSystem.ticket.core.TicketImpl'),
+('3149ff36-6dd2-4c0a-b113-a90ee32a01ca', 'Seminar D', 'General Admission', 200000, 150, 'TicketingSystem.ticket.core.TicketImpl'),
+('3159ff37-6dd2-4c0a-b113-a90ee32a01ca', 'Festival E', 'Backstage Pass', 750000, 20, 'TicketingSystem.ticket.core.TicketImpl');
+
 -- Ticket 1: Konser A VIP Pass
 INSERT INTO public.ticket_comp (
     id, eventname, ticketname, price, availability, objectname
@@ -76,6 +85,13 @@ ALTER TABLE ONLY public.ticket_comp
 -- PostgreSQL database dump
 -- Data for Name: ticket_impl; Type: TABLE DATA; Schema: public; Owner: deployer
 --
+
+INSERT INTO public.ticket_impl VALUES ('3119ff33-6dd2-4c0a-b113-a90ee32a01ca');
+INSERT INTO public.ticket_impl VALUES ('3129ff34-6dd2-4c0a-b113-a90ee32a01ca');
+INSERT INTO public.ticket_impl VALUES ('3139ff35-6dd2-4c0a-b113-a90ee32a01ca');
+INSERT INTO public.ticket_impl VALUES ('3149ff36-6dd2-4c0a-b113-a90ee32a01ca');
+INSERT INTO public.ticket_impl VALUES ('3159ff37-6dd2-4c0a-b113-a90ee32a01ca');
+
 -- TicketImpl 1
 INSERT INTO public.ticket_impl VALUES ('1119ff30-6dd2-4c0a-b113-a90ee32a01ca');
 

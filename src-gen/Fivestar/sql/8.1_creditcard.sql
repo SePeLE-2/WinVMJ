@@ -63,14 +63,5 @@ ALTER TABLE ONLY public.payment_impl
     ADD CONSTRAINT payment_impl_pkey PRIMARY KEY (id);
 
 --
--- Name: payment_impl fk_payment_base; Type: FK CONSTRAINT; Schema: public; Owner: deployer
---
-
-ALTER TABLE ONLY public.payment_impl
-    ADD CONSTRAINT fk_payment_base 
-    FOREIGN KEY (id) 
-    REFERENCES public.payment_creditcard(id);
-
---
 -- PostgreSQL database dump complete
 --
