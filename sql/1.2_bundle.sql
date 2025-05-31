@@ -1,42 +1,61 @@
--- Insert data into bundling_comp
+--
+-- PostgreSQL database dump
+--
+-- Data for Name: bundling_comp; Type: TABLE DATA; Schema: public; Owner: deployer
+--
+
 INSERT INTO public.bundling_comp (
-    id, bundlingname, price, availability, objectname, ticketimpl_idticket
-) VALUES
--- Bundling for Ticket 1
-('4019ff33-6dd2-4c0a-b113-a90ee32a01ca', 'Bundling Hemat A', 150000, 50, 'bundling_impl', '1019ff33-6dd2-4c0a-b113-a90ee32a01ca'),
+    id, bundlingname, price, availability, ticketimpl_id, objectname
+) VALUES 
+('4119ff33-6dd2-4c0a-b113-a90ee32a01ca', 'Konser A VIP Bundle', 450000, 50, '3119ff33-6dd2-4c0a-b113-a90ee32a01ca', 'TicketingSystem.bundling.core.BundlingImpl'),
+('4129ff34-6dd2-4c0a-b113-a90ee32a01ca', 'Konser B Regular Bundle', 200000, 100, '3129ff34-6dd2-4c0a-b113-a90ee32a01ca', 'TicketingSystem.bundling.core.BundlingImpl'),
+('4139ff35-6dd2-4c0a-b113-a90ee32a01ca', 'Seminar C Early Bird Bundle', 120000, 30, '3139ff35-6dd2-4c0a-b113-a90ee32a01ca', 'TicketingSystem.bundling.core.BundlingImpl'),
+('4149ff36-6dd2-4c0a-b113-a90ee32a01ca', 'Seminar D General Bundle', 180000, 75, '3149ff36-6dd2-4c0a-b113-a90ee32a01ca', 'TicketingSystem.bundling.core.BundlingImpl'),
+('4159ff37-6dd2-4c0a-b113-a90ee32a01ca', 'Festival E Backstage Bundle', 700000, 10, '3159ff37-6dd2-4c0a-b113-a90ee32a01ca', 'TicketingSystem.bundling.core.BundlingImpl');
 
--- Bundling for Ticket 2
-('4029ff33-6dd2-4c0a-b113-a90ee32a01ca', 'Bundling Spesial B', 200000, 30, 'bundling_impl', '1029ff33-6dd2-4c0a-b113-a90ee32a01ca'),
 
--- Bundling for Ticket 3
-('4039ff33-6dd2-4c0a-b113-a90ee32a01ca', 'Bundling VIP C', 300000, 20, 'bundling_impl', '1039ff33-6dd2-4c0a-b113-a90ee32a01ca'),
+--
+-- Name: bundling_comp bundling_comp_pkey; Type: CONSTRAINT; Schema: public; Owner: deployer
+--
 
--- Bundling for Ticket 4
-('4049ff33-6dd2-4c0a-b113-a90ee32a01ca', 'Bundling Couple D', 250000, 40, 'bundling_impl', '1049ff33-6dd2-4c0a-b113-a90ee32a01ca');
-
--- Primary Key
 ALTER TABLE ONLY public.bundling_comp
     ADD CONSTRAINT bundling_comp_pkey PRIMARY KEY (id);
 
--- Foreign Key to ticket_impl
-ALTER TABLE ONLY public.bundling_comp
-    ADD CONSTRAINT fk_bundling_ticket
-    FOREIGN KEY (ticketimpl_idticket)
-    REFERENCES public.ticket_impl (idticket);
 
--- Insert subclass rows into bundling_impl
-INSERT INTO public.bundling_impl VALUES 
-('4019ff33-6dd2-4c0a-b113-a90ee32a01ca'),
-('4029ff33-6dd2-4c0a-b113-a90ee32a01ca'),
-('4039ff33-6dd2-4c0a-b113-a90ee32a01ca'),
-('4049ff33-6dd2-4c0a-b113-a90ee32a01ca');
+--
+-- PostgreSQL database dump
+-- Data for Name: bundling_impl; Type: TABLE DATA; Schema: public; Owner: deployer
+--
 
--- Primary Key for subclass
+INSERT INTO public.bundling_impl VALUES ('4119ff33-6dd2-4c0a-b113-a90ee32a01ca');
+INSERT INTO public.bundling_impl VALUES ('4129ff34-6dd2-4c0a-b113-a90ee32a01ca');
+INSERT INTO public.bundling_impl VALUES ('4139ff35-6dd2-4c0a-b113-a90ee32a01ca');
+INSERT INTO public.bundling_impl VALUES ('4149ff36-6dd2-4c0a-b113-a90ee32a01ca');
+INSERT INTO public.bundling_impl VALUES ('4159ff37-6dd2-4c0a-b113-a90ee32a01ca');
+
+
+--
+-- Name: bundling_impl bundling_impl_pkey; Type: CONSTRAINT; Schema: public; Owner: deployer
+--
+
 ALTER TABLE ONLY public.bundling_impl
     ADD CONSTRAINT bundling_impl_pkey PRIMARY KEY (id);
 
--- FK from subclass to parent table
+
+--
+-- Name: bundling_impl fk_bundling_comp; Type: FK CONSTRAINT; Schema: public; Owner: deployer
+--
+
 ALTER TABLE ONLY public.bundling_impl
-    ADD CONSTRAINT fk_bundling_impl_comp
-    FOREIGN KEY (id)
-    REFERENCES public.bundling_comp (id);
+    ADD CONSTRAINT fk_bundling_comp FOREIGN KEY (id) REFERENCES public.bundling_comp(id);
+
+--
+-- Name: bundling_comp fk_ticket_impl; Type: FK CONSTRAINT; Schema: public; Owner: deployer
+--
+
+ALTER TABLE ONLY public.bundling_comp
+    ADD CONSTRAINT fk_ticket_impl FOREIGN KEY (ticketimpl_id) REFERENCES public.ticket_impl(id);
+
+--
+-- PostgreSQL database dump complete
+--
